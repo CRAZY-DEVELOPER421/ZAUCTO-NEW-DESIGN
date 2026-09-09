@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zaucto - Enterprise Sourcing Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:#e9edf3;color:#1e293b;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{text-decoration:none;color:inherit}
+    ul{list-style:none}
+    .clay{background:#e9edf3;border-radius:24px;box-shadow:8px 8px 16px #c8ccd4,-8px -8px 16px #fff;transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s cubic-bezier(.22,1,.36,1)}
+    .clay-hover:hover{transform:translateY(-4px);box-shadow:12px 12px 24px #c0c4cc,-12px -12px 24px #fff}
+    .clay-btn{display:inline-flex;align-items:center;gap:6px;padding:12px 28px;border-radius:50px;font-weight:600;font-size:15px;cursor:pointer;border:none;transition:all .35s cubic-bezier(.22,1,.36,1);position:relative}
+    .clay-btn .btn-arrow{display:inline-block;transition:transform .35s cubic-bezier(.22,1,.36,1)}
+    .clay-btn:hover .btn-arrow{transform:translateX(4px)}
+    .clay-btn-primary{background:#2563eb;color:#fff;box-shadow:4px 4px 10px #c8ccd4,-4px -4px 10px #fff,inset 0 2px 4px rgba(255,255,255,.2)}
+    .clay-btn-primary:hover{background:#1d4ed8;box-shadow:2px 2px 6px #c8ccd4,-2px -2px 6px #fff}
+    .clay-btn-white{background:#e9edf3;color:#1e293b;box-shadow:4px 4px 10px #c8ccd4,-4px -4px 10px #fff}
+    .clay-btn-white:hover{box-shadow:2px 2px 6px #c8ccd4,-2px -2px 6px #fff}
+    .clay-btn-yellow{background:#f59e0b;color:#fff;box-shadow:4px 4px 10px #c8ccd4,-4px -4px 10px #fff,inset 0 2px 4px rgba(255,255,255,.2)}
+    .clay-btn-yellow:hover{background:#d97706}
+    .badge{display:inline-block;padding:6px 16px;border-radius:50px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#64748b;background:#e9edf3;box-shadow:inset 2px 2px 5px #c8ccd4,inset -2px -2px 5px #fff}
+    .container{max-width:100%;margin:0 auto;padding:0 10px}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    @keyframes pulseLive{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.3)}}
+    @keyframes pulseRing{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}
+    @keyframes orbitSlow{0%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-6px) rotate(3deg)}100%{transform:translateY(0) rotate(0deg)}}
+    .gs-hidden{opacity:0;transform:translateY(30px)}
+
+    /* SVG icon utility */
+    .svg-icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+    .svg-icon.sm{width:16px;height:16px}
+    .svg-icon.lg{width:28px;height:28px}
+    .svg-icon.xl{width:36px;height:36px}
+    .svg-icon.white{stroke:#fff}
+    .svg-icon.blue{stroke:#2563eb}
+    .svg-icon.yellow{stroke:#f59e0b}
+    .svg-icon.green{stroke:#16a34a}
+    .svg-icon.purple{stroke:#7c3aed}
+
+    /* HEADER */
+    .header{position:sticky;top:4px;z-index:100;padding:0;transition:all .6s cubic-bezier(.25,.46,.45,.94);background:transparent}
+    .header-inner{background:rgba(233,237,243,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;transition:all .6s cubic-bezier(.25,.46,.45,.94);box-shadow:none;padding:0 40px}
+    .header.scrolled .header-inner{margin:0 15%;border-radius:50px;box-shadow:4px 4px 12px #c8ccd4,-4px -4px 12px #fff,0 4px 20px rgba(0,0,0,.08);padding:4px 12px}
+    .header.scrolled{background:transparent}
+    .header .container{display:flex;align-items:center;justify-content:space-between;padding-top:0;padding-bottom:0}
+    .logo{display:flex;align-items:center;gap:8px;margin-left:12px}
+    .logo-icon{width:80px;height:80px;border-radius:12px;overflow:hidden;flex-shrink:0;transition:all .6s cubic-bezier(.25,.46,.45,.94)}
+    .header.scrolled .logo-icon{width:50px;height:50px}
+    .logo-icon img{width:100%;height:100%;object-fit:contain}
+    .logo:hover .logo-icon{transform:scale(1.05)}
+    .nav-links{display:flex;align-items:center;gap:32px}
+    .header.scrolled .nav-links{gap:16px}
+    .nav-links a{font-size:14px;font-weight:500;color:#475569;display:flex;align-items:center;gap:4px;padding:6px 16px;border-radius:12px;transition:all .6s cubic-bezier(.25,.46,.45,.94);position:relative}
+    .header.scrolled .nav-links a{font-size:13px;padding:5px 12px}
+    .nav-links a:hover{color:#2563eb;background:#e9edf3;box-shadow:inset 2px 2px 4px #c8ccd4,inset -2px -2px 4px #fff}
+    .nav-links a.active{color:#2563eb;background:#e9edf3;box-shadow:3px 3px 6px #c8ccd4,-3px -3px 6px #fff;font-weight:600}
+    .has-dropdown .svg-icon{width:12px;height:12px}
+    .nav-item{position:relative}
+    .dropdown{position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:220px;background:#fff;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.12);padding:12px 0;z-index:200;margin-top:12px;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease .15s}
+    .dropdown::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid #fff}
+    .nav-item:hover>.dropdown{opacity:1;visibility:visible;transition:opacity .3s ease .2s,visibility 0s}
+    .dropdown a{display:block;padding:10px 20px;font-size:13px;font-weight:500;color:#475569;transition:all .2s;border-radius:0}
+    .dropdown a:hover{background:#f1f5f9;color:#2563eb;box-shadow:none}
+    .ai-tag{color:#2563eb!important;font-weight:600}
+    .ai-star{color:#f59e0b;display:inline-flex;align-items:center}
+    .header-right{display:flex;align-items:center;gap:12px}
+    .contact-link{font-size:14px;font-weight:500;color:#475569}
+    .contact-link{transition:all .6s cubic-bezier(.25,.46,.45,.94)}
+    .header.scrolled .contact-link{font-size:12px}
+    .contact-link:hover{color:#2563eb}
+    .btn-dash{padding:8px 24px;border-radius:50px;background:#2563eb;color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;box-shadow:3px 3px 8px #c8ccd4,-3px -3px 8px #fff;transition:all .6s cubic-bezier(.25,.46,.45,.94);display:flex;align-items:center;gap:6px}
+    .header.scrolled .btn-dash{padding:6px 18px;font-size:12px}
+    .btn-dash:hover{background:#1d4ed8}
+    .header-avatar{width:34px;height:34px;border-radius:50%;background:#e9edf3;box-shadow:inset 2px 2px 5px #c8ccd4,inset -2px -2px 5px #fff;display:flex;align-items:center;justify-content:center;color:#64748b;transition:all .6s cubic-bezier(.25,.46,.45,.94)}
+    .header.scrolled .header-avatar{width:28px;height:28px}
+    .header-avatar:hover{transform:scale(1.1)}
+
+    /* HERO */
+    .hero{padding:60px 15px 40px 60px;position:relative;background-color:#e9edf3;background-image:linear-gradient(rgba(148,163,184,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.15) 1px,transparent 1px);background-size:40px 40px}
+    .hero::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(100,116,139,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(100,116,139,.35) 1px,transparent 1px);background-size:40px 40px;opacity:0;transition:opacity .4s ease;mask-image:radial-gradient(circle 120px at var(--mx,50%) var(--my,50%),black 30%,transparent 100%);-webkit-mask-image:radial-gradient(circle 120px at var(--mx,50%) var(--my,50%),black 30%,transparent 100%);z-index:0}
+    .hero:hover::before{opacity:1}
+    .hero .container{display:grid;grid-template-columns:1fr 1.2fr;gap:20px;align-items:center}
+    .hero-content{position:relative;min-height:380px;max-width:500px}
+    .hero-badge{display:inline-block;padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#64748b;background:#e9edf3;margin-bottom:20px;box-shadow:inset 2px 2px 5px #c8ccd4,inset -2px -2px 5px #fff}
+    .hero-title{font-size:42px;font-weight:800;line-height:1.15;color:#0f172a;margin-bottom:16px}
+
+    .hero-desc{font-size:16px;color:#475569;line-height:1.7;margin-bottom:10px}
+    .hero-sub-desc{font-size:13px;color:#94a3b8;line-height:1.6;margin-bottom:8px}
+    .hero-link{color:#2563eb;font-size:14px;font-weight:600;margin-bottom:24px;display:inline-flex;align-items:center;gap:4px;transition:gap .3s}
+    .hero-link:hover{gap:8px}
+    .hero-slide{display:none;opacity:0}
+    .hero-slide.active{display:block;animation:heroFadeIn .5s ease forwards}
+    .hero-slide .hero-title,.hero-slide .hero-badge,.hero-slide .hero-desc,.hero-slide .hero-avatars,.hero-slide .hero-sub-desc,.hero-slide .hero-link{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+    .hero-slide.active .hero-title{opacity:1;transform:translateY(0);transition-delay:.1s}
+    .hero-slide.active .hero-badge{opacity:1;transform:translateY(0);transition-delay:.3s}
+    .hero-slide.active .hero-desc{opacity:1;transform:translateY(0);transition-delay:.55s}
+    .hero-slide.active .hero-avatars{opacity:1;transform:translateY(0);transition-delay:.75s}
+    .hero-slide.active .hero-sub-desc{opacity:1;transform:translateY(0);transition-delay:.9s}
+    .hero-slide.active .hero-link{opacity:1;transform:translateY(0);transition-delay:1.05s}
+    @keyframes heroFadeIn{from{opacity:0}to{opacity:1}}
+    .hero-card-slide{display:none;opacity:0;transition:opacity .6s ease;position:absolute;top:0;left:0;width:100%}
+    .hero-card-slide.active{display:block;opacity:1;position:relative}
+    .hero-timer{display:flex;align-items:center;gap:8px;margin-top:24px}
+    .hero-timer-dot{width:10px;height:10px;border-radius:50%;position:relative;overflow:visible}
+    .hero-timer-dot-inner{width:100%;height:100%;border-radius:50%;background:#cbd5e1;box-shadow:inset 1px 1px 3px #b0b4bc,inset -1px -1px 3px #fff;transition:all .3s}
+    .hero-timer-dot:nth-child(1) .hero-timer-dot-inner{animation:timerDot1 4.5s linear infinite}
+    .hero-timer-dot:nth-child(2) .hero-timer-dot-inner{animation:timerDot2 4.5s linear infinite}
+    .hero-timer-dot:nth-child(3) .hero-timer-dot-inner{animation:timerDot3 4.5s linear infinite}
+    .hero-timer.reset .hero-timer-dot-inner{animation:none!important}
+    @keyframes timerDot1{0%,11%{background:#cbd5e1;box-shadow:inset 1px 1px 3px #b0b4bc,inset -1px -1px 3px #fff;transform:scale(1)}12%,33%{background:#2563eb;box-shadow:0 0 8px rgba(37,99,235,.5),2px 2px 4px #c8ccd4,-2px -2px 4px #fff;transform:scale(1.2)}34%,100%{background:#cbd5e1;box-shadow:inset 1px 1px 3px #b0b4bc,inset -1px -1px 3px #fff;transform:scale(1)}}
+    @keyframes timerDot2{0%,44%{background:#cbd5e1;box-shadow:inset 1px 1px 3px #b0b4bc,inset -1px -1px 3px #fff;transform:scale(1)}45%,66%{background:#f59e0b;box-shadow:0 0 8px rgba(245,158,11,.5),2px 2px 4px #c8ccd4,-2px -2px 4px #fff;transform:scale(1.2)}67%,100%{background:#cbd5e1;box-shadow:inset 1px 1px 3px #b0b4bc,inset -1px -1px 3px #fff;transform:scale(1)}}
+    @keyframes timerDot3{0%,77%{background:#cbd5e1;box-shadow:inset 1px 1px 3px #b0b4bc,inset -1px -1px 3px #fff;transform:scale(1)}78%,98%{background:#22c55e;box-shadow:0 0 8px rgba(34,197,94,.5),2px 2px 4px #c8ccd4,-2px -2px 4px #fff;transform:scale(1.2)}99%,100%{background:#cbd5e1;box-shadow:inset 1px 1px 3px #b0b4bc,inset -1px -1px 3px #fff;transform:scale(1)}}
+    .hero-buttons{display:flex;gap:12px;margin-top:20px}
+    .hero-trust{display:flex;align-items:center;gap:12px;margin-top:20px;padding:10px 18px;background:rgba(255,255,255,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(0,0,0,.06);border-radius:50px;box-shadow:0 2px 12px rgba(0,0,0,.06);width:fit-content;position:relative;overflow:hidden}
+    .hero-trust::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),rgba(255,255,255,.6),rgba(255,255,255,.4),transparent);animation:trustShine 3s ease-in-out infinite;pointer-events:none}
+    @keyframes trustShine{0%{left:-100%}100%{left:200%}}
+    .trust-avatars{display:flex;align-items:center}
+    .trust-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.1);margin-left:-8px;transition:all .3s;overflow:hidden;background:#f1f5f9}
+    .trust-av:first-child{margin-left:0}
+    .trust-av:hover{transform:scale(1.15);z-index:2;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+    .trust-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+    .trust-text{font-size:12px;color:#64748b;white-space:nowrap}
+    .trust-text strong{color:#1e293b;font-weight:700}
+    @keyframes pulseScale{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+    .hero-buttons .clay-btn-primary{animation:pulseScale 2.5s ease-in-out infinite}
+    
+    .hero-avatars{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+    .hero-avatars .av{width:28px;height:28px;border-radius:50%;box-shadow:2px 2px 5px #c8ccd4,-2px -2px 5px #fff;transition:transform .3s}
+    .hero-avatars .av:nth-child(1){background:#d1d5db}
+    .hero-avatars .av:nth-child(2){background:#a5b4fc}
+    .hero-avatars .av:nth-child(3){background:#fbbf24}
+    .hero-avatars:hover .av{transform:scale(1.1)}
+
+    /* HERO CARD */
+    .hero-card{padding:24px;position:relative;animation:floatCard 4s ease-in-out infinite;min-height:420px;display:flex;flex-direction:column}
+    .hero-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+    .hero-card-title{font-size:13px;font-weight:700;color:#475569;letter-spacing:1px;text-transform:uppercase}
+    .live-badge{display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:50px;background:#dcfce7;color:#16a34a;font-size:11px;font-weight:700;position:relative}
+    .live-dot{width:6px;height:6px;border-radius:50%;background:#16a34a;animation:pulseLive 1.5s infinite;position:relative}
+    .live-dot::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;border-radius:50%;background:#16a34a;animation:pulseRing 1.5s infinite}
+    .hero-card-tabs{display:flex;gap:6px;margin-bottom:16px}
+    .hero-card-tab{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 12px;border-radius:14px;background:#e9edf3;box-shadow:3px 3px 8px #c8ccd4,-3px -3px 8px #fff;flex:1;cursor:pointer;transition:all .3s}
+    .hero-card-tab:hover{transform:translateY(-2px)}
+    .hero-card-tab.active{background:#2563eb;color:#fff;box-shadow:inset 2px 2px 5px rgba(0,0,0,.1),inset -2px -2px 5px rgba(255,255,255,.2)}
+    .hero-card-tab .svg-icon{width:18px;height:18px}
+    .hero-card-tab-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+    .hero-card-list{display:flex;flex-direction:column;gap:8px;transition:opacity .3s ease;flex:1}
+    .hero-card-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:12px;background:#e9edf3;box-shadow:inset 2px 2px 4px #c8ccd4,inset -2px -2px 4px #fff;transition:all .3s}
+    .hero-card-item:hover{background:#f0f4f9}
+    .hero-card-item-left{display:flex;align-items:center;gap:10px}
+    .hero-card-item-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+    .hero-card-item-icon.blue{background:#dbeafe}
+    .hero-card-item-icon.yellow{background:#fef3c7}
+    .hero-card-item-icon.green{background:#dcfce7}
+    .hero-card-item-icon.purple{background:#ede9fe}
+    .hero-card-item-name{font-size:13px;font-weight:600;color:#1e293b}
+    .hero-card-item-meta{font-size:11px;color:#94a3b8}
+    .hero-card-item-status{font-size:10px;font-weight:700;padding:3px 8px;border-radius:50px;text-transform:uppercase}
+    .hero-card-item-status.open{background:#dcfce7;color:#16a34a}
+    .hero-card-item-status.pending{background:#fef3c7;color:#d97706}
+    .hero-card-item-status.closed{background:#fee2e2;color:#dc2626}
+    .chat-bubble{position:absolute;bottom:-10px;right:-10px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#f97316);display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:4px 4px 10px #c8ccd4,-4px -4px 10px #fff;cursor:pointer;transition:transform .3s}
+    .chat-bubble:hover{transform:scale(1.1)}
+
+    /* RFX */
+    .rfx-section{padding:60px 15px}
+    .rfx-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px}
+    .rfx-header-left{display:flex;flex-direction:column;gap:4px}
+    .rfx-header-left .badge{margin-bottom:4px}
+    .rfx-expand{width:40px;height:40px;border-radius:50%;background:#e9edf3;box-shadow:4px 4px 8px #c8ccd4,-4px -4px 8px #fff;display:flex;align-items:center;justify-content:center;color:#64748b;cursor:pointer;transition:all .3s}
+    .rfx-expand:hover{transform:rotate(180deg);color:#2563eb}
+    .rfx-filters{display:flex;align-items:center;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+    .rfx-filter{padding:8px 20px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:#e9edf3;color:#64748b;box-shadow:3px 3px 6px #c8ccd4,-3px -3px 6px #fff;transition:all .3s;font-family:inherit}
+    .rfx-filter.active{background:#2563eb;color:#fff;box-shadow:inset 2px 2px 5px rgba(0,0,0,.1),inset -2px -2px 5px rgba(255,255,255,.2)}
+    .rfx-filter:hover:not(.active){color:#2563eb;transform:translateY(-2px)}
+    .rfx-browse{margin-left:auto}
+    .rfx-list{display:flex;flex-direction:column;gap:12px}
+    .rfx-item{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-radius:16px;background:#e9edf3;box-shadow:3px 3px 8px #c8ccd4,-3px -3px 8px #fff;transition:all .3s}
+    .rfx-item:hover{transform:translateY(-2px);box-shadow:5px 5px 12px #c0c4cc,-5px -5px 12px #fff}
+    .rfx-item-left{display:flex;align-items:center;gap:14px}
+    .rfx-item-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .rfx-item-icon.rfp{background:#dbeafe}
+    .rfx-item-icon.rfq{background:#dcfce7}
+    .rfx-item-icon.rfi{background:#fef3c7}
+    .rfx-item-info{display:flex;flex-direction:column}
+    .rfx-item-title{font-size:14px;font-weight:700;color:#1e293b}
+    .rfx-item-desc{font-size:12px;color:#94a3b8}
+    .rfx-item-right{display:flex;align-items:center;gap:12px}
+    .rfx-item-tag{font-size:11px;font-weight:700;padding:4px 10px;border-radius:50px;text-transform:uppercase}
+    .rfx-item-tag.rfp-tag{background:#dbeafe;color:#2563eb}
+    .rfx-item-tag.rfq-tag{background:#dcfce7;color:#16a34a}
+    .rfx-item-tag.rfi-tag{background:#fef3c7;color:#d97706}
+    .rfx-item-date{font-size:12px;color:#94a3b8;white-space:nowrap}
+    .rfx-load-more{text-align:center;padding:16px 0}
+    .rfx-item{animation:fadeUp .4s ease both}
+
+    /* MARKETPLACE */
+    .marketplace-section{padding:60px 15px}
+    .marketplace-inner{padding:50px 40px;text-align:center}
+    .marketplace-inner .badge{margin-bottom:16px}
+    .marketplace-inner h2{font-size:30px;font-weight:800;line-height:1.2;color:#0f172a;margin-bottom:30px}
+    .marketplace-stat{display:inline-flex;flex-direction:column;align-items:center;padding:30px 50px;border-radius:24px;background:#e9edf3;margin-bottom:24px;box-shadow:6px 6px 14px #c8ccd4,-6px -6px 14px #fff}
+    .marketplace-stat .number{font-size:48px;font-weight:800;color:#f59e0b;line-height:1}
+    .marketplace-stat .label{font-size:12px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+    .marketplace-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:24px;text-align:left}
+    .marketplace-card{padding:14px;border-radius:14px;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.08);transition:all .3s;cursor:pointer;display:flex;flex-direction:column}
+    .marketplace-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.12)}
+    .marketplace-card-img{width:100%;height:120px;border-radius:10px;object-fit:cover;background:#f3f4f6;display:block}
+    .marketplace-card-name{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:4px}
+    .marketplace-card-desc{font-size:12px;color:#6b7280;margin-bottom:6px;line-height:1.3}
+    .marketplace-card-price{font-size:16px;font-weight:800;color:#1e293b;margin-bottom:3px}
+    .marketplace-card-price .unit{font-size:12px;font-weight:600;color:#6b7280}
+    .marketplace-card-moq{font-size:11px;color:#9ca3af;margin-bottom:8px}
+    .marketplace-card-verified{display:flex;align-items:center;gap:6px;font-size:13px;color:#059669;margin-bottom:14px}
+    .marketplace-card-verified svg{width:16px;height:16px;fill:#059669}
+    .marketplace-card-btn{width:100%;padding:8px;border:none;border-radius:8px;background:#7c3aed;color:#fff;font-size:12px;font-weight:600;cursor:pointer;transition:all .3s}
+    .marketplace-card-btn:hover{background:#16a34a;transform:scale(1.02)}
+    .marketplace-card-actions{display:flex;gap:8px;margin-top:10px}
+    .marketplace-card-actions .marketplace-card-btn{flex:1}
+    .marketplace-card-share{width:36px;height:36px;border:none;border-radius:8px;background:#f3f4f6;color:#6b7280;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;flex-shrink:0}
+    .marketplace-card-share:hover{background:#e5e7eb;color:#2563eb}
+    .mc-img-wrap{position:relative;overflow:hidden;border-radius:10px;margin-bottom:10px}
+    .marketplace-card-img{transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
+    .marketplace-card:hover .marketplace-card-img{transform:scale(1.06)}
+    .mc-ai-badge{position:absolute;top:8px;left:8px;padding:3px 10px;border-radius:50px;font-size:10px;font-weight:700;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.3);display:flex;align-items:center;gap:4px}
+    .mc-top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+    .mc-rating{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:#f59e0b}
+    .mc-stars{letter-spacing:1px}
+    .mc-meta-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+    .mc-location,.mc-delivery{font-size:11px;color:#94a3b8;display:flex;align-items:center;gap:2px}
+    .mc-price-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px}
+    .mc-trend{font-size:11px;font-weight:700;padding:2px 8px;border-radius:50px}
+    .mc-trend.up{background:#dcfce7;color:#16a34a}
+    .mc-trend.down{background:#fee2e2;color:#dc2626}
+    .mc-trend.stable{background:#f1f5f9;color:#64748b}
+    .mc-bottom-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .mc-suppliers{font-size:11px;color:#64748b;font-weight:500}
+
+    /* AUCTIONS */
+    .auctions-section{padding:60px 15px}
+    .auctions-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px}
+    .auctions-header .badge{margin-bottom:4px}
+    .auctions-header h2{margin-top:8px;font-size:36px;font-weight:800;line-height:1.2;color:#0f172a}
+    .auctions-tags{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+    .auction-tag{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:50px;font-size:13px;font-weight:600;background:#e9edf3;color:#475569;box-shadow:3px 3px 6px #c8ccd4,-3px -3px 6px #fff;transition:all .3s;cursor:pointer;border:none;font-family:inherit}
+    .auction-tag:hover{transform:translateY(-2px);color:#2563eb}
+    .auction-tag.active{background:#2563eb;color:#fff;box-shadow:inset 2px 2px 5px rgba(0,0,0,.1),inset -2px -2px 5px rgba(255,255,255,.2)}
+    .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+    .dot-green{background:#22c55e}
+    .dot-blue{background:#2563eb}
+    .auctions-card{padding:50px 24px;text-align:center;color:#94a3b8}
+    .auctions-card h4{font-size:16px;font-weight:700;color:#64748b;margin-bottom:4px}
+    .auctions-filters{display:flex;align-items:center;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+    .auctions-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+    .auction-card{padding:20px;border-radius:16px;background:#e9edf3;box-shadow:3px 3px 8px #c8ccd4,-3px -3px 8px #fff;transition:all .3s;cursor:pointer;display:flex;flex-direction:column}
+    .auction-card:hover{transform:translateY(-3px);box-shadow:5px 5px 12px #c0c4cc,-5px -5px 12px #fff}
+    .auction-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .auction-card-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+    .auction-card-icon.green{background:#dcfce7}
+    .auction-card-icon.blue{background:#dbeafe}
+    .auction-card-icon.yellow{background:#fef3c7}
+    .auction-card-icon.purple{background:#ede9fe}
+    .auction-card-icon.red{background:#fee2e2}
+    .auction-card-icon.teal{background:#ccfbf1}
+    .auction-card-name{font-size:13px;font-weight:700;color:#1e293b;margin-bottom:2px;line-height:1.3}
+    .auction-card-desc{font-size:11px;color:#94a3b8;margin-bottom:8px;line-height:1.4}
+    .auction-card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+    .auction-card-bid{font-size:14px;font-weight:800;color:#2563eb}
+    .auction-card-status{font-size:10px;font-weight:700;padding:3px 8px;border-radius:50px;text-transform:uppercase}
+    .auction-card-status.live{background:#dcfce7;color:#16a34a}
+    .auction-card-status.ended{background:#fee2e2;color:#dc2626}
+    .auction-card-type{font-size:10px;font-weight:600;padding:3px 8px;border-radius:50px;margin-bottom:8px;display:inline-block}
+    .auction-card-type.reverse{background:#dbeafe;color:#2563eb}
+    .auction-card-type.forward{background:#fef3c7;color:#d97706}
+    .auction-card-bidders{font-size:11px;color:#94a3b8;display:flex;align-items:center;gap:4px}
+    .auction-card-bidders .dot{width:5px;height:5px;border-radius:50%;background:#22c55e;display:inline-block}
+    .auctions-load-more{text-align:center;padding:16px 0}
+    .auction-card{animation:fadeUp .4s ease both}
+    @media(max-width:968px){.auctions-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:600px){.auctions-grid{grid-template-columns:repeat(2,1fr)}}
+
+    /* SECURITY */
+    .security-section{padding:60px 15px}
+    .security-grid{display:grid;grid-template-columns:1fr 2fr;gap:32px;align-items:start}
+    .security-left{padding:32px}
+    .security-left .badge{margin-bottom:12px}
+    .security-left h2{font-size:32px;font-weight:800;line-height:1.2;color:#0f172a;margin:8px 0 12px}
+    .security-left p{font-size:14px;color:#64748b;line-height:1.7}
+    .security-icon-wrap{display:flex;justify-content:center;margin-top:24px}
+    .shield-icon{width:80px;height:80px;background:linear-gradient(135deg,#2563eb,#7c3aed);border-radius:20px;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:6px 6px 14px #c8ccd4,-6px -6px 14px #fff}
+    .security-features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .security-feature{padding:24px;text-align:center}
+    .security-feature-icon{width:48px;height:48px;border-radius:14px;background:#e9edf3;box-shadow:4px 4px 8px #c8ccd4,-4px -4px 8px #fff;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;animation:orbitSlow 6s ease-in-out infinite}
+    .security-feature:nth-child(2) .security-feature-icon{animation-delay:-1s}
+    .security-feature:nth-child(3) .security-feature-icon{animation-delay:-2s}
+    .security-feature:nth-child(4) .security-feature-icon{animation-delay:-3s}
+    .security-feature:nth-child(5) .security-feature-icon{animation-delay:-4s}
+    .security-feature:nth-child(6) .security-feature-icon{animation-delay:-5s}
+    .security-feature h5{font-size:14px;font-weight:700;color:#1e293b;margin-bottom:6px}
+    .security-feature p{font-size:12px;color:#94a3b8;line-height:1.5}
+
+    /* PROCESS */
+    .process-section{padding:60px 15px}
+    .process-header{text-align:center;margin-bottom:40px}
+    .process-header .badge{margin-bottom:12px}
+    .process-header h2{font-size:30px;font-weight:800;line-height:1.2;color:#0f172a;margin-bottom:8px}
+    .process-header p{font-size:16px;color:#64748b;max-width:520px;margin:0 auto}
+    .process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+    .process-step{padding:28px 20px;text-align:center}
+    .step-number{display:inline-block;padding:4px 12px;border-radius:50px;font-size:11px;font-weight:700;color:#64748b;background:#e9edf3;box-shadow:inset 2px 2px 4px #c8ccd4,inset -2px -2px 4px #fff;margin-bottom:16px}
+    .step-icon{width:56px;height:56px;border-radius:16px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;box-shadow:4px 4px 10px #c8ccd4,-4px -4px 10px #fff;transition:transform .4s}
+    .process-step:hover .step-icon{transform:scale(1.1) rotate(-5deg)}
+    .step-icon.blue{background:#2563eb;color:#fff}
+    .step-icon.purple{background:#7c3aed;color:#fff}
+    .step-icon.yellow{background:#f59e0b;color:#fff}
+    .step-icon.green{background:#16a34a;color:#fff}
+    .step-badge{display:inline-block;padding:3px 10px;border-radius:50px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+    .step-badge.agentic{background:#dbeafe;color:#2563eb}
+    .step-badge.assisted{background:#ede9fe;color:#7c3aed}
+    .step-badge.smart{background:#fef3c7;color:#f59e0b}
+    .step-badge.close-b{background:#dcfce7;color:#16a34a}
+    .process-step h4{font-size:16px;font-weight:700;color:#1e293b;margin-bottom:8px}
+    .process-step p{font-size:13px;color:#94a3b8;line-height:1.6}
+
+    /* CLIENT CTA */
+    .client-section{padding:60px 15px}
+    .client-inner{padding:50px 40px;text-align:center}
+    .client-inner .badge{margin-bottom:12px}
+    .client-inner h2{font-size:32px;font-weight:800;line-height:1.2;color:#0f172a;margin-bottom:16px}
+    .client-inner h2 .highlight{color:#2563eb}
+    .client-inner>p{font-size:15px;color:#64748b;max-width:520px;margin:0 auto 28px}
+    .client-buttons{display:flex;justify-content:center;gap:12px}
+
+    /* FOOTER */
+    .footer{padding:50px 50px 30px}
+    .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:30px}
+    .footer-brand .logo{margin-bottom:12px}
+    .footer-brand .logo-icon{width:160px;height:160px}
+    .footer-brand p{font-size:13px;color:#94a3b8;margin-bottom:16px}
+    .footer-socials{display:flex;gap:10px}
+    .footer-social-icon{width:34px;height:34px;border-radius:10px;background:#e9edf3;box-shadow:3px 3px 6px #c8ccd4,-3px -3px 6px #fff;display:flex;align-items:center;justify-content:center;color:#64748b;cursor:pointer;transition:all .3s}
+    .footer-social-icon:hover{color:#2563eb;transform:translateY(-3px)}
+    .footer-col h6{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#94a3b8;margin-bottom:16px}
+    .footer-col ul{display:flex;flex-direction:column;gap:10px}
+    .footer-col ul a{font-size:14px;color:#475569;transition:all .3s;display:inline-block}
+    .footer-col ul a:hover{color:#2563eb;transform:translateX(4px)}
+    .footer-bottom{border-top:1px solid #d5dbe5;padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .footer-bottom p{font-size:13px;color:#94a3b8}
+    .footer-bottom-links{display:flex;gap:20px}
+    .footer-bottom-links a{font-size:13px;color:#94a3b8;transition:color .3s}
+    .footer-bottom-links a:hover{color:#2563eb}
+
+    /* SCROLL TO TOP */
+    .scroll-top{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:#2563eb;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:4px 4px 12px rgba(37,99,235,.3);opacity:0;visibility:hidden;transition:all .4s cubic-bezier(.22,1,.36,1);z-index:999}
+    .scroll-top.visible{opacity:1;visibility:visible}
+    .scroll-top:hover{background:#1d4ed8;transform:translateY(-3px);box-shadow:6px 6px 16px rgba(37,99,235,.4)}
+
+    /* RESPONSIVE */
+    @media(max-width:968px){
+      .hero .container{grid-template-columns:1fr}
+      .hero-title{font-size:32px}
+      .security-grid{grid-template-columns:1fr}
+      .security-features{grid-template-columns:repeat(2,1fr)}
+      .process-steps{grid-template-columns:repeat(2,1fr)}
+      .footer-grid{grid-template-columns:repeat(2,1fr)}
+      .marketplace-grid{grid-template-columns:repeat(2,1fr)}
+      .nav-links{display:none}
+    }
+    @media(max-width:600px){
+      .hero-title{font-size:28px}
+      .process-steps{grid-template-columns:1fr}
+      .security-features{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}
+      .marketplace-grid{grid-template-columns:1fr}
+      .client-buttons{flex-direction:column;align-items:center}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="mainHeader">
+    <div class="header-inner">
+      <div class="container">
+        <div class="logo">
+          <div class="logo-icon"><img src="zauctologo1.png" alt="Zaucto Logo" /></div>
+        </div>
+        <nav class="nav-links">
+          <a href="#" class="active">Home</a>
+          <div class="nav-item">
+            <a href="#" class="has-dropdown">RFX <svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+            <div class="dropdown">
+              <a href="#">RFI</a>
+              <a href="#">RFP</a>
+              <a href="#">RFQ</a>
+              <a href="#">Bulk RFQ</a>
+              <a href="#">My Bulk RFQ</a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a href="#" class="has-dropdown">Negotiation <svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+            <div class="dropdown">
+              <a href="#">All Auctions</a>
+              <a href="#">Live Auctions</a>
+              <a href="#">Upcoming Auctions</a>
+              <a href="#">Finished Auctions</a>
+              <a href="#">Live Bulk Auctions</a>
+              <a href="#">My Bid</a>
+              <a href="#">My Bulk Bid</a>
+              <a href="#">My Bulk Auctions</a>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a href="#" class="ai-tag">Zaucto AI <span class="ai-star"><svg class="svg-icon sm" viewBox="0 0 24 24" style="stroke:#f59e0b;fill:none;stroke-width:2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0L9.937 15.5z"/><path d="M20 3v4M22 5h-4"/></svg></span></a>
+            <div class="dropdown">
+              <a href="#">AI Spend Insight</a>
+              <a href="#">AI RFP Flow</a>
+            </div>
+          </div>
+          <a href="#">Marketplace</a>
+          <div class="nav-item">
+            <a href="#" class="has-dropdown">More <svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+            <div class="dropdown">
+              <a href="#">About Us</a>
+              <a href="#">FAQs</a>
+              <a href="#">Blog</a>
+              <a href="#">Terms and Conditions</a>
+            </div>
+          </div>
+        </nav>
+        <div class="header-right">
+          <a href="#" class="contact-link">Contact Us</a>
+          <button class="btn-dash">
+            <svg class="svg-icon sm white" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            Dashboard
+          </button>
+          <div class="header-avatar">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO CAROUSEL -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <!-- SLIDE 1 -->
+        <div class="hero-slide active" data-slide="0">
+          <div class="hero-badge">Enterprise Sourcing Platform</div>
+          <h1 class="hero-title">Autonomous sourcing agents for modern procurement teams.</h1>
+          <p class="hero-desc">Manage RFPs, RFQs, auctions, and supplier decisions in one platform.</p>
+          <div class="hero-avatars"><div class="av"></div><div class="av"></div><div class="av"></div></div>
+          <p class="hero-sub-desc">Zaucto turns complex procurement into a competitive advantage. Manage reverse auctions, handle RFQs, and source smarter all in one enterprise platform.</p>
+          <a href="#" class="hero-link">Unlock True Value with Zaucto <svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <!-- SLIDE 2 -->
+        <div class="hero-slide" data-slide="1">
+          <div class="hero-badge">Smart Procurement</div>
+          <h1 class="hero-title">AI-powered negotiation that saves you lakhs.</h1>
+          <p class="hero-desc">Let Zaucto handle supplier negotiations, price comparisons, and contract management.</p>
+          <div class="hero-avatars"><div class="av"></div><div class="av"></div><div class="av"></div></div>
+          <p class="hero-sub-desc">Our AI evaluates 50+ parameters to find the best deals for your business. Real-time market intelligence at your fingertips.</p>
+          <a href="#" class="hero-link">See How AI Negotiates <svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <!-- SLIDE 3 -->
+        <div class="hero-slide" data-slide="2">
+          <div class="hero-badge">Real-Time Analytics</div>
+          <h1 class="hero-title">Track every rupee saved with live dashboards.</h1>
+          <p class="hero-desc">Monitor savings, supplier performance, and procurement KPIs in real-time.</p>
+          <div class="hero-avatars"><div class="av"></div><div class="av"></div><div class="av"></div></div>
+          <p class="hero-sub-desc">Detailed analytics help you make data-driven decisions. Identify bottlenecks and optimize your entire procurement workflow.</p>
+          <a href="#" class="hero-link">Explore Analytics <svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <!-- SLIDE 4 -->
+        <div class="hero-slide" data-slide="3">
+          <div class="hero-badge">Supplier Network</div>
+          <h1 class="hero-title">Connect with 10,000+ verified suppliers across India.</h1>
+          <p class="hero-desc">Access a curated network of pre-vetted suppliers for every category.</p>
+          <div class="hero-avatars"><div class="av"></div><div class="av"></div><div class="av"></div></div>
+          <p class="hero-sub-desc">From raw materials to finished goods, find the right suppliers with competitive pricing and quality guarantees.</p>
+          <a href="#" class="hero-link">Browse Supplier Network <svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="hero-buttons">
+          <a href="#" class="clay-btn clay-btn-primary">Start Free <span class="btn-arrow"><svg class="svg-icon sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+          <a href="#" class="clay-btn clay-btn-white">How it Works</a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-avatars">
+            <div class="trust-av"><img src="https://i.pravatar.cc/80?img=11" alt="User"></div>
+            <div class="trust-av"><img src="https://i.pravatar.cc/80?img=32" alt="User"></div>
+            <div class="trust-av"><img src="https://i.pravatar.cc/80?img=47" alt="User"></div>
+            <div class="trust-av"><img src="https://i.pravatar.cc/80?img=56" alt="User"></div>
+            <div class="trust-av"><img src="https://i.pravatar.cc/80?img=68" alt="User"></div>
+          </div>
+          <div class="trust-text">Trusted by <strong>10,000+</strong> procurement teams worldwide</div>
+        </div>
+        <div class="hero-timer" id="heroTimer">
+          <div class="hero-timer-dot"><div class="hero-timer-dot-inner"></div></div>
+          <div class="hero-timer-dot"><div class="hero-timer-dot-inner"></div></div>
+          <div class="hero-timer-dot"><div class="hero-timer-dot-inner"></div></div>
+        </div>
+      </div>
+
+      <!-- HERO VIDEO -->
+      <div class="hero-image" style="display:flex;align-items:center;justify-content:center;min-height:450px">
+        <video src="animated-hero.webm" autoplay loop muted playsinline style="width:110%;height:auto;border-radius:24px;object-fit:contain"></video>
+      </div>
+    </div>
+  </section>
+
+  <!-- RFX -->
+  <section class="rfx-section">
+    <div class="container">
+      <div class="rfx-header gs-hidden">
+        <div class="rfx-header-left">
+          <span class="badge">RFX</span>
+          <h2 style="font-size:36px;font-weight:800;line-height:1.2;color:#0f172a">Live RFX Events on Zaucto</h2>
+          <p style="font-size:16px;color:#64748b;max-width:480px">Featured RFPs, RFQs, and RFIs with structured specs, deadlines, and competitive opportunities.</p>
+        </div>
+        <div class="rfx-expand">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+        </div>
+      </div>
+      <div class="rfx-filters gs-hidden">
+        <button class="rfx-filter active" onclick="filterRFX(this,'all')">All</button>
+        <button class="rfx-filter" onclick="filterRFX(this,'rfp')">RFP</button>
+        <button class="rfx-filter" onclick="filterRFX(this,'rfq')">RFQ</button>
+        <button class="rfx-filter" onclick="filterRFX(this,'rfi')">RFI</button>
+        <a href="#" class="clay-btn clay-btn-primary rfx-browse" style="padding:8px 20px;font-size:13px">Browse all RFX <span class="btn-arrow"><svg class="svg-icon sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+      </div>
+      <div class="rfx-list" id="rfxList">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKETPLACE -->
+  <section class="marketplace-section">
+    <div class="container">
+      <div class="marketplace-inner clay gs-hidden">
+        <span class="badge">Marketplace</span>
+        <h2>A catalogue built for sourcing at scale.</h2>
+        <div class="marketplace-stat">
+          <span class="number" id="counter">0</span>
+          <span class="label">Products Listed</span>
+        </div>
+        <div class="marketplace-grid" id="marketplaceGrid">
+          <!-- Populated by JS -->
+        </div>
+        <br/>
+        <a href="#" class="clay-btn clay-btn-yellow">Explore the Marketplace <span class="btn-arrow"><svg class="svg-icon sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUCTIONS -->
+  <section class="auctions-section">
+    <div class="container">
+      <div class="auctions-header gs-hidden">
+        <div>
+          <span class="badge">Marketplace</span>
+          <h2>Live Auction in Real time</h2>
+          <div class="auctions-tags">
+            <button class="auction-tag active" onclick="filterByTag(this,'all')"><span class="dot dot-green"></span> Reverse auctions</button>
+            <button class="auction-tag" onclick="filterByTag(this,'forward')"><span class="dot dot-blue"></span> Forward auctions</button>
+          </div>
+        </div>
+        <a href="#" class="clay-btn clay-btn-white" style="padding:8px 20px;font-size:13px">View all auctions <span class="btn-arrow"><svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+      </div>
+      <div class="auctions-filters gs-hidden">
+        <button class="rfx-filter active" onclick="filterAuctions(this,'all')">All</button>
+        <button class="rfx-filter" onclick="filterAuctions(this,'live')">Live</button>
+        <button class="rfx-filter" onclick="filterAuctions(this,'ended')">Ended</button>
+      </div>
+      <div class="auctions-grid gs-hidden" id="auctionsGrid"></div>
+    </div>
+  </section>
+
+  <!-- SECURITY -->
+  <section class="security-section">
+    <div class="container">
+      <div class="security-grid">
+        <div class="security-left clay gs-hidden">
+          <span class="badge">Security</span>
+          <h2>Enterprise-Grade Security</h2>
+          <p>Your procurement data is protected with enterprise-level security, built into every part of the platform.</p>
+          <div class="security-icon-wrap">
+            <div class="shield-icon">
+              <svg class="svg-icon xl white" viewBox="0 0 24 24" style="width:40px;height:40px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="security-features">
+          <div class="security-feature clay clay-hover gs-hidden">
+            <div class="security-feature-icon"><svg class="svg-icon lg blue" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+            <h5>AWS Infrastructure</h5>
+            <p>Global server network with enterprise-grade scalability, high availability and reliability.</p>
+          </div>
+          <div class="security-feature clay clay-hover gs-hidden">
+            <div class="security-feature-icon"><svg class="svg-icon lg purple" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            <h5>Cloudflare Protection</h5>
+            <p>DDoS mitigation, bot detection, firewall rules, and global edge network security.</p>
+          </div>
+          <div class="security-feature clay clay-hover gs-hidden">
+            <div class="security-feature-icon"><svg class="svg-icon lg green" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+            <h5>SSL/TLS Encryption</h5>
+            <p>All data in transit is protected via HTTPS and industry-standard TLS protocols.</p>
+          </div>
+          <div class="security-feature clay clay-hover gs-hidden">
+            <div class="security-feature-icon"><svg class="svg-icon lg blue" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg></div>
+            <h5>Secure Data Storage</h5>
+            <p>Encrypted storage with automated backups and strict access controls.</p>
+          </div>
+          <div class="security-feature clay clay-hover gs-hidden">
+            <div class="security-feature-icon"><svg class="svg-icon lg yellow" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <h5>Data Encryption</h5>
+            <p>Sensitive information is encrypted in transit and at rest at all times.</p>
+          </div>
+          <div class="security-feature clay clay-hover gs-hidden">
+            <div class="security-feature-icon"><svg class="svg-icon lg purple" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <h5>Access Controls</h5>
+            <p>Role-based permissions ensure users only access what they are authorized to use.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process-section">
+    <div class="container">
+      <div class="process-header gs-hidden">
+        <span class="badge">Process</span>
+        <h2>From intake to award powered by AI.</h2>
+        <p>Zaucto AI handles the heavy lifting at every step: drafting, evaluating, and negotiating so your team focuses on decisions, not paperwork.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step clay gs-hidden">
+          <span class="step-number">STEP / 01</span>
+          <div class="step-icon blue"><svg class="svg-icon lg white" viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4c0 1.95-1.4 3.58-3.25 3.93L12 22"/><path d="M12 2a4 4 0 0 0-4 4c0 1.95 1.4 3.58 3.25 3.93"/><circle cx="12" cy="6" r="2"/></svg></div>
+          <span class="step-badge agentic">AGENTIC AI</span>
+          <h4>List with Agentic AI</h4>
+          <p>Describe what you need in plain language. Zaucto structures requirements, suggests evaluation criteria, and drafts complex with evaluation criteria, and compliance reviews in seconds.</p>
+        </div>
+        <div class="process-step clay gs-hidden">
+          <span class="step-number">STEP / 02</span>
+          <div class="step-icon purple"><svg class="svg-icon lg white" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+          <span class="step-badge assisted">AI-ASSISTED</span>
+          <h4>Supplier Submission via AI</h4>
+          <p>Supplier responses are automatically gathered, organized, and summarized. Every submission is scored using Zaucto's intelligent evaluation engine.</p>
+        </div>
+        <div class="process-step clay gs-hidden">
+          <span class="step-number">STEP / 03</span>
+          <div class="step-icon yellow"><svg class="svg-icon lg white" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+          <span class="step-badge smart">SMART EVALUATION</span>
+          <h4>Negotiate &amp; Select</h4>
+          <p>AI scores and ranks responses against your weighted criteria. Issue RFIs, send counter-offers, and negotiate RFQs locked in a single auditable thread.</p>
+        </div>
+        <div class="process-step clay gs-hidden">
+          <span class="step-number">STEP / 04</span>
+          <div class="step-icon green"><svg class="svg-icon lg white" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+          <span class="step-badge close-b">CLOSE</span>
+          <h4>Close the Deal</h4>
+          <p>Award with one click.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENT CTA -->
+  <section class="client-section">
+    <div class="container">
+      <div class="client-inner clay">
+        <span class="badge">Client</span>
+        <h2>Move sourcing from quarterly to <span class="highlight">continuous.</span></h2>
+        <p>Start a free 30-day pilot, or talk to a procurement specialist about your category mix and rollout plan.</p>
+        <div class="client-buttons">
+          <a href="#" class="clay-btn clay-btn-primary">Start Free <span class="btn-arrow"><svg class="svg-icon sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+          <a href="#" class="clay-btn clay-btn-white">Talk to sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            <div class="logo-icon"><img src="zauctologo1.png" alt="Zaucto Logo" /></div>
+          </div>
+          <p>Unlock True Value with Zaucto</p>
+          <div class="footer-socials">
+            <div class="footer-social-icon"><svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+            <div class="footer-social-icon"><svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+            <div class="footer-social-icon"><svg class="svg-icon sm" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+            <div class="footer-social-icon"><svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+            <div class="footer-social-icon"><svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h6>Services</h6>
+          <ul>
+            <li><a href="#">Auctions</a></li>
+            <li><a href="#">Request for Quotations</a></li>
+            <li><a href="#">Marketplace</a></li>
+            <li><a href="#">How It Works</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h6>Company</h6>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h6>Quick Links</h6>
+          <ul>
+            <li><a href="#">Browse Auctions</a></li>
+            <li><a href="#">Browse Quick RFQs</a></li>
+            <li><a href="#">Explore Marketplace</a></li>
+            <li><a href="#">Get Support</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Zaucto. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms &amp; Conditions(T&amp;C)</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCROLL TO TOP BUTTON -->
+  <button class="scroll-top" id="scrollTopBtn" title="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <script>
+    // ====== HERO CAROUSEL DATA ======
+    const heroCardData = [
+      [
+        {name:'IT Infrastructure Upgrade',meta:'Due: Aug 30, 2026',status:'open',icon:'blue'},
+        {name:'Cloud Migration Services',meta:'Due: Sep 5, 2026',status:'open',icon:'purple'},
+        {name:'Cybersecurity Audit RFP',meta:'Due: Aug 28, 2026',status:'pending',icon:'yellow'},
+        {name:'ERP System Replacement',meta:'Due: Sep 15, 2026',status:'open',icon:'blue'},
+        {name:'Office Furniture Procurement',meta:'Due: Aug 25, 2026',status:'closed',icon:'green'},
+      ],
+      [
+        {name:'Surplus Server Hardware',meta:'12 bidders active',status:'open',icon:'yellow'},
+        {name:'Forklift Fleet (5 units)',meta:'8 bidders active',status:'open',icon:'blue'},
+        {name:'Office Cubicles Lot',meta:'3 bidders active',status:'pending',icon:'green'},
+        {name:'IT Licenses (50 seats)',meta:'15 bidders active',status:'open',icon:'purple'},
+        {name:'Warehouse Shelving System',meta:'6 bidders active',status:'closed',icon:'yellow'},
+      ],
+      [
+        {name:'Q2 Procurement Savings',meta:'Saved: ₹12,45,000',status:'open',icon:'green'},
+        {name:'Vendor Consolidation',meta:'Saved: ₹8,72,000',status:'open',icon:'blue'},
+        {name:'Bulk Purchase Discount',meta:'Saved: ₹4,58,000',status:'pending',icon:'yellow'},
+        {name:'Reverse Auction Wins',meta:'Saved: ₹20,31,000',status:'open',icon:'purple'},
+        {name:'Contract Renegotiation',meta:'Saved: ₹6,24,000',status:'closed',icon:'green'},
+      ],
+      [
+        {name:'Industrial Bearings (500 units)',meta:'Min Qty: 500',status:'open',icon:'green'},
+        {name:'LED Panel Lights',meta:'Min Qty: 200',status:'open',icon:'yellow'},
+        {name:'Copper Wiring Harness',meta:'Min Qty: 1000',status:'pending',icon:'blue'},
+        {name:'Stainless Steel Bolts M8',meta:'Min Qty: 10000',status:'open',icon:'green'},
+        {name:'Safety Gloves (Bulk)',meta:'Min Qty: 5000',status:'closed',icon:'purple'},
+      ]
+    ];
+    const cardTabMap = ['rfp','auctions','savings','rfq'];
+    let currentSlide = 0;
+    let heroInterval = null;
+
+    function renderHeroCard(slideIdx) {
+      const list = document.getElementById('heroCardList');
+      const items = heroCardData[slideIdx] || heroCardData[0];
+      if (!list) return;
+      list.style.opacity = '0';
+      setTimeout(()=>{
+        list.innerHTML = items.map(item => `
+          <div class="hero-card-item">
+            <div class="hero-card-item-left">
+              <div class="hero-card-item-icon ${item.icon}">
+                <svg class="svg-icon sm ${item.icon==='blue'?'blue':item.icon==='green'?'green':item.icon==='yellow'?'yellow':'purple'}" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+              </div>
+              <div>
+                <div class="hero-card-item-name">${item.name}</div>
+                <div class="hero-card-item-meta">${item.meta}</div>
+              </div>
+            </div>
+            <span class="hero-card-item-status ${item.status}">${item.status}</span>
+          </div>
+        `).join('');
+        list.style.opacity = '1';
+      },200);
+      document.querySelectorAll('.hero-card-tab').forEach((t,i)=>{
+        t.classList.toggle('active', i===slideIdx);
+      });
+    }
+
+    function goToSlide(idx) {
+      if(idx===currentSlide) return;
+      document.querySelectorAll('.hero-slide').forEach(s=>s.classList.remove('active'));
+      document.querySelectorAll('.hero-slide')[idx].classList.add('active');
+      currentSlide = idx;
+      renderHeroCard(idx);
+      resetTimer();
+    }
+
+    function nextSlide() {
+      goToSlide((currentSlide+1)%4);
+    }
+
+    function resetTimer() {
+      const timer = document.getElementById('heroTimer');
+      if(!timer) return;
+      timer.classList.add('reset');
+      void timer.offsetWidth;
+      timer.classList.remove('reset');
+      if(heroInterval) clearInterval(heroInterval);
+      heroInterval = setInterval(nextSlide, 5000);
+    }
+
+    const rfxData = [
+      {type:'rfp',title:'IT Infrastructure Upgrade',desc:'Enterprise network & server overhaul for HQ',date:'Aug 30, 2026'},
+      {type:'rfq',title:'Industrial Bearings (500 units)',desc:'Precision bearings for manufacturing line',date:'Sep 2, 2026'},
+      {type:'rfi',title:'AI Chatbot Platform',desc:'Exploring conversational AI solutions',date:'Sep 10, 2026'},
+      {type:'rfp',title:'Cloud Migration Services',desc:'AWS/Azure migration for legacy systems',date:'Sep 5, 2026'},
+      {type:'rfq',title:'LED Panel Lights',desc:'200x 60x60 LED panels for new office',date:'Aug 28, 2026'},
+      {type:'rfi',title:'Supply Chain Analytics',desc:'Data analytics platform for procurement',date:'Sep 12, 2026'},
+      {type:'rfp',title:'Cybersecurity Audit',desc:'Annual security assessment & pen testing',date:'Aug 25, 2026'},
+      {type:'rfq',title:'Copper Wiring Harness',desc:'Custom wiring for assembly line robots',date:'Sep 8, 2026'},
+      {type:'rfi',title:'Fleet Management Software',desc:'GPS tracking & maintenance scheduling',date:'Sep 15, 2026'},
+      {type:'rfp',title:'ERP System Replacement',desc:'SAP/Oracle migration for manufacturing',date:'Sep 18, 2026'},
+      {type:'rfq',title:'Safety Gloves (Bulk)',desc:'5000 pairs cut-resistant gloves',date:'Aug 22, 2026'},
+      {type:'rfi',title:'Robotic Process Automation',desc:'RPA evaluation for finance workflows',date:'Sep 20, 2026'},
+      {type:'rfp',title:'Office Furniture Procurement',desc:'Ergonomic desks & chairs for 200 staff',date:'Sep 25, 2026'},
+      {type:'rfq',title:'Stainless Steel Bolts M8',desc:'10000 bolts for structural assembly',date:'Sep 1, 2026'},
+      {type:'rfi',title:'IoT Monitoring Platform',desc:'Industrial IoT for plant operations',date:'Sep 22, 2026'},
+    ];
+
+    const marketplaceData = [
+      {name:'Zinc Oxide',desc:'Industrial grade powder',price:'₹78.50',unit:'/ KG',moq:'MOQ 25 KG',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',verified:true,rating:4.8,delivery:'3-5 days',location:'Mumbai, India',priceTrend:'up',aiRecommended:true,suppliers:5},
+      {name:'Calcium Carbonate',desc:'Fine white powder',price:'₹12.40',unit:'/ KG',moq:'MOQ 25 KG',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',verified:true,rating:4.5,delivery:'2-4 days',location:'Ahmedabad, India',priceTrend:'stable',aiRecommended:false,suppliers:3},
+      {name:'Steel Coils',desc:'Cold rolled steel coils',price:'₹52,000',unit:'/ MT',moq:'MOQ 1 MT',img:'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&h=300&fit=crop',verified:true,rating:4.9,delivery:'5-7 days',location:'Jamshedpur, India',priceTrend:'down',aiRecommended:true,suppliers:8},
+      {name:'Phenol',desc:'Industrial chemical compound',price:'₹106.00',unit:'/ KG',moq:'MOQ 25 KG',img:'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=400&h=300&fit=crop',verified:true,rating:4.3,delivery:'4-6 days',location:'Gujarat, India',priceTrend:'up',aiRecommended:false,suppliers:4},
+      {name:'Copper Wire',desc:'2.5mm insulated cable',price:'₹155',unit:'/ meter',moq:'MOQ 100 meter',img:'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop',verified:true,rating:4.7,delivery:'2-3 days',location:'Delhi, India',priceTrend:'stable',aiRecommended:false,suppliers:6},
+      {name:'Aluminum Sheets',desc:'6061 T6 alloy sheets',price:'₹320',unit:'/ KG',moq:'MOQ 50 KG',img:'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400&h=300&fit=crop',verified:true,rating:4.6,delivery:'3-5 days',location:'Bangalore, India',priceTrend:'down',aiRecommended:true,suppliers:7},
+      {name:'Titanium Dioxide',desc:'Rutile grade, white pigment',price:'₹215',unit:'/ KG',moq:'MOQ 100 KG',img:'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=400&h=300&fit=crop',verified:true,rating:4.4,delivery:'6-8 days',location:'Chennai, India',priceTrend:'up',aiRecommended:false,suppliers:3},
+      {name:'Stainless Steel Pipes',desc:'304 grade, seamless tubes',price:'₹185',unit:'/ meter',moq:'MOQ 50 meter',img:'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop',verified:true,rating:4.8,delivery:'4-6 days',location:'Pune, India',priceTrend:'stable',aiRecommended:true,suppliers:9},
+      {name:'Silicon Rubber',desc:'High temp resistant, 200°C',price:'₹450',unit:'/ KG',moq:'MOQ 20 KG',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',verified:true,rating:4.2,delivery:'5-7 days',location:'Hyderabad, India',priceTrend:'down',aiRecommended:false,suppliers:4},
+      {name:'Copper Sheets',desc:'C11000 grade, 1mm thick',price:'₹680',unit:'/ KG',moq:'MOQ 30 KG',img:'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400&h=300&fit=crop',verified:true,rating:4.9,delivery:'3-4 days',location:'Rajkot, India',priceTrend:'up',aiRecommended:true,suppliers:6},
+    ];
+
+    // ====== RENDER FUNCTIONS ======
+    let rfxOffset = 0;
+    let rfxCurrentFilter = 'all';
+    const RFX_PAGE_SIZE = 5;
+
+    function renderRFX(filter, append) {
+      const list = document.getElementById('rfxList');
+      if (!append) { rfxOffset = 0; rfxCurrentFilter = filter; }
+      const allItems = filter === 'all' ? rfxData : rfxData.filter(i => i.type === filter);
+      const visible = allItems.slice(0, rfxOffset + RFX_PAGE_SIZE);
+      list.innerHTML = visible.map(item => `
+        <div class="rfx-item">
+          <div class="rfx-item-left">
+            <div class="rfx-item-icon ${item.type}">
+              <svg class="svg-icon ${item.type === 'rfp' ? 'blue' : item.type === 'rfq' ? 'green' : 'yellow'}" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            </div>
+            <div class="rfx-item-info">
+              <span class="rfx-item-title">${item.title}</span>
+              <span class="rfx-item-desc">${item.desc}</span>
+            </div>
+          </div>
+          <div class="rfx-item-right">
+            <span class="rfx-item-tag ${item.type}-tag">${item.type.toUpperCase()}</span>
+            <span class="rfx-item-date">${item.date}</span>
+          </div>
+        </div>
+      `).join('');
+      if (visible.length < allItems.length) {
+        list.innerHTML += `
+          <div style="text-align:center;padding:16px 0">
+            <button class="clay-btn clay-btn-white" onclick="loadMoreRFX()" style="padding:10px 32px;font-size:14px">
+              Load More <svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+        `;
+      }
+    }
+
+    function loadMoreRFX() {
+      rfxOffset += RFX_PAGE_SIZE;
+      renderRFX(rfxCurrentFilter, true);
+    }
+
+    function filterRFX(el, type) {
+      document.querySelectorAll('.rfx-filter').forEach(f => f.classList.remove('active'));
+      el.classList.add('active');
+      renderRFX(type, false);
+    }
+
+    function renderMarketplace() {
+      const grid = document.getElementById('marketplaceGrid');
+      grid.innerHTML = marketplaceData.map(item => {
+        const trendIcon = item.priceTrend === 'up' ? '<span class="mc-trend up">↑ 2.3%</span>' : item.priceTrend === 'down' ? '<span class="mc-trend down">↓ 1.8%</span>' : '<span class="mc-trend stable">→ 0.1%</span>';
+        const stars = '★'.repeat(Math.floor(item.rating)) + (item.rating % 1 >= 0.5 ? '½' : '');
+        return `
+        <div class="marketplace-card">
+          <div class="mc-img-wrap">
+            <img src="${item.img}" alt="${item.name}" class="marketplace-card-img" onerror="this.style.background='#e5e7eb';this.alt='${item.name}'" />
+            ${item.aiRecommended ? '<span class="mc-ai-badge">✦ AI Recommended</span>' : ''}
+          </div>
+          <div class="mc-top-row">
+            <div class="marketplace-card-name">${item.name}</div>
+            <div class="mc-rating"><span class="mc-stars">${stars}</span> ${item.rating}</div>
+          </div>
+          <div class="marketplace-card-desc">${item.desc}</div>
+          <div class="mc-meta-row">
+            <span class="mc-location">📍 ${item.location}</span>
+            <span class="mc-delivery">🚚 ${item.delivery}</span>
+          </div>
+          <div class="mc-price-row">
+            <div class="marketplace-card-price">${item.price} <span class="unit">${item.unit}</span></div>
+            ${trendIcon}
+          </div>
+          <div class="marketplace-card-moq">${item.moq}</div>
+          <div class="mc-bottom-row">
+            ${item.verified ? `<div class="marketplace-card-verified"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Verified</div>` : ''}
+            <span class="mc-suppliers">${item.suppliers} suppliers available</span>
+          </div>
+          <div class="marketplace-card-actions">
+            <button class="marketplace-card-btn">Request Quote</button>
+            <button class="marketplace-card-share" onclick="shareProduct('${item.name}')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </button>
+          </div>
+        </div>
+      `;
+      }).join('');
+    }
+
+    function shareProduct(name) {
+      if (navigator.share) {
+        navigator.share({ title: name, text: 'Check out ' + name + ' on Zaucto Marketplace', url: window.location.href });
+      } else {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          alert('Link copied for ' + name + '!');
+        });
+      }
+    }
+
+    // ====== AUCTIONS DATA (110 items) ======
+    const auctionNames = [
+      'Server Hardware Lot','Forklift Fleet','Office Cubicles','IT Licenses','Warehouse Shelving','Network Switches','Laptop Batch','Printer Fleet','Conference Tables','Security Cameras'
+    ];
+    const auctionDescs = [
+      'Surplus equipment disposal','Used industrial machinery','Bulk office furniture','Software license transfer','Storage system auction','Networking gear clearance','Refurbished electronics','Office equipment sale','Furniture liquidation','CCTV system auction'
+    ];
+    const iconColors = ['green','blue','yellow','purple','red','teal'];
+
+    function generateAuctions(count) {
+      const items = [];
+      for (let i = 0; i < count; i++) {
+        const isReverse = i % 3 !== 0;
+        const isLive = i % 4 !== 3;
+        const basePrice = Math.floor(Math.random() * 50000) + 1000;
+        const bidders = isLive ? Math.floor(Math.random() * 20) + 1 : 0;
+        items.push({
+          name: auctionNames[i % auctionNames.length] + ' #' + (Math.floor(i/10)+1),
+          desc: auctionDescs[i % auctionDescs.length],
+          type: isReverse ? 'reverse' : 'forward',
+          status: isLive ? 'live' : 'ended',
+          price: '₹' + basePrice.toLocaleString('en-IN'),
+          bidders: bidders,
+          icon: iconColors[i % iconColors.length]
+        });
+      }
+      return items;
+    }
+
+    const allAuctions = generateAuctions(110);
+    let auctionOffset = 0;
+    let auctionCurrentFilter = 'all';
+    const AUCTION_PAGE_SIZE = 10;
+
+    function renderAuctions(filter, append) {
+      const grid = document.getElementById('auctionsGrid');
+      if (!append) { auctionOffset = 0; auctionCurrentFilter = filter; }
+      let allItems = allAuctions;
+      if (filter === 'live') allItems = allAuctions.filter(a => a.status === 'live');
+      else if (filter === 'ended') allItems = allAuctions.filter(a => a.status === 'ended');
+      else if (filter === 'reverse') allItems = allAuctions.filter(a => a.type === 'reverse');
+      else if (filter === 'forward') allItems = allAuctions.filter(a => a.type === 'forward');
+      const visible = allItems.slice(0, auctionOffset + AUCTION_PAGE_SIZE);
+      grid.innerHTML = visible.map((item, idx) => `
+        <div class="auction-card" style="animation-delay:${(idx % AUCTION_PAGE_SIZE) * 0.05}s">
+          <div class="auction-card-header">
+            <div class="auction-card-icon ${item.icon}">
+              <svg class="svg-icon sm ${item.icon === 'blue' ? 'blue' : item.icon === 'green' ? 'green' : item.icon === 'yellow' ? 'yellow' : item.icon === 'purple' ? 'purple' : 'blue'}" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <span class="auction-card-status ${item.status}">${item.status === 'live' ? 'LIVE' : 'ENDED'}</span>
+          </div>
+          <span class="auction-card-type ${item.type}">${item.type === 'reverse' ? 'Reverse' : 'Forward'}</span>
+          <div class="auction-card-name">${item.name}</div>
+          <div class="auction-card-desc">${item.desc}</div>
+          <div class="auction-card-meta">
+            <span class="auction-card-bid">${item.price}</span>
+            ${item.status === 'live' ? `<span class="auction-card-bidders"><span class="dot"></span> ${item.bidders} bidders</span>` : '<span style="font-size:11px;color:#94a3b8">Closed</span>'}
+          </div>
+        </div>
+      `).join('');
+      if (visible.length < allItems.length) {
+        grid.innerHTML += `
+          <div class="auctions-load-more" style="grid-column:1/-1">
+            <button class="clay-btn clay-btn-white" onclick="loadMoreAuctions()" style="padding:10px 32px;font-size:14px">
+              Load More <svg class="svg-icon sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+        `;
+      }
+    }
+
+    function loadMoreAuctions() {
+      auctionOffset += AUCTION_PAGE_SIZE;
+      renderAuctions(auctionCurrentFilter, true);
+    }
+
+    function filterAuctions(el, type) {
+      document.querySelectorAll('.auctions-filters .rfx-filter').forEach(f => f.classList.remove('active'));
+      el.classList.add('active');
+      document.querySelectorAll('.auction-tag').forEach(t=>t.classList.remove('active'));
+      if(type==='reverse'||type==='all') document.querySelectorAll('.auction-tag')[0].classList.add('active');
+      else document.querySelectorAll('.auction-tag')[1].classList.add('active');
+      renderAuctions(type, false);
+    }
+
+    function filterByTag(el, type) {
+      document.querySelectorAll('.auction-tag').forEach(t=>t.classList.remove('active'));
+      el.classList.add('active');
+      document.querySelectorAll('.auctions-filters .rfx-filter').forEach(f=>f.classList.remove('active'));
+      document.querySelector('.auctions-filters .rfx-filter').classList.add('active');
+      renderAuctions(type, false);
+    }
+
+    // ====== INIT ======
+    renderHeroCard(0);
+    resetTimer();
+    renderRFX('all');
+    renderMarketplace();
+    renderAuctions('all', false);
+
+    // ====== GSAP ANIMATIONS ======
+    document.addEventListener('DOMContentLoaded', () => {
+      gsap.registerPlugin(ScrollTrigger);
+      const heroElements = document.querySelectorAll('.hero-content .gs-hidden');
+      gsap.to(heroElements, { opacity:1, y:0, duration:0.7, stagger:0.12, ease:'power3.out', delay:0.3 });
+      gsap.to('.hero-card', { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:0.6 });
+      const scrollElements = document.querySelectorAll('.gs-hidden:not(.hero-content .gs-hidden):not(.hero-card)');
+      scrollElements.forEach(el => {
+        gsap.to(el, { scrollTrigger:{ trigger:el, start:'top 88%', toggleActions:'play none none none' }, opacity:1, y:0, duration:0.6, ease:'power3.out' });
+      });
+      const processSteps = document.querySelectorAll('.process-step');
+      if(processSteps.length) {
+        gsap.to(processSteps, { scrollTrigger:{ trigger:'.process-steps', start:'top 85%', toggleActions:'play none none none' }, opacity:1, y:0, duration:0.6, stagger:0.15, ease:'power3.out' });
+      }
+      const secFeatures = document.querySelectorAll('.security-feature');
+      if(secFeatures.length) {
+        gsap.to(secFeatures, { scrollTrigger:{ trigger:'.security-features', start:'top 85%', toggleActions:'play none none none' }, opacity:1, y:0, duration:0.5, stagger:0.1, ease:'power3.out' });
+      }
+      const counterEl = document.getElementById('counter');
+      let counterDone = false;
+      if(counterEl) {
+        ScrollTrigger.create({ trigger:counterEl, start:'top 85%', onEnter:()=>{
+          if(counterDone) return; counterDone = true;
+          const obj = {val:0};
+          gsap.to(obj, { val:668, duration:2, ease:'power2.out', onUpdate:()=>{ counterEl.textContent = Math.floor(obj.val)+'+'; } });
+        }});
+      }
+      const shieldIcon = document.querySelector('.shield-icon');
+      if(shieldIcon) {
+        gsap.to(shieldIcon, { scrollTrigger:{ trigger:shieldIcon, start:'top 80%', end:'bottom 20%', scrub:1 }, rotation:15, scale:1.05, ease:'none' });
+      }
+      const clientInner = document.querySelector('.client-inner');
+      if(clientInner) {
+        gsap.from(clientInner, { scrollTrigger:{ trigger:clientInner, start:'top 85%', toggleActions:'play none none none' }, scale:0.95, opacity:0, duration:0.7, ease:'power3.out' });
+      }
+      const header = document.querySelector('.header');
+      // header shadow handled by CSS .scrolled class
+      const heroSection = document.querySelector('.hero');
+      if (heroSection) {
+        ScrollTrigger.create({
+          trigger: heroSection,
+          start: '20% top',
+          end: '50% top',
+          onEnter: () => { document.getElementById('mainHeader').classList.add('scrolled'); },
+          onLeaveBack: () => { document.getElementById('mainHeader').classList.remove('scrolled'); },
+          scrub: 0.5
+        });
+      }
+    });
+
+      // Scroll to top button
+      const scrollTopBtn = document.getElementById('scrollTopBtn');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+          scrollTopBtn.classList.add('visible');
+        } else {
+          scrollTopBtn.classList.remove('visible');
+        }
+      });
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // ====== HERO GRID HOVER SPOTLIGHT ======
+      const heroEl = document.querySelector('.hero');
+      let heroRafId = null;
+      heroEl.addEventListener('mousemove', (e) => {
+        if (heroRafId) cancelAnimationFrame(heroRafId);
+        heroRafId = requestAnimationFrame(() => {
+          const rect = heroEl.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          heroEl.style.setProperty('--mx', x + 'px');
+          heroEl.style.setProperty('--my', y + 'px');
+          heroRafId = null;
+        });
+      });
+
+  </script>
+
+
+</body>
+</html>

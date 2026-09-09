@@ -43,7 +43,13 @@
   }
 
   // Get current theme from localStorage or system preference
+  // Dark mode is a post-login feature: hide/force-light until user has signed in.
+  function isAuthed() {
+    try { return !!JSON.parse(localStorage.getItem('z_cur')); } catch (e) { return false; }
+  }
+
   function getPreferredTheme() {
+    if (!isAuthed()) return 'light';
     const stored = localStorage.getItem('zaucto-theme');
     if (stored) return stored;
     
@@ -100,10 +106,10 @@
 
   // Create and add theme toggle button to header
   function addThemeToggleButton() {
-    // Only pages with the standard header get the toggle button.
-    // Login/signup page has no header-right — theme still APPLIES there (initTheme), just no toggle.
+    // Only pages with the standard header get the toggle button —
+    // and only after login (dark mode is a logged-in feature).
     const headerRight = document.querySelector('.header-right');
-    if (!headerRight || document.getElementById('theme-toggle-btn')) return;
+    if (!headerRight || !isAuthed() || document.getElementById('theme-toggle-btn')) return;
     
     const toggleBtn = document.createElement('button');
     toggleBtn.id = 'theme-toggle-btn';

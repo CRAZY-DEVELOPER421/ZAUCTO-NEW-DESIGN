@@ -71,7 +71,7 @@
     .gs-visible{opacity:1!important;transform:translateY(0)!important}
     @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
     @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-    @keyframes orbit{from{transform:rotate(0deg) translateX(140px) rotate(0deg)}to{transform:rotate(360deg) translateX(140px) rotate(-360deg)}}
+    @keyframes
     .hover-lift{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s cubic-bezier(.22,1,.36,1)}
     .hover-lift:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.12)}
 
@@ -117,8 +117,13 @@
     .ai-hero .container{position:relative;z-index:2;text-align:center;max-width:860px}
 
     /* Orbiting AI elements */
-    .orbit-wrap{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;height:400px;pointer-events:none;z-index:1}
-    .orbit-node{position:absolute;top:50%;left:50%;width:48px;height:48px;margin:-24px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);animation:orbit var(--dur) linear infinite;animation-delay:var(--delay)}
+    .orbit-wrap{position:absolute;inset:0;pointer-events:none;z-index:1}
+    .orbit-node{position:absolute;width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);animation:float 6s ease-in-out infinite;animation-delay:var(--delay)}
+    .orbit-node:nth-child(1){top:18%;left:9%}
+    .orbit-node:nth-child(2){top:24%;right:9%}
+    .orbit-node:nth-child(3){bottom:14%;left:13%}
+    .orbit-node:nth-child(4){bottom:18%;right:13%}
+    @media(max-width:768px){.orbit-node:nth-child(3),.orbit-node:nth-child(4){display:none}}
     .orbit-node svg{width:22px;height:22px;stroke:var(--blue);fill:none;stroke-width:2}
 
     .ai-hero-badge{margin-bottom:20px}
@@ -350,35 +355,39 @@
           <div class="logo-icon"><img loading="lazy" src="assets/logo.png" alt="Zaucto Logo" /></div>
         </a>
         <nav class="nav-links">
-          <a href="zauctofour.html">Home</a>
-          <div class="nav-item">
-            <a href="#" class="has-dropdown">RFX <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
-            <div class="dropdown">
-              <a href="zauctoRFI.html">RFI</a><a href="zauctoRFP.html">RFP</a><a href="zauctoRFQ.html">RFQ</a><a href="zauctoBulkRFQ.html">Bulk RFQ</a><a href="zauctoMyBulkRFQ.html">My Bulk RFQ</a>
-            </div>
+        <a href="zauctofour.html">Home</a>
+        <div class="nav-item">
+          <a href="#" class="has-dropdown">RFX <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="dropdown">
+            <a href="zauctoRFI.html">RFI</a>
+            <a href="zauctoRFP.html">RFP</a>
+            <a href="zauctoRFQ.html">RFQ</a>
+            <a href="zauctoBulkRFQ.html">Bulk RFQ</a>
+            <a href="zauctoMyBulkRFQ.html">My Bulk RFQ</a>
           </div>
-          <div class="nav-item">
-            <a href="#" class="has-dropdown">Negotiation <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
-            <div class="dropdown">
-              <a href="zauctoAllAuctions.html">All Auctions</a><a href="zauctoLiveAuctions.html">Live Auctions</a><a href="zauctoUpcomingAuctions.html">Upcoming Auctions</a><a href="zauctoFinishedAuctions.html">Finished Auctions</a><a href="zauctoLiveBulkAuctions.html">Live Bulk Auctions</a><a href="zauctoMyBid.html">My Bid</a><a href="zauctoMyBulkBid.html">My Bulk Bid</a><a href="zauctoMyBulkAuction.html">My Bulk Auction</a>
-            </div>
+        </div>
+        <div class="nav-item"><a href="#" class="has-dropdown">Negotiation <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a><div class="dropdown"><a href="zauctoAllAuctions.html">All Auctions</a><a href="zauctoLiveAuctions.html">Live Auctions</a><a href="zauctoUpcomingAuctions.html">Upcoming Auctions</a><a href="zauctoFinishedAuctions.html">Finished Auctions</a><a href="zauctoLiveBulkAuctions.html">Live Bulk Auctions</a><a href="zauctoMyBid.html">My Bid</a><a href="zauctoMyBulkBid.html">My Bulk Bid</a><a href="zauctoMyBulkAuction.html">My Bulk Auction</a></div></div>
+        <div class="nav-item">
+          <a href="#" class="ai-tag">Zaucto AI <span class="ai-star"><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:none;stroke-width:2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0L9.937 15.5z"/><path d="M20 3v4M22 5h-4"/></svg></span></a>
+          <div class="dropdown">
+            <a href="zauctoAISpendInsight.html" style="color:var(--blue);font-weight:600">AI Spend Insight</a>
+            <a href="zauctoAIRfpFlow.html">AI RFP Flow</a>
           </div>
-          <div class="nav-item">
-            <a href="#" class="ai-tag">Zaucto AI <span class="ai-star"><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:none;stroke-width:2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0L9.937 15.5z"/><path d="M20 3v4M22 5h-4"/></svg></span></a>
-            <div class="dropdown">
-              <a href="zauctoAISpendInsight.html" style="color:var(--blue);font-weight:600">AI Spend Insight</a>
-              <a href="zauctoAIRfpFlow.html">AI RFP Flow</a>
-            </div>
+        </div>
+        <a href="zauctoMarketplace.html">Marketplace</a>
+        <a href="zauctoPricing.html" style="color:var(--gold);font-weight:600">Pricing</a>
+        <div class="nav-item">
+          <a href="#" class="has-dropdown">More <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="dropdown">
+            <a href="zauctoabout.html">About Us</a>
+            <a href="zauctoWishlist.html">Wishlist</a>
+            <a href="zauctoCareers.html">Careers</a>
+            <a href="zauctoFAQ.html">FAQs</a>
+            <a href="zauctoBlog.html">Blog</a>
+            <a href="zauctoTerms.html">Terms & Conditions</a>
           </div>
-          <a href="zauctoMarketplace.html">Marketplace</a>
-          <a href="zauctoPricing.html" style="color:var(--gold);font-weight:600">Pricing</a>
-          <div class="nav-item">
-            <a href="#" class="has-dropdown">More <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
-            <div class="dropdown">
-              <a href="zauctoabout.html">About Us</a><a href="zauctoWishlist.html">Wishlist</a><a href="zauctoCareers.html">Careers</a><a href="zauctoFAQ.html">FAQs</a><a href="zauctoBlog.html">Blog</a><a href="zauctoTerms.html">Terms & Conditions</a>
-            </div>
-          </div>
-        </nav>
+        </div>
+      </nav>
         <div class="header-right">
           <a href="zauctoContact.html" class="contact-link">Contact Us</a>
           <a href="zauctoLogin.html" class="header-avatar" aria-label="Account login">

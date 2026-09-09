@@ -183,6 +183,9 @@
     .product-image.bg-4{background:linear-gradient(135deg,#EDE9FE,#DDD6FE)}
     .product-image.bg-5{background:linear-gradient(135deg,#FCE7F3,#FBCFE8)}
     .product-image.bg-6{background:linear-gradient(135deg,#CCFBF1,#99F6E4)}
+    .product-image.img{background:#EEF2FF}
+    .product-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+    .product-card:hover .product-image img{transform:scale(1.06)}
     .product-image svg{width:64px;height:64px;opacity:.5}
     .product-badge{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
     .product-badge.verified{background:rgba(22,199,132,.15);color:var(--success)}
@@ -427,39 +430,39 @@
           <div class="logo-icon"><img loading="lazy" src="assets/logo.png" alt="Zaucto Logo" /></div>
         </a>
         <nav class="nav-links">
-          <a href="zauctofour.html">Home</a>
-          <div class="nav-item">
-            <a href="#" class="has-dropdown">RFX <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
-            <div class="dropdown">
-              <a href="zauctoRFI.html">RFI</a>
-              <a href="zauctoRFP.html">RFP</a>
-              <a href="zauctoRFQ.html">RFQ</a>
-              <a href="zauctoBulkRFQ.html">Bulk RFQ</a>
-              <a href="zauctoMyBulkRFQ.html">My Bulk RFQ</a>
-            </div>
+        <a href="zauctofour.html">Home</a>
+        <div class="nav-item">
+          <a href="#" class="has-dropdown">RFX <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="dropdown">
+            <a href="zauctoRFI.html">RFI</a>
+            <a href="zauctoRFP.html">RFP</a>
+            <a href="zauctoRFQ.html">RFQ</a>
+            <a href="zauctoBulkRFQ.html">Bulk RFQ</a>
+            <a href="zauctoMyBulkRFQ.html">My Bulk RFQ</a>
           </div>
-          <div class="nav-item"><a href="#" class="has-dropdown">Negotiation <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a><div class="dropdown"><a href="zauctoAllAuctions.html">All Auctions</a><a href="zauctoLiveAuctions.html">Live Auctions</a><a href="zauctoUpcomingAuctions.html">Upcoming Auctions</a><a href="zauctoFinishedAuctions.html">Finished Auctions</a><a href="zauctoLiveBulkAuctions.html">Live Bulk Auctions</a><a href="zauctoMyBid.html">My Bid</a><a href="zauctoMyBulkBid.html">My Bulk Bid</a><a href="zauctoMyBulkAuction.html">My Bulk Auction</a></div></div>
-          <div class="nav-item">
-            <a href="#" class="ai-tag">Zaucto AI <span class="ai-star"><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:none;stroke-width:2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0L9.937 15.5z"/><path d="M20 3v4M22 5h-4"/></svg></span></a>
-            <div class="dropdown">
-              <a href="zauctoAISpendInsight.html">AI Spend Insight</a>
-              <a href="zauctoAIRfpFlow.html">AI RFP Flow</a>
-            </div>
+        </div>
+        <div class="nav-item"><a href="#" class="has-dropdown">Negotiation <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a><div class="dropdown"><a href="zauctoAllAuctions.html">All Auctions</a><a href="zauctoLiveAuctions.html">Live Auctions</a><a href="zauctoUpcomingAuctions.html">Upcoming Auctions</a><a href="zauctoFinishedAuctions.html">Finished Auctions</a><a href="zauctoLiveBulkAuctions.html">Live Bulk Auctions</a><a href="zauctoMyBid.html">My Bid</a><a href="zauctoMyBulkBid.html">My Bulk Bid</a><a href="zauctoMyBulkAuction.html">My Bulk Auction</a></div></div>
+        <div class="nav-item">
+          <a href="#" class="ai-tag">Zaucto AI <span class="ai-star"><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:none;stroke-width:2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0L9.937 15.5z"/><path d="M20 3v4M22 5h-4"/></svg></span></a>
+          <div class="dropdown">
+            <a href="zauctoAISpendInsight.html">AI Spend Insight</a>
+            <a href="zauctoAIRfpFlow.html">AI RFP Flow</a>
           </div>
-          <a href="zauctoMarketplace.html" class="active">Marketplace</a>
-          <a href="zauctoPricing.html" style="color:var(--gold);font-weight:600">Pricing</a>
-          <div class="nav-item">
-            <a href="#" class="has-dropdown">More <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
-            <div class="dropdown">
-              <a href="zauctoabout.html">About Us</a>
-              <a href="zauctoWishlist.html">Wishlist</a>
-              <a href="zauctoCareers.html">Careers</a>
-              <a href="zauctoFAQ.html">FAQs</a>
-              <a href="zauctoBlog.html">Blog</a>
-              <a href="zauctoTerms.html">Terms & Conditions</a>
-            </div>
+        </div>
+        <a href="zauctoMarketplace.html" style="color:var(--blue);font-weight:600">Marketplace</a>
+        <a href="zauctoPricing.html" style="color:var(--gold);font-weight:600">Pricing</a>
+        <div class="nav-item">
+          <a href="#" class="has-dropdown">More <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="dropdown">
+            <a href="zauctoabout.html">About Us</a>
+            <a href="zauctoWishlist.html">Wishlist</a>
+            <a href="zauctoCareers.html">Careers</a>
+            <a href="zauctoFAQ.html">FAQs</a>
+            <a href="zauctoBlog.html">Blog</a>
+            <a href="zauctoTerms.html">Terms & Conditions</a>
           </div>
-        </nav>
+        </div>
+      </nav>
         <div class="header-right">
           <a href="zauctoContact.html" class="contact-link">Contact Us</a>
           <a href="zauctoLogin.html" class="header-avatar" aria-label="Account login">
@@ -628,8 +631,8 @@
 
         <!-- Product 1 -->
         <div class="product-card gs-hidden hover-lift" data-type="products" data-cat="electronics">
-          <div class="product-image bg-1">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          <div class="product-image img">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&h=400&fit=crop" alt="Industrial CNC Machine Controller Unit" />
             <span class="product-badge trending">Trending</span>
             <button class="product-save"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
@@ -663,8 +666,8 @@
 
         <!-- Product 2 -->
         <div class="product-card gs-hidden hover-lift" data-type="products" data-cat="raw-materials">
-          <div class="product-image bg-2">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <div class="product-image img">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1504054002563-05de97f2c922?w=800&h=400&fit=crop" alt="Premium Cold-Rolled Steel Sheets" />
             <span class="product-badge verified">Verified</span>
             <button class="product-save"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
@@ -698,8 +701,8 @@
 
         <!-- Product 3 -->
         <div class="product-card gs-hidden hover-lift" data-type="services" data-cat="it-services">
-          <div class="product-image bg-4">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="1.5"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0L9.937 15.5z"/><path d="M20 3v4M22 5h-4"/></svg>
+          <div class="product-image img">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1620712945243-14d0d247c8b2?w=800&h=400&fit=crop" alt="AI Procurement Agent" />
             <span class="product-badge ai">AI Powered</span>
             <button class="product-save"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
@@ -733,8 +736,8 @@
 
         <!-- Product 4 -->
         <div class="product-card gs-hidden hover-lift" data-type="products" data-cat="industrial">
-          <div class="product-image bg-3">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <div class="product-image img">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&h=400&fit=crop" alt="Hydraulic Press Machine 200T" />
             <span class="product-badge verified">Verified</span>
             <button class="product-save"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
@@ -768,8 +771,8 @@
 
         <!-- Product 5 -->
         <div class="product-card gs-hidden hover-lift" data-type="products" data-cat="packaging">
-          <div class="product-image bg-5">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+          <div class="product-image img">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1605164599901-db7f68c4b175?w=800&h=400&fit=crop" alt="Sustainable Corrugated Packaging" />
             <span class="product-badge new">New</span>
             <button class="product-save"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
@@ -803,8 +806,8 @@
 
         <!-- Product 6 -->
         <div class="product-card gs-hidden hover-lift" data-type="services" data-cat="logistics">
-          <div class="product-image bg-6">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#14B8A6" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          <div class="product-image img">
+            <img loading="lazy" src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&h=400&fit=crop" alt="Pan-India Express Logistics Warehousing" />
             <span class="product-badge trending">Trending</span>
             <button class="product-save"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
@@ -2145,5 +2148,62 @@
   </script>
   <script src="advanced-animations.js"></script>
   <script src="mobile-menu.js"></script>
+<script>
+/* Auto-inject product images on every render (filters included) */
+(function(){
+  var MAP = [
+    [/cnc|controller/i, 'https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&h=400&fit=crop'],
+    [/steel|cold-rolled|metal/i, 'https://images.unsplash.com/photo-1504054002563-05de97f2c922?w=800&h=400&fit=crop'],
+    [/ai|agent|intelligen/i, 'https://images.unsplash.com/photo-1620712945243-14d0d247c8b2?w=800&h=400&fit=crop'],
+    [/hydraulic|press/i, 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&h=400&fit=crop'],
+    [/packag|corrugat|box/i, 'https://images.unsplash.com/photo-1605164599901-db7f68c4b175?w=800&h=400&fit=crop'],
+    [/logistics|warehous|freight/i, 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&h=400&fit=crop'],
+    [/safety|harness|helmet|ppe|glove/i, 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=400&fit=crop'],
+    [/laptop|computer|electronic|it\b/i, 'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&h=400&fit=crop']
+  ];
+  var FALLBACK = [
+    'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&h=400&fit=crop'
+  ];
+  var fbi = 0;
+  function pickUrl(title){
+    for (var i=0;i<MAP.length;i++){ if (MAP[i][0].test(title)) return MAP[i][1]; }
+    return FALLBACK[(fbi++) % FALLBACK.length];
+  }
+  function apply(){
+    var areas = document.querySelectorAll('.product-image');
+    areas.forEach(function(area){
+      if (area.querySelector('img.product-cover')) return;
+      var card = area.closest('.product-card');
+      var title = card ? (card.querySelector('h3') ? card.querySelector('h3').textContent : '') : '';
+      var img = document.createElement('img');
+      img.className = 'product-cover';
+      img.loading = 'lazy';
+      img.src = pickUrl(title);
+      img.alt = title || 'Product';
+      area.insertBefore(img, area.firstChild);
+      var svg = area.querySelector(':scope > svg');
+      if (svg) svg.remove();
+    });
+  }
+  var t = null;
+  var obs = new MutationObserver(function(){
+    clearTimeout(t); t = setTimeout(apply, 60);
+  });
+  function start(){
+    if (!document.getElementById('mp-img-style')){
+      var st = document.createElement('style'); st.id = 'mp-img-style';
+      st.textContent = '.product-image img.product-cover{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;transition:transform .6s cubic-bezier(.22,1,.36,1)}.product-card:hover .product-image img.product-cover{transform:scale(1.06)}';
+      document.head.appendChild(st);
+    }
+    apply();
+    obs.observe(document.body, {childList:true, subtree:true});
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+</script>
+
 </body>
 </html>

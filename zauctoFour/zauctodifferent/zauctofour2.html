@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ZAUCTO://OS — neural procurement core</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#04050A; --panel:#0A0D16; --panel2:#0E1220;
+    --line:rgba(0,240,255,.14); --line2:rgba(255,61,255,.14);
+    --cyan:#00F0FF; --green:#3DFFA2; --magenta:#FF3DFF; --amber:#FFB020; --red:#FF4D6D;
+    --txt:#D7E2F4; --dim:#5C6B8A; --faint:#3A4560;
+    --mono:'JetBrains Mono',monospace; --disp:'Chakra Petch',sans-serif;
+  }
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--txt);font-family:var(--mono);
+    line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--cyan);color:#000}
+  a{text-decoration:none;color:inherit}
+  ul{list-style:none}
+
+  /* fixed grid + scanlines + vignette */
+  .grid-bg{position:fixed;inset:0;z-index:-2;background-image:linear-gradient(rgba(0,240,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,.05) 1px,transparent 1px);background-size:54px 54px;mask-image:radial-gradient(ellipse 90% 70% at 50% 30%,#000 30%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 30%,#000 30%,transparent 100%)}
+  .scanlines{position:fixed;inset:0;z-index:998;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 3px);mix-blend-mode:overlay}
+  .vignette{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+  .glow-follow{position:fixed;width:560px;height:560px;border-radius:50%;z-index:-1;pointer-events:none;background:radial-gradient(circle,rgba(0,240,255,.07) 0%,rgba(255,61,255,.04) 40%,transparent 70%);transform:translate(-50%,-50%);transition:left .4s ease-out,top .4s ease-out}
+
+  /* ===== BOOT OVERLAY ===== */
+  .boot{position:fixed;inset:0;z-index:9999;background:#020309;display:flex;flex-direction:column;justify-content:center;padding:8vw;font-size:clamp(12px,1.6vw,15px);transition:opacity .8s ease,visibility .8s}
+  .boot.done{opacity:0;visibility:hidden}
+  .boot .b-line{color:var(--dim);white-space:pre-wrap;min-height:1.5em}
+  .boot .b-line .ok{color:var(--green)}
+  .boot .b-line .warn{color:var(--amber)}
+  .boot-bar{margin-top:26px;width:min(480px,80%);height:3px;background:#11162B;border-radius:2px;overflow:hidden}
+  .boot-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--green));box-shadow:0 0 12px var(--cyan);transition:width .15s}
+  .boot-status{margin-top:14px;color:var(--faint);font-size:12px}
+  .boot-status b{color:var(--green);font-weight:500}
+  .boot-skip{position:absolute;bottom:26px;right:30px;color:var(--faint);font-size:12px;border:1px solid var(--line);padding:8px 16px;border-radius:6px;cursor:pointer;transition:all .25s}
+  .boot-skip:hover{color:var(--cyan);border-color:var(--cyan)}
+
+  /* ===== STATUS BAR ===== */
+  .statusbar{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;gap:22px;padding:8px 20px;background:rgba(4,5,10,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);font-size:11.5px;color:var(--dim);white-space:nowrap;overflow:hidden}
+  .statusbar .sys{color:var(--cyan);font-weight:700;display:flex;align-items:center;gap:8px}
+  .statusbar .sys::before{content:'';width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:blink 1.6s infinite}
+  .statusbar .sep{opacity:.35}
+  .statusbar .tick b{color:var(--txt);font-weight:500}
+  .statusbar .tick .up{color:var(--green)}.statusbar .tick .down{color:var(--red)}
+  .statusbar .right{margin-left:auto;display:flex;gap:22px;align-items:center}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+  /* ===== SIDE RAIL ===== */
+  .rail{position:fixed;left:0;top:34px;bottom:0;width:58px;z-index:890;display:flex;flex-direction:column;align-items:center;gap:6px;padding:18px 0;border-right:1px solid var(--line);background:rgba(4,5,10,.7);backdrop-filter:blur(10px)}
+  .rail a{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--faint);border:1px solid transparent;position:relative;transition:all .22s}
+  .rail a:hover{color:var(--cyan);border-color:var(--line);box-shadow:0 0 14px rgba(0,240,255,.15);text-shadow:0 0 8px var(--cyan)}
+  .rail a.on{color:var(--cyan);border-color:var(--cyan);box-shadow:0 0 14px rgba(0,240,255,.25)}
+  .rail a::after{content:attr(data-tip);position:absolute;left:52px;top:50%;transform:translateY(-50%);background:#0B0F1C;border:1px solid var(--line);color:var(--txt);font-size:11px;padding:4px 10px;border-radius:5px;opacity:0;pointer-events:none;transition:opacity .2s;white-space:nowrap}
+  .rail a:hover::after{opacity:1}
+  .rail svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .rail .rail-logo{width:40px;height:40px;margin-bottom:12px}
+  .rail .rail-logo img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 8px rgba(0,240,255,.5))}
+
+  /* ===== LAYOUT ===== */
+  main{padding:64px 0 0 58px}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+  /* ===== HERO ===== */
+  .hero{min-height:calc(100vh - 34px);display:flex;flex-direction:column;justify-content:center;padding:70px 0 40px}
+  .hero-kicker{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);border:1px solid var(--line);padding:8px 16px;border-radius:6px;background:rgba(0,240,255,.04);width:fit-content}
+  .hero-kicker .blink{width:8px;height:8px;background:var(--cyan);border-radius:50%;animation:blink 1.2s infinite;box-shadow:0 0 10px var(--cyan)}
+  .hero h1{font-family:var(--disp);font-size:clamp(44px,8.4vw,104px);font-weight:700;letter-spacing:-2px;line-height:.98;margin:28px 0 6px;text-transform:uppercase}
+  .hero h1 .cyan{color:var(--cyan);text-shadow:0 0 24px rgba(0,240,255,.6)}
+  .hero h1 .mag{color:var(--magenta);text-shadow:0 0 24px rgba(255,61,255,.55)}
+  .hero h1 .outline{color:transparent;-webkit-text-stroke:1.5px rgba(215,226,244,.5)}
+  .glitch{position:relative;display:inline-block}
+  .glitch::before,.glitch::after{content:attr(data-text);position:absolute;inset:0;opacity:.85}
+  .glitch::before{color:var(--magenta);z-index:-1;animation:gl1 3.2s infinite steps(1)}
+  .glitch::after{color:var(--cyan);z-index:-2;animation:gl2 2.7s infinite steps(1)}
+  @keyframes gl1{0%,92%,100%{transform:none;clip-path:inset(0 0 100% 0)}93%{transform:translate(-4px,-2px);clip-path:inset(10% 0 55% 0)}95%{transform:translate(3px,1px);clip-path:inset(45% 0 20% 0)}97%{transform:translate(-2px,2px);clip-path:inset(70% 0 5% 0)}}
+  @keyframes gl2{0%,90%,100%{transform:none;clip-path:inset(0 0 100% 0)}91%{transform:translate(4px,2px);clip-path:inset(30% 0 40% 0)}94%{transform:translate(-3px,-1px);clip-path:inset(5% 0 80% 0)}96%{transform:translate(2px,-2px);clip-path:inset(60% 0 15% 0)}}
+  .hero-sub{max-width:640px;color:var(--dim);font-size:14.5px;margin:22px 0 0;line-height:1.75}
+  .hero-sub b{color:var(--txt)}
+  .hero-sub .cm{color:var(--green)}
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;margin-top:44px;align-items:stretch}
+
+  /* terminal card */
+  .term{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 0 40px rgba(0,240,255,.06),0 24px 60px rgba(0,0,0,.5);position:relative}
+  .term::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,240,255,.03),transparent 30%)}
+  .term-head{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);background:#0B0F1C}
+  .term-head .c{width:11px;height:11px;border-radius:50%}
+  .term-head .c1{background:var(--red)}.term-head .c2{background:var(--amber)}.term-head .c3{background:var(--green)}
+  .term-head .title{margin-left:10px;font-size:11.5px;color:var(--faint)}
+  .term-head .live{margin-left:auto;font-size:10px;letter-spacing:1px;color:var(--green);display:flex;align-items:center;gap:6px}
+  .term-head .live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.2s infinite}
+  .term-body{padding:20px 18px;font-size:13px;min-height:250px;line-height:1.8}
+  .term-body .pr{color:var(--green)}
+  .term-body .dir{color:var(--cyan)}
+  .term-body .cursor{display:inline-block;width:9px;height:16px;background:var(--green);vertical-align:middle;margin-left:2px;animation:blink 1s infinite}
+  .term-body .out{color:var(--dim)}
+  .term-body .out b{color:var(--txt);font-weight:500}
+  .term-body .out .hl{color:var(--amber)}
+  .term-body .out .ok{color:var(--green)}
+  .term-body .out .bad{color:var(--red)}
+
+  /* KPI stack */
+  .kpis{display:flex;flex-direction:column;gap:14px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;position:relative;overflow:hidden}
+  .kpi::after{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--kpi-c,var(--cyan));box-shadow:0 0 16px var(--kpi-c,var(--cyan));opacity:.7}
+  .kpi .k-lbl{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim)}
+  .kpi .k-val{font-family:var(--disp);font-size:30px;font-weight:700;margin-top:6px;color:var(--kpi-c,var(--cyan));text-shadow:0 0 20px color-mix(in srgb,var(--kpi-c,var(--cyan)) 50%,transparent)}
+  .kpi .k-val small{font-size:14px;color:var(--dim)}
+  .kpi .k-sub{font-size:11.5px;color:var(--faint);margin-top:4px}
+  .kpi .k-bar{position:absolute;bottom:0;left:0;height:2px;background:var(--kpi-c,var(--cyan));width:0;transition:width 1.6s cubic-bezier(.22,1,.36,1);box-shadow:0 0 10px var(--kpi-c,var(--cyan))}
+
+  /* ticker tape */
+  .tape{margin-top:34px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(0,240,255,.03);overflow:hidden;padding:10px 0;position:relative}
+  .tape-track{display:flex;gap:44px;width:max-content;animation:slide 30s linear infinite}
+  .tape-track span{font-size:12.5px;color:var(--dim);white-space:nowrap;display:flex;align-items:center;gap:44px}
+  .tape-track span::after{content:'⛁';color:var(--faint);font-size:11px}
+  .tape-track .up{color:var(--green)}.tape-track .down{color:var(--red)}.tape-track .sym{color:var(--cyan)}
+  @keyframes slide{to{transform:translateX(-50%)}}
+
+  /* ===== SECTIONS ===== */
+  section{padding:92px 0}
+  .sec-tag{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:14px}
+  .sec-tag::before{content:'';width:34px;height:1px;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:46px;flex-wrap:wrap}
+  .sec-head h2{font-family:var(--disp);font-size:clamp(30px,4.6vw,52px);letter-spacing:-1.5px;text-transform:uppercase;line-height:1.05}
+  .sec-head h2 .gr{color:transparent;background:linear-gradient(90deg,var(--cyan),var(--magenta));-webkit-background-clip:text;background-clip:text}
+  .sec-head p{color:var(--dim);max-width:420px;font-size:13.5px;line-height:1.75}
+
+  /* ===== DATA PANELS ===== */
+  .panels{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .panel{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;transition:border-color .3s,box-shadow .3s,transform .3s}
+  .panel:hover{border-color:var(--cyan);box-shadow:0 0 30px rgba(0,240,255,.1);transform:translateY(-4px)}
+  .panel::before,.panel::after{content:'';position:absolute;width:14px;height:14px;border:1.5px solid var(--cyan);opacity:.6;transition:all .3s}
+  .panel::before{top:-1px;left:-1px;border-right:none;border-bottom:none;border-radius:4px 0 0 0}
+  .panel::after{bottom:-1px;right:-1px;border-left:none;border-top:none;border-radius:0 0 4px 0}
+  .panel:hover::before,.panel:hover::after{opacity:1;width:22px;height:22px;box-shadow:0 0 12px rgba(0,240,255,.4)}
+  .panel .p-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .panel .p-name{font-size:13.5px;font-weight:500;color:var(--txt)}
+  .panel .p-status{font-size:10px;letter-spacing:1px;padding:3px 8px;border-radius:4px;border:1px solid var(--line)}
+  .panel .p-status.live{color:var(--green);border-color:rgba(61,255,162,.35);background:rgba(61,255,162,.06)}
+  .panel .p-status.idle{color:var(--amber);border-color:rgba(255,176,32,.35);background:rgba(255,176,32,.06)}
+  .panel .p-status.ai{color:var(--magenta);border-color:rgba(255,61,255,.35);background:rgba(255,61,255,.06)}
+  .panel .p-val{font-family:var(--disp);font-size:30px;font-weight:700;color:var(--txt)}
+  .panel .p-val small{font-size:13px;color:var(--dim)}
+  .panel .p-delta{font-size:11.5px;margin-top:2px}
+  .panel .p-delta.up{color:var(--green)}.panel .p-delta.down{color:var(--red)}
+  .panel canvas{width:100%;height:64px;margin-top:14px;display:block}
+
+  /* ===== MODULES ===== */
+  .modules{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .mod{position:relative;background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-radius:12px;padding:24px;overflow:hidden;transition:all .3s}
+  .mod::before{content:'';position:absolute;top:-40%;left:-40%;width:80%;height:80%;border-radius:50%;background:radial-gradient(circle,var(--mod-c,rgba(255,61,255,.14)),transparent 70%);opacity:0;transition:opacity .4s;pointer-events:none}
+  .mod:hover::before{opacity:1}
+  .mod:hover{border-color:var(--mod-c,#FF3DFF);box-shadow:0 0 34px color-mix(in srgb,var(--mod-c,#FF3DFF) 18%,transparent);transform:translateY(-4px)}
+  .mod .m-ico{width:44px;height:44px;border-radius:10px;border:1px solid var(--mod-c,#FF3DFF);color:var(--mod-c,#FF3DFF);display:flex;align-items:center;justify-content:center;margin-bottom:16px;box-shadow:0 0 16px color-mix(in srgb,var(--mod-c,#FF3DFF) 25%,transparent);text-shadow:0 0 10px var(--mod-c,#FF3DFF)}
+  .mod .m-ico svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .mod h3{font-family:var(--disp);font-size:17px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
+  .mod p{font-size:12.5px;color:var(--dim);line-height:1.7}
+  .mod .m-cmd{margin-top:14px;font-size:11.5px;color:var(--faint)}
+  .mod .m-cmd b{color:var(--green);font-weight:500}
+
+  /* ===== LOG ===== */
+  .log{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px 24px;box-shadow:0 0 40px rgba(0,240,255,.04)}
+  .log .log-line{display:flex;gap:14px;font-size:13px;line-height:2;opacity:0;transform:translateX(-14px);transition:all .5s cubic-bezier(.22,1,.36,1)}
+  .log .log-line.in{opacity:1;transform:none}
+  .log .log-line .ln{color:var(--faint);flex-shrink:0;user-select:none}
+  .log .log-line .pm{color:var(--magenta)}
+  .log .log-line .cm{color:var(--txt)}
+  .log .log-line .st{color:var(--green)}
+  .log .log-line .st.warn{color:var(--amber)}
+  .log .log-line .st.err{color:var(--red)}
+
+  /* ===== CTA ===== */
+  .cta{border:1px solid var(--line);border-radius:16px;background:linear-gradient(160deg,rgba(0,240,255,.06),rgba(255,61,255,.05) 60%,transparent);padding:64px 40px;text-align:center;position:relative;overflow:hidden}
+  .cta::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,240,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,.06) 1px,transparent 1px);background-size:34px 34px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 75%);pointer-events:none}
+  .cta h2{font-family:var(--disp);font-size:clamp(32px,5.4vw,60px);text-transform:uppercase;letter-spacing:-1px;line-height:1.05;position:relative}
+  .cta h2 .cyan{color:var(--cyan);text-shadow:0 0 30px rgba(0,240,255,.55)}
+  .cta p{color:var(--dim);max-width:460px;margin:18px auto 34px;font-size:13.5px;position:relative}
+  .cta .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
+  .btn{border:1px solid var(--line);background:var(--panel);color:var(--txt);font-family:var(--mono);font-size:13.5px;font-weight:500;padding:15px 30px;border-radius:8px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-cyan{background:var(--cyan);color:#020309;border-color:var(--cyan);box-shadow:0 0 26px rgba(0,240,255,.35);font-weight:700}
+  .btn-cyan:hover{box-shadow:0 0 44px rgba(0,240,255,.55)}
+  .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 20px rgba(0,240,255,.15)}
+  .btn::after{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-20deg);transition:left .5s}
+  .btn:hover::after{left:130%}
+  .btn-cyan::after{background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent)}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);margin-top:40px;padding:44px 0 30px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px}
+  .foot-brand{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .foot-brand img{width:40px;height:40px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(0,240,255,.5))}
+  .foot-brand b{font-family:var(--disp);letter-spacing:1px}
+  .foot-brand b i{color:var(--cyan);font-style:normal}
+  .foot-brand p{color:var(--faint);font-size:12.5px;margin-top:12px}
+  .foot-col h6{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:14px}
+  .foot-col a{display:block;color:var(--faint);font-size:12.5px;padding:4px 0;transition:all .2s}
+  .foot-col a:hover{color:var(--cyan);text-shadow:0 0 8px rgba(0,240,255,.5)}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:20px;color:var(--faint);font-size:12px;flex-wrap:wrap;gap:10px}
+  .foot-ascii{color:var(--faint);white-space:pre;font-size:9px;line-height:1.15;text-align:center;user-select:none;margin-top:16px;overflow:hidden}
+  .foot-ascii span{color:var(--cyan)}
+
+  /* ===== REVEAL ===== */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+  .reveal.in{opacity:1;transform:none}
+  .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+  @media(max-width:980px){
+    .hero-grid{grid-template-columns:1fr}
+    .panels,.modules{grid-template-columns:1fr 1fr}
+    .rail{display:none}
+    main{padding-left:0}
+    .foot-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:600px){
+    .panels,.modules{grid-template-columns:1fr}
+    .statusbar .tick{display:none}
+    .cta{padding:44px 22px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="vignette"></div>
+<div class="glow-follow" id="glow"></div>
+<div class="scanlines"></div>
+
+<!-- ===== BOOT ===== -->
+<div class="boot" id="boot">
+  <div id="bootLines"></div>
+  <div class="boot-bar"><i id="bootBar"></i></div>
+  <div class="boot-status" id="bootStatus">INITIALIZING CORE…</div>
+  <div class="boot-skip" id="bootSkip">[ skip ]</div>
+</div>
+
+<!-- ===== STATUS BAR ===== -->
+<div class="statusbar">
+  <span class="sys">ZAUCTO://OS</span>
+  <span class="sep">|</span>
+  <span class="tick">NODE <b>eu-west-3</b></span>
+  <span class="tick">UPTIME <b>99.99%</b></span>
+  <span class="tick">LATENCY <b class="up">12ms</b></span>
+  <span class="tick">AUCTIONS <b id="auctionCount">348</b> LIVE</span>
+  <span class="right">
+    <span class="tick">AES-256 <b class="up">✔</b></span>
+    <span class="tick">UTC <b id="clock">00:00:00</b></span>
+  </span>
+</div>
+
+<!-- ===== SIDE RAIL ===== -->
+<nav class="rail">
+  <a class="rail-logo" href="#" data-tip="home"><img src="logo.png" alt="Zaucto" /></a>
+  <a href="#hero" class="on" data-tip="core" id="railHero">
+    <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 9v11h14V9"/></svg>
+  </a>
+  <a href="#data" data-tip="telemetry">
+    <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-5 4 3 5-7"/></svg>
+  </a>
+  <a href="#modules" data-tip="modules">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+  </a>
+  <a href="#log" data-tip="event log">
+    <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/></svg>
+  </a>
+  <a href="#cta" data-tip="initiate">
+    <svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.9L21 12l-6.6 3.1L12 22l-2.4-6.9L3 12l6.6-3.1z"/></svg>
+  </a>
+</nav>
+
+<main id="hero">
+  <!-- ===== HERO ===== -->
+  <div class="wrap">
+    <div class="hero">
+      <span class="hero-kicker"><span class="blink"></span> NEURAL PROCUREMENT CORE v4.2.0 — ONLINE</span>
+      <h1>
+        BUY. <span class="cyan glitch" data-text="NEGOTIATE.">NEGOTIATE.</span><br />
+        <span class="mag">DOMINATE</span> <span class="outline">THE</span><br />
+        MARKET.
+      </h1>
+      <p class="hero-sub">
+        <b>ZAUCTO</b> runs a distributed AI that sources suppliers, simulates auctions and negotiates
+        in real time — all from a terminal you'll actually enjoy. <span class="cm">// zero spreadsheets were harmed</span>
+      </p>
+
+      <div class="hero-grid">
+        <div class="term">
+          <div class="term-head">
+            <span class="c c1"></span><span class="c c2"></span><span class="c c3"></span>
+            <span class="title">zaucto@core:~ — ai_negotiator</span>
+            <span class="live">REC</span>
+          </div>
+          <div class="term-body" id="termBody">
+            <div><span class="pr">➜</span> <span class="dir">~/procurement</span> zaucto negotiate --rfq "500 steel chairs" --budget 40k</div>
+          </div>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi" style="--kpi-c:var(--green)">
+            <div class="k-lbl">avg. savings unlocked</div>
+            <div class="k-val"><span data-count="23" data-suffix="%">0%</span></div>
+            <div class="k-sub">vs. baseline pricing, last 90 days</div>
+            <div class="k-bar" data-w="72"></div>
+          </div>
+          <div class="kpi" style="--kpi-c:var(--cyan)">
+            <div class="k-lbl">auctions live right now</div>
+            <div class="k-val"><span data-count="348">0</span></div>
+            <div class="k-sub">across 43 markets · avg. 11 bidders</div>
+            <div class="k-bar" data-w="58"></div>
+          </div>
+          <div class="kpi" style="--kpi-c:var(--magenta)">
+            <div class="k-lbl">negotiations won by AI</div>
+            <div class="k-val"><span data-count="92" data-suffix="%">0%</span></div>
+            <div class="k-sub">human approval rate: 96%</div>
+            <div class="k-bar" data-w="84"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- tape -->
+      <div class="tape">
+        <div class="tape-track" id="tapeTrack">
+          <span><b class="sym">STEEL</b> $1,240/t <b class="up">▲ 2.4%</b></span>
+          <span><b class="sym">COPPER</b> $9,110/t <b class="down">▼ 1.1%</b></span>
+          <span><b class="sym">ALUM</b> $2,340/t <b class="up">▲ 0.8%</b></span>
+          <span><b class="sym">LITHIUM</b> $14,200/t <b class="down">▼ 3.2%</b></span>
+          <span><b class="sym">PALLET</b> $18.40 <b class="up">▲ 0.3%</b></span>
+          <span><b class="sym">FREIGHT_A</b> $2,890 <b class="down">▼ 0.6%</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DATA PANELS ===== -->
+  <section id="data">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="sec-tag">telemetry // live</span>
+          <h2>Market <span class="gr">telemetry</span></h2>
+        </div>
+        <p>Every tick streams from our pricing engine. The AI watches it so you don't have to — but the pretty lines are yours to admire.</p>
+      </div>
+      <div class="panels">
+        <div class="panel reveal">
+          <div class="p-head"><span class="p-name">Copper index</span><span class="p-status live">LIVE</span></div>
+          <div class="p-val">$9,110<small>/t</small></div>
+          <div class="p-delta down">▼ 1.1% · AI signal: buy window opening</div>
+          <canvas data-color="#00F0FF"></canvas>
+        </div>
+        <div class="panel reveal d1">
+          <div class="p-head"><span class="p-name">Auction throughput</span><span class="p-status live">LIVE</span></div>
+          <div class="p-val">1,892<small> RFQs/mo</small></div>
+          <div class="p-delta up">▲ 12.4% · new record</div>
+          <canvas data-color="#3DFFA2"></canvas>
+        </div>
+        <div class="panel reveal d2">
+          <div class="p-head"><span class="p-name">AI model drift</span><span class="p-status ai">AI WATCH</span></div>
+          <div class="p-val">0.4<small>%</small></div>
+          <div class="p-delta up">▲ stable · retraining scheduled</div>
+          <canvas data-color="#FF3DFF"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MODULES ===== -->
+  <section id="modules">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="sec-tag">modules // deploy</span>
+          <h2>Core <span class="gr">modules</span></h2>
+        </div>
+        <p>Six weapons in your arsenal. Each one hot-swappable, each one fed by the same neural core.</p>
+      </div>
+      <div class="modules">
+        <div class="mod reveal" style="--mod-c:#00F0FF">
+          <div class="m-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></div>
+          <h3>Live Auction Engine</h3>
+          <p>Real-time bidding with anti-sniping protection. Suppliers compete in public, prices collapse in private.</p>
+          <div class="m-cmd"><b>$</b> zaucto auction --start</div>
+        </div>
+        <div class="mod reveal d1" style="--mod-c:#FF3DFF">
+          <div class="m-ico"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 014 12.7V17h-8v-2.3A7 7 0 0112 2z"/><path d="M9 21h6"/></svg></div>
+          <h3>AI Negotiator</h3>
+          <p>Trains on every deal you've ever made and argues your price down politely but ruthlessly.</p>
+          <div class="m-cmd"><b>$</b> zaucto negotiate --auto</div>
+        </div>
+        <div class="mod reveal d2" style="--mod-c:#3DFFA2">
+          <div class="m-ico"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+          <h3>Price Intelligence</h3>
+          <p>Predicts commodity moves 30 days out with 91% directional accuracy. Buy low, look like a genius.</p>
+          <div class="m-cmd"><b>$</b> zaucto forecast --copper</div>
+        </div>
+        <div class="mod reveal" style="--mod-c:#FFB020">
+          <div class="m-ico"><svg viewBox="0 0 24 24"><path d="M20 6H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2z"/><path d="M16 6V4a2 2 0 00-4 0v2"/><path d="M2 10h20"/></svg></div>
+          <h3>Contract Autopilot</h3>
+          <p>Generates compliant contracts, routes approvals, files everything. Your legal team sends a thank-you card.</p>
+          <div class="m-cmd"><b>$</b> zaucto contract --draft</div>
+        </div>
+        <div class="mod reveal d1" style="--mod-c:#FF4D6D">
+          <div class="m-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3>Supplier Vetting</h3>
+          <p>On-chain audit trail: financials, delivery record, compliance. Frauds get flagged before they get paid.</p>
+          <div class="m-cmd"><b>$</b> zaucto vet --supplier=all</div>
+        </div>
+        <div class="mod reveal d2" style="--mod-c:#D7E2F4">
+          <div class="m-ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 15h4"/></svg></div>
+          <h3>Terminal Dashboard</h3>
+          <p>Every KPI, alert and decision log in one dense, glorious, keyboard-driven command line.</p>
+          <div class="m-cmd"><b>$</b> zaucto dashboard</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EVENT LOG ===== -->
+  <section id="log">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="sec-tag">audit // trail</span>
+          <h2>Live event <span class="gr">log</span></h2>
+        </div>
+        <p>An unfiltered stream of what the core just did for you. Every line is a win you didn't have to lift a finger for.</p>
+      </div>
+      <div class="log" id="logBox"></div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section id="cta" style="padding-top:20px">
+    <div class="wrap">
+      <div class="cta reveal">
+        <h2>INITIATE YOUR <span class="cyan">FIRST AUCTION</span></h2>
+        <p>Free for your first 3 RFQs. No card. No sales calls. Just a terminal, a market and an AI that loves a bargain.</p>
+        <div class="btns">
+          <button class="btn btn-cyan">$ zaucto init --start-free</button>
+          <button class="btn btn-ghost">$ zaucto docs --tour</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <img src="logo.png" alt="Zaucto" />
+          <b>ZAUCTO<span>://</span><i>OS</i></b>
+          <p>Neural procurement core. Runs 24/7 so your margins don't have to suffer.</p>
+        </div>
+        <div class="foot-col">
+          <h6>// system</h6>
+          <a href="#">AI negotiator</a><a href="#">Auctions</a><a href="#">Price intel</a><a href="#">API access</a>
+        </div>
+        <div class="foot-col">
+          <h6>// company</h6>
+          <a href="#">About</a><a href="#">Careers</a><a href="#">Blog</a><a href="#">Status</a>
+        </div>
+        <div class="foot-col">
+          <h6>// legal</h6>
+          <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Security</a><a href="#">SOC2</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 ZAUCTO://OS — built for people who hate procurement meetings</span>
+        <span>status: <b style="color:var(--green)">ALL SYSTEMS NOMINAL</b></span>
+      </div>
+      <div class="foot-ascii">
+        <span>▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄</span>
+        ZAUCTO·NEURAL·CORE·v4.2.0 · PROCUREMENT·DOMINATION·READY
+        <span>▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script>
+  /* ================= BOOT SEQUENCE ================= */
+  const boot=document.getElementById('boot'),bootLines=document.getElementById('bootLines'),
+        bootBar=document.getElementById('bootBar'),bootStatus=document.getElementById('bootStatus');
+  const bootLog=[
+    ['> ZAUCTO OS v4.2.0 — neural procurement core','ok'],
+    ['> mounting modules .... ',['ai_negotiator','auction_engine','price_intel']],
+    ['> connecting to 1,284 supplier nodes','ok'],
+    ['> AES-256 channel secured · handshake complete','ok'],
+    ['> calibrating bargain detector .... ','ok'],
+    ['> 348 auctions already live in the background','warn']
+  ];
+  let bi=0,loaded=0;
+  function typeLine(el,text,i,cb){
+    if(i>text.length){cb&&cb();return}
+    el.textContent=text.slice(0,i);
+    setTimeout(()=>typeLine(el,text,i+1,cb),12+Math.random()*18);
+  }
+  function nextBootLine(){
+    if(bi>=bootLog.length){finishBoot();return}
+    const [txt,kind]=bootLog[bi];
+    const div=document.createElement('div');div.className='b-line';
+    bootLines.appendChild(div);
+    typeLine(div,txt,0,()=>{
+      if(Array.isArray(kind)){ // module mounts
+        const sub=document.createElement('div');sub.className='b-line';
+        let k=0;
+        const iv=setInterval(()=>{
+          if(k<kind.length){sub.innerHTML+=kind[k]+' <span class="ok">[ok]</span> ';k++}
+          else{clearInterval(iv)}
+        },140);
+        bootLines.appendChild(sub);
+      }
+      bi++;setTimeout(nextBootLine,180);
+    });
+    bootBar.style.width=((bi+1)/bootLog.length*100)+'%';
+  }
+  function finishBoot(){
+    bootBar.style.width='100%';
+    bootStatus.innerHTML='SYSTEM READY — <b>WELCOME TO ZAUCTO://OS</b>';
+    setTimeout(()=>{boot.classList.add('done');startPage()},500);
+  }
+  document.getElementById('bootSkip').addEventListener('click',()=>{
+    boot.classList.add('done');
+    bootStatus.innerHTML='SYSTEM READY — <b>SKIPPED</b>';
+    startPage();
+  });
+  nextBootLine();
+
+  /* ================= START PAGE (after boot) ================= */
+  let started=false;
+  function startPage(){
+    if(started)return;started=true;
+    /* terminal typing */
+    const out=[
+      '│ scanning market for "500 steel chairs" .... <span class="ok">ok</span>',
+      '│ found <b>23 qualified suppliers</b> · best start price <span class="hl">$38.40/unit</span>',
+      '│ opening live auction .... <span class="ok">ok</span>',
+      '│ <b>11 bidders</b> entered · AI counter-negotiating',
+      '│ round 4: price now <span class="hl">$31.90/unit</span> <span class="ok">▼ 17%</span>',
+      '│ closing in 00:12:44 · predicted final <b class="hl">$29.80</b> <span class="ok">▼ 22%</span>',
+      '│ recommendation: <b>LOCK IN</b> — confidence <span class="ok">0.94</span>',
+      '│ <span class="bad">⚠</span> budget guard: savings <b>$4,300</b> vs. baseline',
+    ];
+    const tb=document.getElementById('termBody');
+    out.forEach((line,idx)=>{
+      const div=document.createElement('div');
+      div.innerHTML='<span class="pr">➜</span> <span class="out">'+line+'</span>';
+      div.style.opacity=0;tb.appendChild(div);
+      setTimeout(()=>{div.style.transition='opacity .4s';div.style.opacity=1},350+idx*520);
+    });
+    setTimeout(()=>{
+      const cur=document.createElement('div');
+      cur.innerHTML='<span class="pr">➜</span> <span class="dir">~/procurement</span> <span class="cursor"></span>';
+      tb.appendChild(cur);
+    },350+out.length*520);
+
+    /* clock */
+    setInterval(()=>{
+      const d=new Date();
+      document.getElementById('clock').textContent=d.toUTCString().slice(17,25);
+    },1000);
+
+    /* tape duplicate */
+    const tape=document.getElementById('tapeTrack');tape.innerHTML+=tape.innerHTML;
+
+    /* count-ups */
+    const cio=new IntersectionObserver(es=>es.forEach(e=>{
+      if(!e.isIntersecting)return;cio.unobserve(e.target);
+      const el=e.target,target=parseFloat(el.dataset.count),suffix=el.dataset.suffix||'';
+      const t0=performance.now(),dur=1600;
+      (function tick(t){
+        const p=Math.min((t-t0)/dur,1),ease=1-Math.pow(1-p,3);
+        el.textContent=Math.round(target*ease)+(p===1?suffix:'');
+        if(p<1)requestAnimationFrame(tick);
+      })(t0);
+    }),{threshold:.4});
+    document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+    /* kpi bars */
+    const bio=new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting){e.target.style.width=e.target.dataset.w+'%';bio.unobserve(e.target)}
+    }),{threshold:.4});
+    document.querySelectorAll('.k-bar').forEach(el=>bio.observe(el));
+
+    /* reveal */
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    /* event log */
+    const logBox=document.getElementById('logBox');
+    const events=[
+      ['✓','auction #4821','closed at $29.80/unit — <span class="st">22% under baseline</span>'],
+      ['✓','ai_negotiator','won round vs. 11 bidders · <span class="st">savings +$4,300</span>'],
+      ['!','price_intel','copper dip detected — <span class="st warn">buy window 6h</span>'],
+      ['✓','vetting','supplier "FerroCorp" re-certified · <span class="st">score 98</span>'],
+      ['✓','contracts','PO-3381 generated & signed · <span class="st">autopilot</span>'],
+      ['!','telemetry','latency spike 40ms — <span class="st warn">auto-rerouted</span>'],
+      ['✓','forecast','Q3 steel outlook upgraded · <span class="st">+2.1% accuracy</span>'],
+      ['✗','sandbox','test RFQ purged — <span class="st err">no action needed</span>'],
+    ];
+    events.forEach((ev,i)=>{
+      const line=document.createElement('div');
+      line.className='log-line';
+      line.innerHTML='<span class="ln">'+(i+1).toString().padStart(2,'0')+'</span><span class="pm">'+(i%2?'⎇':'➜')+'</span><span class="cm">'+ev[1]+'</span><span class="st '+(ev[0]==='!'?'warn':ev[0]==='✗'?'err':'')+'">'+ev[2]+'</span>';
+      logBox.appendChild(line);
+      setTimeout(()=>line.classList.add('in'),500+i*420);
+    });
+
+    /* rail scroll spy */
+    const sections=['hero','data','modules','log','cta'];
+    const railLinks={hero:document.getElementById('railHero')};
+    addEventListener('scroll',()=>{
+      let cur='hero';
+      sections.forEach(id=>{
+        const el=document.getElementById(id);
+        if(el&&el.getBoundingClientRect().top<innerHeight*.4)cur=id;
+      });
+      document.querySelectorAll('.rail a[href]').forEach(a=>{
+        a.classList.toggle('on',a.getAttribute('href')==='#'+cur);
+      });
+    },{passive:true});
+
+    /* canvas sparklines */
+    document.querySelectorAll('canvas[data-color]').forEach(cv=>{
+      const ctx=cv.getContext('2d'),col=cv.dataset.color;
+      const W=cv.width=cv.offsetWidth*2,H=cv.height=64*2;
+      const pts=Array.from({length:42},(_,i)=>({x:i/(41)*W,y:H/2+Math.sin(i*.42)*H*.18+Math.sin(i*.13)*H*.1+(Math.random()-.5)*H*.12}));
+      let prog=0;
+      (function draw(){
+        ctx.clearRect(0,0,W,H);
+        ctx.strokeStyle='rgba(92,107,138,.35)';ctx.lineWidth=2;
+        ctx.beginPath();ctx.moveTo(0,H/2);ctx.lineTo(W,H/2);ctx.stroke();
+        const end=Math.floor(prog*pts.length);
+        ctx.strokeStyle=col;ctx.lineWidth=3;ctx.shadowColor=col;ctx.shadowBlur=10;ctx.lineJoin='round';
+        ctx.beginPath();
+        pts.slice(0,end).forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+        ctx.stroke();
+        if(end<pts.length){prog+=.012;requestAnimationFrame(draw)}
+        else{
+          const g=ctx.createLinearGradient(0,0,0,H);
+          g.addColorStop(0,col+'44');g.addColorStop(1,col+'00');
+          ctx.fillStyle=g;ctx.beginPath();
+          pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+          ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fill();
+        }
+      })();
+    });
+  }
+
+  /* ================= ambient glow follow ================= */
+  const glow=document.getElementById('glow');
+  let gx=innerWidth*.7,gy=innerHeight*.3,tx=gx,ty=gy;
+  addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY});
+  (function glowLoop(){gx+=(tx-gx)*.05;gy+=(ty-gy)*.05;glow.style.left=gx+'px';glow.style.top=gy+'px';requestAnimationFrame(glowLoop)})();
+</script>
+</body>
+</html>

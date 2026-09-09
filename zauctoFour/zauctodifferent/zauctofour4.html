@@ -3,11 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zaucto - AI-Powered Procurement Platform</title>
-  <link rel="icon" href="favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <meta name="theme-color" content="#0D3BFF">
+  <meta name="theme-color" content="#0B0F1A" />
+  <title>Zaucto - AI-Powered Procurement Platform (Dark)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -17,13 +14,13 @@
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth}
     :root{
-      --blue:#0D3BFF;--blue-dark:#0A2ED4;--gold:#FF9F20;--navy:#0A0F1C;
-      --bg:#F7F9FC;--card:#FFFFFF;--success:#16C784;--danger:#FF4D4F;
-      --text:#1E293B;--text-secondary:#64748B;--text-muted:#94A3B8;
-      --border:#E2E8F0;
-      --shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);
-      --shadow-md:0 4px 12px rgba(0,0,0,.06),0 1px 4px rgba(0,0,0,.04);
-      --shadow-lg:0 8px 24px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.04);
+      --blue:#4F7BFF;--blue-dark:#3D63E8;--gold:#FFB454;--navy:#0D1326;
+      --bg:#0B0F1A;--card:#141B2C;--success:#2EE6A8;--danger:#FF6B6B;
+      --text:#E9EFFC;--text-secondary:#A8B3CC;--text-muted:#6B7794;
+      --border:#1F2A44;
+      --shadow:0 1px 3px rgba(0,0,0,.35),0 4px 12px rgba(0,0,0,.3);
+      --shadow-md:0 4px 14px rgba(0,0,0,.4),0 1px 4px rgba(0,0,0,.35);
+      --shadow-lg:0 10px 30px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.4);
       --radius:16px;--radius-lg:20px;
     }
     body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;animation:pageLoad .6s ease-out}
@@ -36,15 +33,15 @@
     .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:12px;font-weight:600;font-size:14px;cursor:pointer;border:none;transition:all .3s cubic-bezier(.22,1,.36,1);font-family:inherit;white-space:nowrap}
     .btn .arrow{transition:transform .3s cubic-bezier(.22,1,.36,1)}
     .btn:hover .arrow{transform:translateX(4px)}
-    .btn-primary{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(13,59,255,.25)}
-    .btn-primary:hover{background:var(--blue-dark);box-shadow:0 4px 16px rgba(13,59,255,.3);transform:translateY(-1px)}
+    .btn-primary{background:var(--blue);color:#fff;box-shadow:0 2px 10px rgba(79,123,255,.4),0 0 18px rgba(79,123,255,.25)}
+    .btn-primary:hover{background:var(--blue-dark);box-shadow:0 4px 18px rgba(79,123,255,.5),0 0 24px rgba(79,123,255,.3);transform:translateY(-1px)}
     .btn-secondary{background:var(--card);color:var(--text);border:1px solid var(--border)}
     .btn-secondary:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-1px);box-shadow:var(--shadow)}
     .btn-gold{background:var(--gold);color:#fff;box-shadow:0 2px 8px rgba(255,159,32,.25)}
     .btn-gold:hover{background:#E8901A;transform:translateY(-1px)}
     .btn-sm{padding:8px 18px;font-size:13px;border-radius:10px}
     .btn-ghost{background:transparent;color:var(--text-secondary);padding:8px 16px}
-    .btn-ghost:hover{color:var(--blue);background:rgba(13,59,255,.05)}
+    .btn-ghost:hover{color:var(--blue);background:rgba(79,123,255,.12)}
 
     /* SVG ICONS */
     .ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
@@ -52,7 +49,7 @@
     .ico.white{stroke:#fff}.ico.blue{stroke:var(--blue)}.ico.gold{stroke:var(--gold)}
 
     /* BADGE */
-    .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--blue);background:rgba(13,59,255,.06);border:1px solid rgba(13,59,255,.1)}
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--blue);background:rgba(79,123,255,.16);border:1px solid rgba(13,59,255,.1)}
 
     /* ANIMATIONS */
     @keyframes pulseLive{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
@@ -76,7 +73,7 @@
     .hover-lift:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.12)}
     .hover-scale{transition:transform .3s cubic-bezier(.22,1,.36,1)}
     .hover-scale:hover{transform:scale(1.03)}
-    .hover-glow:hover{box-shadow:0 0 30px rgba(13,59,255,.2)}
+    .hover-glow:hover{box-shadow:0 0 30px rgba(79,123,255,.35)}
     .stagger-1{animation-delay:.1s}
     .stagger-2{animation-delay:.2s}
     .stagger-3{animation-delay:.3s}
@@ -87,8 +84,8 @@
 
     /* ===== HEADER ===== */
     .header{position:fixed;top:8px;left:0;right:0;z-index:1000;padding:0;transition:all .5s cubic-bezier(.25,.46,.45,.94);background:transparent}
-    .header-inner{background:transparent;border-radius:0;transition:all .5s cubic-bezier(.25,.46,.45,.94);box-shadow:none;padding:0 32px}
-    .header.scrolled .header-inner{background:rgba(247,249,252,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);margin:0 12%;border-radius:50px;box-shadow:0 4px 20px rgba(0,0,0,.08),0 1px 6px rgba(0,0,0,.04);padding:4px 16px}
+    .header-inner{background:rgba(255,255,255,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);margin:0 12%;border-radius:50px;border:1px solid rgba(31,42,68,.12);box-shadow:0 4px 20px rgba(0,0,0,.25);padding:4px 16px;transition:all .5s cubic-bezier(.25,.46,.45,.94)}
+    .header.scrolled .header-inner{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);margin:0 12%;border-radius:50px;border:1px solid rgba(31,42,68,.14);box-shadow:0 8px 28px rgba(0,0,0,.3);padding:4px 16px}
     .header .container{display:flex;align-items:center;justify-content:space-between}
     .logo{display:flex;align-items:center;gap:10px}
     .logo-icon{width:72px;height:72px;border-radius:12px;overflow:hidden;flex-shrink:0;transition:all .5s cubic-bezier(.25,.46,.45,.94)}
@@ -97,35 +94,35 @@
     .logo:hover .logo-icon{transform:scale(1.04)}
     .nav-links{display:flex;align-items:center;gap:4px}
     .header.scrolled .nav-links{gap:2px}
-    .nav-links a{font-size:14px;font-weight:500;color:var(--text-secondary);padding:8px 14px;border-radius:10px;transition:all .5s cubic-bezier(.25,.46,.45,.94);display:flex;align-items:center;gap:4px}
+    .nav-links a{font-size:14px;font-weight:500;color:#3A4560;padding:8px 14px;border-radius:10px;transition:all .5s cubic-bezier(.25,.46,.45,.94);display:flex;align-items:center;gap:4px}
     .header.scrolled .nav-links a{font-size:13px;padding:6px 10px}
-    .nav-links a:hover{color:var(--blue);background:rgba(13,59,255,.04)}
-    .nav-links a.active{color:var(--blue);font-weight:600;background:rgba(13,59,255,.06)}
+    .nav-links a:hover{color:var(--blue);background:rgba(79,123,255,.08)}
+    .nav-links a.active{color:var(--blue);font-weight:600;background:rgba(79,123,255,.16)}
     .has-dropdown .ico{width:12px;height:12px;opacity:.5}
     .nav-item{position:relative}
-    .dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);min-width:220px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:8px;z-index:200;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+    .dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);min-width:220px;background:#FFFFFF;border:1px solid rgba(31,42,68,.15);border-radius:var(--radius);box-shadow:0 12px 32px rgba(0,0,0,.3);padding:8px;z-index:200;opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}
     .nav-item:hover>.dropdown{opacity:1;visibility:visible}
-    .dropdown a{display:block;padding:10px 16px;font-size:13px;font-weight:500;color:var(--text-secondary);border-radius:10px;transition:all .2s}
-    .dropdown a:hover{background:rgba(13,59,255,.04);color:var(--blue)}
+    .dropdown a{display:block;padding:10px 16px;font-size:13px;font-weight:500;color:#3A4560;border-radius:10px;transition:all .2s}
+    .dropdown a:hover{background:rgba(79,123,255,.08);color:var(--blue)}
     .ai-tag{color:var(--blue)!important;font-weight:600}
     .ai-star{color:var(--gold);display:inline-flex}
     .header-right{display:flex;align-items:center;gap:12px}
-    .contact-link{font-size:14px;font-weight:500;color:var(--text-secondary);transition:all .5s cubic-bezier(.25,.46,.45,.94)}
+    .contact-link{font-size:14px;font-weight:500;color:#3A4560;transition:all .5s cubic-bezier(.25,.46,.45,.94)}
     .header.scrolled .contact-link{font-size:12px}
     .contact-link:hover{color:var(--blue)}
-    
-    
-    
-    .header-avatar{width:36px;height:36px;border-radius:10px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;transition:all .5s cubic-bezier(.25,.46,.45,.94)}
+    .btn-dash{padding:10px 22px;border-radius:12px;background:var(--blue);color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .5s cubic-bezier(.25,.46,.45,.94);box-shadow:0 2px 10px rgba(79,123,255,.4),0 0 18px rgba(79,123,255,.25)}
+    .header.scrolled .btn-dash{padding:7px 16px;font-size:12px;border-radius:50px}
+    .btn-dash:hover{background:var(--blue-dark);box-shadow:0 4px 18px rgba(79,123,255,.5),0 0 24px rgba(79,123,255,.3);transform:translateY(-1px)}
+    .header-avatar{width:36px;height:36px;border-radius:10px;background:#FFFFFF;border:1px solid rgba(31,42,68,.2);display:flex;align-items:center;justify-content:center;color:#3A4560;cursor:pointer;transition:all .5s cubic-bezier(.25,.46,.45,.94)}
     .header.scrolled .header-avatar{width:30px;height:30px}
     .header-avatar:hover{border-color:var(--blue);color:var(--blue)}
 
     /* ===== HERO ===== */
-    .hero{padding:140px 0 40px;position:relative;overflow:hidden;background:linear-gradient(180deg,#F0F4FF 0%,var(--bg) 100%)}
-    .hero::before{content:'';position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(13,59,255,.05) 0%,transparent 70%);pointer-events:none;z-index:0}
-    .hero::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(13,59,255,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(13,59,255,.2) 1px,transparent 1px);background-size:50px 50px;opacity:0;transition:opacity .3s ease;mask-image:radial-gradient(circle 200px at var(--mx,50%) var(--my,50%),black 10%,transparent 100%);-webkit-mask-image:radial-gradient(circle 200px at var(--mx,50%) var(--my,50%),black 10%,transparent 100%);z-index:0}
-    .hero-spotlight{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle 250px at var(--mx,50%) var(--my,50%),rgba(13,59,255,.08) 0%,transparent 100%);opacity:0;transition:opacity .3s ease;z-index:0}
-    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(13,59,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(13,59,255,.08) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+    .hero{padding:140px 0 40px;position:relative;overflow:hidden;background:linear-gradient(180deg,#0E1426 0%,var(--bg) 100%)}
+    .hero::before{content:'';position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(79,123,255,.14) 0%,transparent 70%);pointer-events:none;z-index:0}
+    .hero::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(79,123,255,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(79,123,255,.25) 1px,transparent 1px);background-size:50px 50px;opacity:0;transition:opacity .3s ease;mask-image:radial-gradient(circle 200px at var(--mx,50%) var(--my,50%),black 10%,transparent 100%);-webkit-mask-image:radial-gradient(circle 200px at var(--mx,50%) var(--my,50%),black 10%,transparent 100%);z-index:0}
+    .hero-spotlight{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle 250px at var(--mx,50%) var(--my,50%),rgba(79,123,255,.18) 0%,transparent 100%);opacity:0;transition:opacity .3s ease;z-index:0}
+    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(79,123,255,.14) 1px,transparent 1px),linear-gradient(90deg,rgba(79,123,255,.14) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
     #gridDotsCanvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
     .hero .container{display:grid;grid-template-columns:1fr 1.2fr;gap:30px;align-items:center;position:relative;z-index:1;transform-style:preserve-3d;transition:transform .15s ease-out}
     .hero-content{max-width:580px}
@@ -142,51 +139,24 @@
     .btn-play .play-icon{width:28px;height:28px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;color:#fff}
     .btn-play .play-icon svg{width:12px;height:12px}
     .hero-trust{display:inline-flex;align-items:center;gap:12px;padding:10px 20px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-    .hero-trust::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);animation:shimmer 3s ease-in-out infinite}
+    .hero-trust::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);animation:shimmer 3s ease-in-out infinite}
     .trust-avatars{display:flex}
-    .trust-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--card);margin-left:-8px;overflow:hidden;background:#E2E8F0;transition:transform .2s}
+    .trust-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--card);margin-left:-8px;overflow:hidden;background:#1F293D;transition:transform .2s}
     .trust-av:first-child{margin-left:0}
     .trust-av:hover{transform:scale(1.15);z-index:2}
     .trust-av img{width:100%;height:100%;object-fit:cover}
     .trust-text{font-size:13px;color:var(--text-secondary)}
     .trust-text strong{color:var(--text);font-weight:700}
 
-    /* HERO COMMAND CENTER */
     .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;min-height:460px}
-    .command-center{position:relative;width:100%;max-width:520px;height:420px}
-    .cc-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#4F7BFF);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:900;box-shadow:0 0 40px rgba(13,59,255,.3),0 0 80px rgba(13,59,255,.15);z-index:10;animation:glow 3s ease-in-out infinite}
-    .cc-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:110px;height:110px;border-radius:50%;border:2px solid rgba(13,59,255,.15);z-index:9}
-    .cc-ring:nth-child(2){width:150px;height:150px;border-color:rgba(13,59,255,.08)}
-    .cc-module{position:absolute;padding:10px 16px;border-radius:12px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow-md);font-size:12px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;white-space:nowrap;z-index:5;transition:all .3s;animation:float 5s ease-in-out infinite}
-    .cc-module:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:rgba(13,59,255,.15)}
-    .cc-module .mod-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .cc-module .mod-icon.blue{background:rgba(13,59,255,.08);color:var(--blue)}
-    .cc-module .mod-icon.green{background:rgba(22,199,132,.08);color:var(--success)}
-    .cc-module .mod-icon.gold{background:rgba(255,159,32,.08);color:var(--gold)}
-    .cc-module .mod-icon.purple{background:rgba(124,58,237,.08);color:#7C3AED}
-    .cc-module .mod-icon.teal{background:rgba(20,184,166,.08);color:#14B8A6}
-    .cc-module small{display:block;font-size:10px;font-weight:400;color:var(--text-muted)}
-    .cc-module.m1{top:15%;left:0;animation-delay:0s}
-    .cc-module.m2{top:5%;right:10%;animation-delay:.5s}
-    .cc-module.m3{top:35%;right:-5%;animation-delay:1s}
-    .cc-module.m4{bottom:30%;right:5%;animation-delay:1.5s}
-    .cc-module.m5{bottom:10%;left:15%;animation-delay:2s}
-    .cc-module.m6{top:35%;left:-5%;animation-delay:2.5s}
-    .cc-savings-card{position:absolute;bottom:5%;right:-10%;padding:12px 16px;border-radius:12px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow-md);z-index:5;animation:float 4s ease-in-out infinite;animation-delay:1s}
-    .cc-savings-card .savings-label{font-size:10px;color:var(--text-muted);margin-bottom:2px}
-    .cc-savings-card .savings-amount{font-size:18px;font-weight:800;color:var(--success)}
-    .cc-savings-card .savings-graph{display:flex;align-items:flex-end;gap:2px;height:24px;margin-top:6px}
-    .cc-savings-card .savings-graph .bar{width:4px;border-radius:2px;background:var(--success);transition:height .3s}
-    .cc-lines{position:absolute;inset:0;z-index:1;pointer-events:none}
-    .cc-lines line{stroke:var(--blue);stroke-width:1;stroke-dasharray:4 4;opacity:.2;animation:dataFlow 2s linear infinite}
 
     /* ===== METRICS STRIP ===== */
     .metrics-strip{padding:0 0 40px;position:relative;z-index:1}
     .metrics-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
     .metric-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 16px;text-align:center;transition:all .3s;box-shadow:var(--shadow)}
-    .metric-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:rgba(13,59,255,.15)}
+    .metric-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md),0 0 26px rgba(79,123,255,.14);border-color:rgba(79,123,255,.5)}
     .metric-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
-    .metric-icon.blue{background:rgba(13,59,255,.08);color:var(--blue)}
+    .metric-icon.blue{background:rgba(79,123,255,.18);color:var(--blue)}
     .metric-icon.gold{background:rgba(255,159,32,.08);color:var(--gold)}
     .metric-icon.green{background:rgba(22,199,132,.08);color:var(--success)}
     .metric-icon.purple{background:rgba(124,58,237,.08);color:#7C3AED}
@@ -208,16 +178,16 @@
     .rfx-filter{padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-muted);transition:all .25s;font-family:inherit}
     .rfx-filter.active{background:var(--blue);color:#fff;border-color:var(--blue)}
     .rfx-filter:hover:not(.active){border-color:var(--blue);color:var(--blue)}
-    .rfx-list{display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(13,59,255,.2) transparent}
+    .rfx-list{display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(79,123,255,.45) transparent}
     .rfx-list::-webkit-scrollbar{width:5px}
     .rfx-list::-webkit-scrollbar-track{background:transparent}
-    .rfx-list::-webkit-scrollbar-thumb{background:rgba(13,59,255,.2);border-radius:10px}
-    .rfx-list::-webkit-scrollbar-thumb:hover{background:rgba(13,59,255,.4)}
+    .rfx-list::-webkit-scrollbar-thumb{background:rgba(79,123,255,.4);border-radius:10px}
+    .rfx-list::-webkit-scrollbar-thumb:hover{background:rgba(79,123,255,.65)}
     .rfx-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:10px;border:1px solid transparent;transition:all .2s;cursor:pointer}
-    .rfx-item:hover{background:rgba(13,59,255,.03);border-color:rgba(13,59,255,.08)}
+    .rfx-item:hover{background:rgba(79,123,255,.08);border-color:rgba(79,123,255,.25)}
     .rfx-item-left{display:flex;align-items:center;gap:10px}
     .rfx-item-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .rfx-item-icon.rfp{background:rgba(13,59,255,.08)}.rfx-item-icon.rfq{background:rgba(22,199,132,.08)}.rfx-item-icon.rfi{background:rgba(255,159,32,.08)}
+    .rfx-item-icon.rfp{background:rgba(79,123,255,.18)}.rfx-item-icon.rfq{background:rgba(22,199,132,.08)}.rfx-item-icon.rfi{background:rgba(255,159,32,.08)}
     .rfx-item-title{font-size:13px;font-weight:600;color:var(--text)}
     .rfx-item-desc{font-size:11px;color:var(--text-muted)}
     .rfx-item-right{display:flex;align-items:center;gap:10px}
@@ -227,7 +197,7 @@
     .rfx-status.bid{background:rgba(255,159,32,.08);color:var(--gold)}
     .rfx-status.closed{background:rgba(255,77,79,.08);color:var(--danger)}
     .rfx-tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
-    .rfx-tag.rfp-tag{background:rgba(13,59,255,.08);color:var(--blue)}
+    .rfx-tag.rfp-tag{background:rgba(79,123,255,.18);color:var(--blue)}
     .rfx-tag.rfq-tag{background:rgba(22,199,132,.08);color:var(--success)}
     .rfx-tag.rfi-tag{background:rgba(255,159,32,.08);color:var(--gold)}
     .rfx-bottom{display:flex;justify-content:center;padding-top:12px}
@@ -256,52 +226,26 @@
     .insight-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
     .ai-insight-stat .number{font-size:32px;font-weight:800;color:var(--success)}
     .ai-insight-stat .label{font-size:13px;color:var(--text-muted)}
-    .donut-3d{width:150px;height:130px;margin:0 auto 12px;position:relative;perspective:400px;cursor:pointer}
-    .donut-3d-inner{width:150px;height:150px;position:relative;transform:rotateX(20deg);transform-style:preserve-3d;transition:transform .3s}
-    .donut-3d:hover .donut-3d-inner{transform:rotateX(10deg) scale(1.05)}
-    .donut-3d svg{width:150px;height:150px}
-    .donut-shadow{position:absolute;bottom:-10px;left:15px;right:15px;height:24px;background:radial-gradient(ellipse,rgba(0,0,0,.12) 0%,transparent 70%);border-radius:50%;filter:blur(4px)}
-    .donut-seg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:5}
-    .donut-seg svg{width:100%;height:100%}
-    .donut-seg .seg-hit{fill:transparent;cursor:pointer}
-    .donut-seg .seg-arc{transition:opacity .2s,filter .2s}
-    .donut-seg:hover .seg-arc{opacity:1;filter:brightness(1.15)}
-    .donut-seg .seg-tip{position:absolute;padding:14px 16px;border-radius:12px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow-lg);z-index:20;opacity:0;visibility:hidden;transition:all .25s cubic-bezier(.22,1,.36,1);pointer-events:none;white-space:nowrap;display:flex;flex-direction:column;gap:6px;min-width:180px;transform:translateX(-50%) translateY(8px)}
-    .donut-seg .seg-tip::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:var(--card);border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
-    .donut-seg:hover .seg-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
-    .donut-seg .seg-tip-top{display:flex;align-items:center;gap:8px}
-    .donut-seg .seg-tip-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-    .donut-seg .seg-tip-title{font-size:12px;font-weight:700;color:var(--text)}
-    .donut-seg .seg-tip-pct{font-size:18px;font-weight:800;color:var(--text);margin-left:auto}
-    .donut-seg .seg-tip-bar{width:100%;height:6px;border-radius:3px;background:var(--border);overflow:hidden}
-    .donut-seg .seg-tip-bar-fill{height:100%;border-radius:3px;transition:width .3s}
-    .donut-seg .seg-tip-desc{font-size:11px;color:var(--text-muted);line-height:1.4}
-    .donut-tip-blue{top:-8px;left:50%;transform:translateX(-50%) translateY(8px)}
-    .donut-tip-blue:hover{transform:translateX(-50%) translateY(0)}
-    .donut-tip-gold{bottom:-8px;left:50%;transform:translateX(-50%) translateY(-8px)}
-    .donut-tip-gold::after{bottom:auto;top:-6px;transform:translateX(-50%) rotate(-135deg)}
-    .donut-tip-gold:hover{transform:translateX(-50%) translateY(0)}
-    .donut-seg:hover .seg-arc{opacity:1;filter:brightness(1.2) drop-shadow(0 0 6px rgba(0,0,0,.15))}
 
     /* ===== AI RECOMMENDED ===== */
     .recommended-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
     .rfx-rec-col{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column}
-    .rfx-rec-list{display:flex;flex-direction:column;gap:10px;flex:1;max-height:360px;overflow-y:auto;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(13,59,255,.2) transparent}
+    .rfx-rec-list{display:flex;flex-direction:column;gap:10px;flex:1;max-height:360px;overflow-y:auto;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(79,123,255,.45) transparent}
     .rfx-rec-list::-webkit-scrollbar{width:5px}
     .rfx-rec-list::-webkit-scrollbar-track{background:transparent}
-    .rfx-rec-list::-webkit-scrollbar-thumb{background:rgba(13,59,255,.2);border-radius:10px}
-    .rfx-rec-list::-webkit-scrollbar-thumb:hover{background:rgba(13,59,255,.4)}
+    .rfx-rec-list::-webkit-scrollbar-thumb{background:rgba(79,123,255,.4);border-radius:10px}
+    .rfx-rec-list::-webkit-scrollbar-thumb:hover{background:rgba(79,123,255,.65)}
     .rfx-rec-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;border:1px solid var(--border);transition:all .2s;cursor:pointer}
-    .rfx-rec-item:hover{border-color:rgba(13,59,255,.15);background:rgba(13,59,255,.02)}
-    .rfx-rec-item img{width:42px;height:42px;border-radius:8px;object-fit:cover;background:#E2E8F0;flex-shrink:0}
+    .rfx-rec-item:hover{border-color:rgba(79,123,255,.5);background:rgba(79,123,255,.07)}
+    .rfx-rec-item img{width:42px;height:42px;border-radius:8px;object-fit:cover;background:#1F293D;flex-shrink:0}
     .rfx-rec-item-info{display:flex;flex-direction:column;justify-content:center;min-width:0;flex:1}
     .rfx-rec-item-name{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .rfx-rec-item-meta{font-size:10px;color:var(--text-muted)}
-    .rfx-rec-item-match{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(13,59,255,.06);color:var(--blue);flex-shrink:0;white-space:nowrap}
+    .rfx-rec-item-match{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(79,123,255,.16);color:var(--blue);flex-shrink:0;white-space:nowrap}
     .rec-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;transition:all .3s;box-shadow:var(--shadow);cursor:pointer}
-    .rec-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:rgba(13,59,255,.12)}
+    .rec-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:rgba(79,123,255,.4)}
     .rec-img-wrap{position:relative;overflow:hidden;border-radius:10px;margin-bottom:10px}
-    .rec-card-img{width:100%;height:100px;border-radius:10px;object-fit:cover;background:#E2E8F0;display:block;transition:transform .4s}
+    .rec-card-img{width:100%;height:100px;border-radius:10px;object-fit:cover;background:#1F293D;display:block;transition:transform .4s}
     .rec-card:hover .rec-card-img{transform:scale(1.06)}
     .rec-ai-badge{position:absolute;top:6px;right:6px;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(13,59,255,.9);color:#fff;backdrop-filter:blur(4px)}
     .rec-card-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
@@ -320,18 +264,11 @@
     .mp-tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
     .mp-tab:hover:not(.active){border-color:var(--blue);color:var(--blue)}
     .mp-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
-    /* MODERN CARD: gradient ring + glass body + shine sweep */
-    .mp-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:0;cursor:pointer;display:flex;flex-direction:column;overflow:hidden;transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s cubic-bezier(.22,1,.36,1),border-color .3s;isolation:isolate}
-    .mp-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,59,255,.03),transparent 45%);opacity:0;transition:opacity .4s;z-index:-1;pointer-events:none}
-    .mp-card::after{content:'';position:absolute;top:0;left:-80%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);transition:left .7s cubic-bezier(.22,1,.36,1);pointer-events:none;z-index:2}
-    .mp-card:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 16px 40px rgba(13,59,255,.14),0 4px 12px rgba(0,0,0,.06);border-color:rgba(13,59,255,.25)}
-    .mp-card:hover::before{opacity:1}
-    .mp-card:hover::after{left:130%}
+    .mp-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:0;transition:all .35s cubic-bezier(.22,1,.36,1);cursor:pointer;display:flex;flex-direction:column;overflow:hidden}
+    .mp-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(79,123,255,.4)}
     .mp-img-wrap{position:relative;overflow:hidden}
-    .mp-card-img{width:100%;height:140px;object-fit:cover;background:#E2E8F0;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1)}
-    .mp-card:hover .mp-card-img{transform:scale(1.1)}
-    .mp-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(10,15,28,.25));opacity:0;transition:opacity .4s;pointer-events:none}
-    .mp-card:hover .mp-img-wrap::after{opacity:1}
+    .mp-card-img{width:100%;height:140px;object-fit:cover;background:#1F293D;display:block;transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
+    .mp-card:hover .mp-card-img{transform:scale(1.06)}
     .mp-ai-badge{position:absolute;top:8px;left:8px;padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(13,59,255,.9);color:#fff;display:flex;align-items:center;gap:4px;backdrop-filter:blur(4px)}
     .mp-card-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
     .mp-card-desc{font-size:12px;color:var(--text-muted);margin-bottom:8px;line-height:1.3}
@@ -347,9 +284,7 @@
     .mp-card-meta span{display:flex;align-items:center;gap:3px}
     .mp-card-verified{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--success);margin-bottom:10px;font-weight:500}
     .mp-card-verified svg{width:14px;height:14px}
-    .mp-card-match{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(13,59,255,.06);color:var(--blue);margin-bottom:10px;display:inline-flex;align-items:center;gap:4px;transition:background .25s,color .25s}
-    .mp-card:hover .mp-card-match{background:rgba(13,59,255,.12);color:var(--blue-dark)}
-    .mp-card:hover .mp-card-btn{background:linear-gradient(135deg,var(--blue),#4F7BFF);box-shadow:0 4px 14px rgba(13,59,255,.3)}
+    .mp-card-match{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(79,123,255,.16);color:var(--blue);margin-bottom:10px;display:inline-flex;align-items:center;gap:4px}
     .mp-card-body{padding:14px;display:flex;flex-direction:column;flex:1}
     .mp-card-btn{width:100%;padding:8px;border:none;border-radius:8px;background:var(--blue);color:#fff;font-size:12px;font-weight:600;cursor:pointer;transition:all .25s;font-family:inherit}
     .mp-card-btn:hover{background:var(--blue-dark)}
@@ -362,18 +297,10 @@
     .auction-tab:hover:not(.active){border-color:var(--blue);color:var(--blue)}
     .auction-tab .live-dot{width:7px;height:7px;border-radius:50%;background:#22C55E;animation:pulseLive 1.5s infinite}
     .auction-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
-    .auction-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;transition:all .35s cubic-bezier(.22,1,.36,1);cursor:pointer;display:flex;flex-direction:column;position:relative;overflow:hidden;isolation:isolate}
-    .auction-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,59,255,.035),transparent 40%);opacity:0;transition:opacity .35s;z-index:-1;pointer-events:none}
-    .auction-card::after{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);transition:left .7s cubic-bezier(.22,1,.36,1);pointer-events:none;z-index:2}
-    .auction-card:hover{transform:translateY(-5px) !important;box-shadow:0 12px 32px rgba(13,59,255,.14),0 3px 10px rgba(0,0,0,.05);border-color:rgba(13,59,255,.35)}
-    .auction-card:hover::before{opacity:1}
-    .auction-card:hover::after{left:130%}
-    .auction-card:hover .auction-live-badge{box-shadow:0 0 10px rgba(22,199,132,.4)}
-    .auction-card:hover .auction-card-timer{color:var(--blue-dark)}
+    .auction-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;transition:all .3s;cursor:pointer;display:flex;flex-direction:column;position:relative}
+    .auction-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:rgba(79,123,255,.4)}
     .auction-card.hot{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),var(--shadow)}
-    /* HOT ribbon reuses ::before — reset the gradient-wash geometry so it stays a ribbon */
-    .auction-card.hot::before{content:'HOT AUCTION';position:absolute;top:-1px;right:16px;left:auto;bottom:auto;width:auto;height:auto;inset:auto;font-size:9px;font-weight:800;padding:4px 10px;border-radius:0 0 8px 8px;background:var(--gold);color:#fff;letter-spacing:.5px;opacity:1}
-    .auction-card.hot:hover::before{opacity:1}
+    .auction-card.hot::before{content:'HOT AUCTION';position:absolute;top:-1px;right:16px;font-size:9px;font-weight:800;padding:4px 10px;border-radius:0 0 8px 8px;background:var(--gold);color:#fff;letter-spacing:.5px}
     .auction-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
     .auction-live-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:6px;background:rgba(22,199,132,.08);color:var(--success);font-size:10px;font-weight:700;text-transform:uppercase}
     .auction-live-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--success);animation:pulseLive 1.5s infinite}
@@ -401,7 +328,6 @@
     .impact-metric .lbl{font-size:11px;color:rgba(255,255,255,.5)}
     .impact-graph{position:relative;height:280px;display:flex;align-items:flex-end;gap:6px;padding:20px 0}
     .impact-bar{flex:1;border-radius:6px 6px 0 0;transition:height 1.2s cubic-bezier(.22,1,.36,1);position:relative;min-width:0}
-    .impact-bar-gold{box-shadow:0 0 18px rgba(255,159,32,.35)}
     .impact-bar:hover{opacity:1!important;transform:scaleX(1.1)}
     .impact-bar .bar-label{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:600;color:rgba(255,255,255,.5);white-space:nowrap;opacity:0;transition:opacity .3s}
     .impact-bar:hover .bar-label{opacity:1}
@@ -410,58 +336,39 @@
     .impact-total-label{position:absolute;top:0;right:0;font-size:24px;font-weight:900;color:var(--gold);line-height:1}
     .impact-total-sub{position:absolute;top:28px;right:0;font-size:11px;color:rgba(255,255,255,.4)}
 
-    /* ===== HOW IT WORKS TIMELINE (PREMIUM REBUILD) ===== */
-    .timeline-section{padding:72px 0;position:relative}
-    .timeline-container{position:relative;max-width:1080px;margin:0 auto;padding:20px 0 40px}
-    .pv-line{position:absolute;left:50%;transform:translateX(-50%);top:0;bottom:0;width:3px;border-radius:3px;background:var(--border);overflow:hidden}
-    .pv-line-fill{position:absolute;top:0;left:-1px;right:-1px;height:0%;background:linear-gradient(180deg,var(--blue) 0%,#4F7BFF 55%,var(--gold) 100%);box-shadow:0 0 16px rgba(13,59,255,.45);transition:height .15s linear}
-    .pv-spark{position:absolute;left:50%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 12px 4px rgba(13,59,255,.55),0 0 30px 10px rgba(13,59,255,.2);opacity:0;pointer-events:none;z-index:5;transition:opacity .3s}
-    .pv-spark.on{opacity:1}
-    .pv-item{position:relative;width:50%;padding:0 56px 44px 0;text-align:right}
-    .pv-item:nth-child(even){margin-left:50%;text-align:left;padding:0 0 44px 56px}
-    .pv-node{position:absolute;top:6px;right:-27px;width:54px;height:54px;border-radius:50%;background:var(--card);border:3px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--text-muted);z-index:2;opacity:0;transform:scale(.5);transition:all .55s cubic-bezier(.34,1.56,.64,1)}
-    .pv-item:nth-child(even) .pv-node{right:auto;left:-27px}
-    .pv-item.active .pv-node{border-color:var(--blue);color:#fff;background:linear-gradient(135deg,var(--blue),#4F7BFF);box-shadow:0 0 0 6px rgba(13,59,255,.12),0 8px 24px rgba(13,59,255,.3);opacity:1;transform:scale(1.06)}
-    .pv-glow{position:absolute;top:6px;right:-27px;width:54px;height:54px;border-radius:50%;pointer-events:none;z-index:1;opacity:0;transition:opacity .5s;background:radial-gradient(circle,rgba(13,59,255,.25) 0%,transparent 70%)}
-    .pv-item:nth-child(even) .pv-glow{right:auto;left:-27px}
-    .pv-item.active .pv-glow{opacity:1;animation:pvGlowPulse 2.4s ease-in-out infinite}
-    @keyframes pvGlowPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.5)}}
-    .pv-card{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px 22px;min-width:300px;max-width:420px;box-shadow:var(--elevation-1,var(--shadow));position:relative;overflow:hidden;opacity:0;transform:translateY(22px) scale(.97);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),box-shadow .45s cubic-bezier(.22,1,.36,1),border-color .35s}
-    .pv-item.active .pv-card{opacity:1;transform:translateY(0) scale(1);transition-delay:.15s}
-    .pv-card::after{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-18deg);transition:left .8s cubic-bezier(.22,1,.36,1);pointer-events:none}
-    .pv-item:hover .pv-card{transform:translateY(-4px) scale(1);box-shadow:0 16px 44px rgba(13,59,255,.13);border-color:rgba(13,59,255,.22)}
-    .pv-item:hover .pv-card::after{left:130%}
-    .pv-item.active .pv-card{border-color:rgba(13,59,255,.28);box-shadow:0 12px 36px rgba(13,59,255,.12)}
-    .pv-icon{width:44px;height:44px;border-radius:12px;align-items:center;justify-content:center;margin-bottom:12px;display:inline-flex;transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
-    .pv-item:hover .pv-icon{transform:scale(1.12) rotate(-6deg)}
-    .pv-icon.blue{background:rgba(13,59,255,.08);color:var(--blue)}
-    .pv-icon.purple{background:rgba(124,58,237,.08);color:#7C3AED}
-    .pv-icon.gold{background:rgba(255,159,32,.08);color:var(--gold)}
-    .pv-icon.green{background:rgba(22,199,132,.08);color:var(--success)}
-    .pv-icon.teal{background:rgba(20,184,166,.08);color:#14B8A6}
-    .pv-icon.blue2{background:rgba(13,59,255,.08);color:var(--blue)}
-    .pv-title{font-size:17px;font-weight:800;color:var(--text);margin-bottom:4px;transition:color .3s}
-    .pv-item.active .pv-title{color:var(--blue)}
-    .pv-desc{font-size:13px;color:var(--text-secondary);line-height:1.55;margin-bottom:10px}
-    .pv-tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 12px;border-radius:50px;background:rgba(13,59,255,.06);color:var(--blue);opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
-    .pv-item.active .pv-tag{opacity:1;transform:translateY(0)}
-    .pv-tag .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulseLive 1.6s infinite}
-
-    /* hidden cards should not be hoverable */
-    .pv-item:not(.active) .pv-card{pointer-events:none}
-    /* accessibility: show everything without motion */
-    @media (prefers-reduced-motion: reduce){
-      .pv-card,.pv-node{opacity:1!important;transform:none!important;transition:none!important}
-    }
-    @media (max-width:900px){
-      .pv-line{left:27px;transform:none}
-      .pv-spark{left:27px}
-      .pv-item{width:100%;padding:0 0 36px 72px;text-align:left}
-      .pv-item:nth-child(even){margin-left:0;padding:0 0 36px 72px;text-align:left}
-      .pv-node{left:0!important;right:auto!important}
-      .pv-glow{left:0!important;right:auto!important}
-      .pv-card{min-width:0;max-width:100%}
-    }
+    /* ===== HOW IT WORKS TIMELINE ===== */
+    .timeline-section{padding:56px 0}
+    .timeline-container{position:relative;padding:40px 0}
+    .timeline-line{position:absolute;top:54px;left:60px;right:60px;height:3px;background:var(--border);border-radius:2px}
+    .timeline-line-fill{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,var(--blue),#4F7BFF);border-radius:2px;width:0%;transition:width 1.5s cubic-bezier(.22,1,.36,1)}
+    .timeline-steps{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;position:relative}
+    .timeline-step{text-align:center;position:relative;cursor:pointer;transition:all .3s cubic-bezier(.22,1,.36,1)}
+    .timeline-step:hover{transform:translateY(-4px)}
+    .timeline-step-num{width:48px;height:48px;border-radius:50%;background:var(--card);border:3px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:13px;font-weight:800;color:var(--text-muted);transition:all .4s;position:relative;z-index:2}
+    .timeline-step.active .timeline-step-num{border-color:var(--blue);color:#fff;background:var(--blue);box-shadow:0 0 0 6px rgba(13,59,255,.1);animation:numPulse 2s ease-in-out infinite}
+    @keyframes numPulse{0%,100%{box-shadow:0 0 0 6px rgba(13,59,255,.1)}50%{box-shadow:0 0 0 12px rgba(13,59,255,.05)}}
+    .timeline-step-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;transition:all .3s}
+    .timeline-step-icon.blue{background:rgba(79,123,255,.18);color:var(--blue)}
+    .timeline-step-icon.purple{background:rgba(124,58,237,.08);color:#7C3AED}
+    .timeline-step-icon.gold{background:rgba(255,159,32,.08);color:var(--gold)}
+    .timeline-step-icon.green{background:rgba(22,199,132,.08);color:var(--success)}
+    .timeline-step-icon.teal{background:rgba(20,184,166,.08);color:#14B8A6}
+    .timeline-step-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;transition:color .3s}
+    .timeline-step.active .timeline-step-title{color:var(--blue)}
+    .timeline-step-desc{font-size:12px;color:var(--text-muted);line-height:1.5;max-width:140px;margin:0 auto}
+    .timeline-step-detail{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.22,1,.36,1),opacity .3s;opacity:0;margin-top:8px}
+    .timeline-step.active .timeline-step-detail{max-height:120px;opacity:1}
+    .timeline-step-detail p{font-size:11px;color:var(--text-secondary);line-height:1.5;max-width:140px;margin:0 auto;padding:8px;background:rgba(79,123,255,.08);border-radius:8px;border:1px solid rgba(79,123,255,.16)}
+    .timeline-arrow{position:absolute;top:50%;right:-18px;transform:translateY(-50%);z-index:3;opacity:0;transition:opacity .3s}
+    .timeline-step.active .timeline-arrow{opacity:1}
+    .timeline-arrow svg{width:16px;height:16px;stroke:var(--blue);fill:none;stroke-width:2}
+    .timeline-bg-shape{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100px;height:100px;border-radius:50%;opacity:0;transition:all .5s;pointer-events:none;z-index:0}
+    .timeline-step.active .timeline-bg-shape{opacity:1;transform:translate(-50%,-50%) scale(1.1)}
+    .timeline-bg-shape.blue{background:radial-gradient(circle,rgba(79,123,255,.16) 0%,transparent 70%)}
+    .timeline-bg-shape.purple{background:radial-gradient(circle,rgba(124,58,237,.06) 0%,transparent 70%)}
+    .timeline-bg-shape.gold{background:radial-gradient(circle,rgba(255,180,84,.14) 0%,transparent 70%)}
+    .timeline-bg-shape.green{background:radial-gradient(circle,rgba(22,199,132,.06) 0%,transparent 70%)}
+    .timeline-bg-shape.teal{background:radial-gradient(circle,rgba(20,184,166,.06) 0%,transparent 70%)}
 
     /* ===== MEET ZAUCTO AI ===== */
     .ai-section{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
@@ -489,7 +396,7 @@
     /* ===== SAVINGS CALCULATOR ===== */
     .calc-slider-label{font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:8px}
     .calc-slider-value{font-size:28px;font-weight:800;color:var(--text);margin-bottom:12px}
-    .calc-slider{width:100%;-webkit-appearance:none;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--blue),rgba(13,59,255,.2));outline:none;margin-bottom:8px}
+    .calc-slider{width:100%;-webkit-appearance:none;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--blue),rgba(79,123,255,.25));outline:none;margin-bottom:8px}
     .calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--blue);cursor:pointer;box-shadow:0 2px 8px rgba(13,59,255,.3)}
     .calc-range{display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted)}
     .calc-result{text-align:center;padding:40px;background:var(--bg);border-radius:var(--radius);border:1px solid var(--border)}
@@ -516,7 +423,7 @@
     .security-grid::-webkit-scrollbar{display:none}
     .security-card{min-width:220px;max-width:220px;flex-shrink:0;scroll-snap-align:start}
     .security-carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;z-index:5;backdrop-filter:blur(10px)}
-    .security-carousel-btn:hover{background:rgba(13,59,255,.4);border-color:var(--blue);transform:translateY(-50%) scale(1.1)}
+    .security-carousel-btn:hover{background:rgba(79,123,255,.65);border-color:var(--blue);transform:translateY(-50%) scale(1.1)}
     .security-carousel-btn.left{left:12px}
     .security-carousel-btn.right{right:12px}
     .security-carousel-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -527,8 +434,7 @@
     .security-card::before{content:'';position:absolute;inset:-2px;border-radius:var(--radius);background:conic-gradient(from 0deg,transparent,rgba(13,59,255,.3),transparent,rgba(79,123,255,.3),transparent);opacity:0;transition:opacity .4s;z-index:-1}
     .security-card:hover::before{opacity:1}
     .security-card::after{content:'';position:absolute;inset:1px;border-radius:calc(var(--radius) - 1px);background:var(--navy);z-index:-1}
-    .security-card:hover{transform:translateY(-6px) scale(1.02)!important;box-shadow:0 8px 32px rgba(13,59,255,.2)}
-    .security-card:not(:hover){transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s cubic-bezier(.22,1,.36,1)}
+    .security-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 8px 32px rgba(13,59,255,.2)}
     .security-card-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;position:relative}
     .security-card-icon::after{content:'';position:absolute;inset:-4px;border-radius:18px;border:2px solid transparent;transition:all .4s}
     .security-card:hover .security-card-icon::after{border-color:rgba(13,59,255,.2);animation:iconRing 2s linear infinite}
@@ -543,14 +449,14 @@
     .security-card .learn-more{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--blue);margin-top:10px;transition:all .3s}
     .security-card .learn-more:hover{gap:8px;color:#fff}
     .security-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(22,199,132,.12);color:var(--success);margin-top:8px;border:1px solid rgba(22,199,132,.15)}
-    .security-floating{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-    .security-float-icon{position:absolute;opacity:.06;color:#fff;animation:secFloat 12s ease-in-out infinite;will-change:transform}
+    .security-floating{position:absolute;pointer-events:none;z-index:0}
+    .security-float-icon{position:absolute;opacity:.06;color:#fff;animation:secFloat 12s ease-in-out infinite}
     @keyframes secFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-15px) rotate(10deg)}}
 
     /* ===== FINAL CTA ===== */
     .cta-section{background:var(--bg);padding:60px 0;position:relative;overflow:hidden}
-    .cta-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(13,59,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(13,59,255,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
-    .cta-section::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 50%,rgba(13,59,255,.08) 0%,transparent 50%),radial-gradient(circle at 80% 50%,rgba(255,159,32,.06) 0%,transparent 50%);pointer-events:none}
+    .cta-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(79,123,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(79,123,255,.07) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+    .cta-section::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 50%,rgba(79,123,255,.18) 0%,transparent 50%),radial-gradient(circle at 80% 50%,rgba(255,180,84,.14) 0%,transparent 50%);pointer-events:none}
     .cta-content{text-align:center;position:relative;z-index:1}
     .cta-content h2{font-size:40px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:12px}
     .cta-content h2 .gold{color:var(--gold)}
@@ -564,7 +470,7 @@
     .footer-brand p{font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.6}
     .footer-socials{display:flex;gap:8px}
     .footer-social-icon{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-muted);cursor:pointer;transition:all .25s}
-    .footer-social-icon:hover{color:var(--blue);border-color:var(--blue);transform:translateY(-2px) scale(1.1)}
+    .footer-social-icon:hover{color:var(--blue);border-color:var(--blue);transform:translateY(-2px)}
     .footer-col h6{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:14px}
     .footer-col ul{display:flex;flex-direction:column;gap:8px}
     .footer-col ul a{font-size:13px;color:var(--text-secondary);transition:all .2s;display:inline-block}
@@ -578,15 +484,14 @@
     .footer-country:hover{border-color:var(--blue);color:var(--blue)}
 
     /* ===== SCROLL TO TOP ===== */
-    .scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:12px;background:var(--blue);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(13,59,255,.3);opacity:0;visibility:hidden;transition:all .3s;z-index:999}
+    .scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:12px;background:var(--blue);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(79,123,255,.45),0 0 20px rgba(79,123,255,.3);opacity:0;visibility:hidden;transition:all .3s;z-index:999}
     .scroll-top.visible{opacity:1;visibility:visible}
-    .scroll-top:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(13,59,255,.4)}
+    .scroll-top:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(79,123,255,.65)}
 
     /* ===== RESPONSIVE ===== */
     @media(max-width:1100px){
       .hero .container{grid-template-columns:1fr}
       .hero-visual{min-height:320px}
-      .command-center{max-width:100%;height:320px}
       .metrics-grid{grid-template-columns:repeat(3,1fr)}
       .rfx-layout{grid-template-columns:1fr}
       .rfx-rec-list{flex-direction:row;flex-wrap:wrap}
@@ -596,6 +501,7 @@
       .auction-grid{grid-template-columns:repeat(3,1fr)}
       .impact-grid{grid-template-columns:1fr}
       .impact-number{font-size:40px}
+      .timeline-steps{grid-template-columns:repeat(3,1fr)}
       .timeline-line,.timeline-line-fill{display:none}
       .ai-grid{grid-template-columns:1fr}
       .ai-visual{min-height:200px}
@@ -612,6 +518,7 @@
       .mp-grid{grid-template-columns:repeat(2,1fr)}
       .auction-grid{grid-template-columns:repeat(2,1fr)}
       .impact-metrics{grid-template-columns:repeat(2,1fr)}
+      .timeline-steps{grid-template-columns:repeat(2,1fr)}
       .security-card{min-width:180px;max-width:180px}
       .footer-grid{grid-template-columns:1fr}
       .cta-content h2{font-size:28px}
@@ -621,6 +528,7 @@
       .hero-features{grid-template-columns:1fr}
       .mp-grid{grid-template-columns:1fr}
       .auction-grid{grid-template-columns:1fr}
+      .timeline-steps{grid-template-columns:1fr}
       .security-card{min-width:170px;max-width:170px}
       .cta-buttons{flex-direction:column;align-items:center}
       .footer-grid{grid-template-columns:1fr}
@@ -628,40 +536,46 @@
       .impact-metrics{grid-template-columns:1fr 1fr}
     }
   </style>
-  <script src="theme-toggle.js"></script>
-  <link rel="stylesheet" href="design-system.css" />
-  <link rel="stylesheet" href="negotiation-filter.css" />
-  <link rel="stylesheet" href="advanced-animations.css" />
 </head>
 <body>
-  <div class="scroll-progress-bar" aria-hidden="true"></div>
-  <div class="ambient-blobs" aria-hidden="true"><div class="ambient-blob ambient-blob-1"></div><div class="ambient-blob ambient-blob-2"></div><div class="ambient-blob ambient-blob-3"></div></div>
 
   <!-- HEADER -->
   <header class="header" id="mainHeader">
     <div class="header-inner">
       <div class="container">
-      <a href="zauctofour.html" class="logo" aria-label="Zaucto Home">
-        <div class="logo-icon"><img loading="lazy" src="assets/logo.png" alt="Zaucto Logo" /></div>
-      </a>
+      <div class="logo">
+        <div class="logo-icon"><img src="logo.png" alt="Zaucto Logo" /></div>
+      </div>
       <nav class="nav-links">
         <a href="#" class="active">Home</a>
         <div class="nav-item">
           <a href="#" class="has-dropdown">RFX <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
           <div class="dropdown">
-            <a href="zauctoRFI.html">RFI</a>
-            <a href="zauctoRFP.html">RFP</a>
-            <a href="zauctoRFQ.html">RFQ</a>
-            <a href="zauctoBulkRFQ.html">Bulk RFQ</a>
-            <a href="zauctoMyBulkRFQ.html">My Bulk RFQ</a>
+            <a href="#">RFI</a>
+            <a href="#">RFP</a>
+            <a href="#">RFQ</a>
+            <a href="#">Bulk RFQ</a>
+            <a href="#">My Bulk RFQ</a>
           </div>
         </div>
-        <div class="nav-item"><a href="#" class="has-dropdown">Negotiation <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a><div class="dropdown"><a href="zauctoAllAuctions.html">All Auctions</a><a href="zauctoLiveAuctions.html">Live Auctions</a><a href="zauctoUpcomingAuctions.html">Upcoming Auctions</a><a href="zauctoFinishedAuctions.html">Finished Auctions</a><a href="zauctoLiveBulkAuctions.html">Live Bulk Auctions</a><a href="zauctoMyBid.html">My Bid</a><a href="zauctoMyBulkBid.html">My Bulk Bid</a><a href="zauctoMyBulkAuction.html">My Bulk Auction</a></div></div>
+        <div class="nav-item">
+          <a href="#" class="has-dropdown">Negotiation <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="dropdown">
+            <a href="#">All Auctions</a>
+            <a href="#">Live Auctions</a>
+            <a href="#">Upcoming Auctions</a>
+            <a href="#">Finished Auctions</a>
+            <a href="#">Live Bulk Auctions</a>
+            <a href="#">My Bid</a>
+            <a href="#">My Bulk Bid</a>
+            <a href="#">My Bulk Auctions</a>
+          </div>
+        </div>
         <div class="nav-item">
           <a href="#" class="ai-tag">Zaucto AI <span class="ai-star"><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:none;stroke-width:2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0L9.937 15.5z"/><path d="M20 3v4M22 5h-4"/></svg></span></a>
           <div class="dropdown">
-            <a href="zauctoAISpendInsight.html">AI Spend Insight</a>
-            <a href="zauctoAIRfpFlow.html">AI RFP Flow</a>
+            <a href="#">AI Spend Insight</a>
+            <a href="#">AI RFP Flow</a>
           </div>
         </div>
         <a href="zauctoMarketplace.html">Marketplace</a>
@@ -680,7 +594,11 @@
       </nav>
       <div class="header-right">
         <a href="zauctoContact.html" class="contact-link">Contact Us</a>
-        <a href="zauctoLogin.html" class="header-avatar" aria-label="Account login">
+        <button class="btn-dash">
+          <svg class="ico sm white" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Dashboard
+        </button>
+        <a href="zauctoLogin.html" class="header-avatar">
           <svg class="ico" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </a>
       </div>
@@ -694,9 +612,9 @@
     <canvas id="gridDotsCanvas"></canvas>
     <div class="container">
       <div class="hero-content">
-        <div class="hero-badge badge blur-reveal">AI-POWERED PROCUREMENT PLATFORM</div>
-        <h1 class="hero-title blur-reveal delay-1">Autonomous sourcing agents for <span class="highlight text-shimmer">modern</span> <span style="color:var(--gold)">procurement teams.</span></h1>
-        <p class="hero-desc blur-reveal delay-2" data-typewriter="Manage RFPs, RFQs, auctions, and supplier decisions in one intelligent platform powered by AI." data-typewriter-speed="22" style="min-height:3.2em"></p>
+        <div class="hero-badge badge">AI-POWERED PROCUREMENT PLATFORM</div>
+        <h1 class="hero-title">Autonomous sourcing agents for <span class="highlight">modern</span> <span style="color:var(--gold)">procurement teams.</span></h1>
+        <p class="hero-desc">Manage RFPs, RFQs, auctions, and supplier decisions in one intelligent platform powered by AI.</p>
         <div class="hero-features">
           <div class="hero-feature">
             <svg class="ico" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
@@ -715,27 +633,27 @@
             Enterprise Security
           </div>
         </div>
-        <div class="hero-buttons blur-reveal delay-3">
-          <a href="zauctoContact.html" class="btn btn-primary magnetic-btn">Start Free <span class="arrow"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
-          <a href="https://www.youtube.com/@ZauctoAI" target="_blank" rel="noopener" class="btn-play">
+        <div class="hero-buttons">
+          <a href="#" class="btn btn-primary">Start Free <span class="arrow"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+          <a href="#" class="btn-play">
             <span class="play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></span>
             How It Works
           </a>
         </div>
-        <div class="hero-trust blur-reveal delay-4">
+        <div class="hero-trust">
           <div class="trust-avatars">
-            <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=11" alt=""></div>
-            <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=32" alt=""></div>
-            <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=47" alt=""></div>
-            <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=56" alt=""></div>
-            <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=68" alt=""></div>
+            <div class="trust-av"><img src="https://i.pravatar.cc/60?img=11" alt=""></div>
+            <div class="trust-av"><img src="https://i.pravatar.cc/60?img=32" alt=""></div>
+            <div class="trust-av"><img src="https://i.pravatar.cc/60?img=47" alt=""></div>
+            <div class="trust-av"><img src="https://i.pravatar.cc/60?img=56" alt=""></div>
+            <div class="trust-av"><img src="https://i.pravatar.cc/60?img=68" alt=""></div>
           </div>
           <div class="trust-text">Trusted by <strong>10,000+</strong> procurement teams worldwide</div>
         </div>
       </div>
       <div class="hero-visual">
-        <video preload="metadata" autoplay muted loop playsinline style="width:100%;max-width:750px;height:auto;border-radius:16px;object-fit:cover;">
-          <source src="assets/animated-hero.webm" type="video/webm" />
+        <video autoplay muted loop playsinline style="width:100%;max-width:750px;height:auto;border-radius:16px;object-fit:cover;">
+          <source src="animated-hero.webm" type="video/webm" />
         </video>
       </div>
     </div>
@@ -745,27 +663,27 @@
   <section class="metrics-strip">
     <div class="container">
       <div class="metrics-grid">
-        <div class="metric-card gs-hidden blur-reveal-light" data-tilt="" data-tilt-max="10">
+        <div class="metric-card gs-hidden">
           <div class="metric-icon blue"><svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
           <div class="metric-number" data-count="428">0</div>
           <div class="metric-label">Active RFQs</div>
         </div>
-        <div class="metric-card gs-hidden blur-reveal-light" data-tilt="" data-tilt-max="10">
+        <div class="metric-card gs-hidden">
           <div class="metric-icon purple"><svg class="ico" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
           <div class="metric-number" data-count="2341">0</div>
           <div class="metric-label">Suppliers Matched</div>
         </div>
-        <div class="metric-card gs-hidden blur-reveal-light" data-tilt="" data-tilt-max="10">
+        <div class="metric-card gs-hidden">
           <div class="metric-icon gold"><svg class="ico" viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
           <div class="metric-number" data-prefix="₹" data-suffix=" Cr+" data-count="24">0</div>
           <div class="metric-label">Spend Optimized</div>
         </div>
-        <div class="metric-card gs-hidden blur-reveal-light" data-tilt="" data-tilt-max="10">
+        <div class="metric-card gs-hidden">
           <div class="metric-icon green"><svg class="ico" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
           <div class="metric-number" data-count="156">0</div>
           <div class="metric-label">Negotiations Running</div>
         </div>
-        <div class="metric-card gs-hidden blur-reveal-light" data-tilt="" data-tilt-max="10">
+        <div class="metric-card gs-hidden">
           <div class="metric-icon blue"><svg class="ico" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
           <div class="metric-number" data-suffix="%" data-count="98.6" data-decimal="1">0</div>
           <div class="metric-label">Response Rate</div>
@@ -782,7 +700,7 @@
         <div class="rfx-panel gs-hidden">
           <div class="rfx-panel-header">
             <h3>Live RFX Events</h3>
-            <a href="zauctoRFQ.html" class="btn btn-sm btn-secondary" style="font-size:12px">View All <span class="arrow"><svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+            <a href="#" class="btn btn-sm btn-secondary" style="font-size:12px">View All <span class="arrow"><svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
           </div>
           <div class="rfx-filters">
             <button class="rfx-filter active" onclick="filterRFX(this,'all')">All</button>
@@ -817,17 +735,17 @@
               <div class="insight-bars">
                 <div class="insight-bar-row">
                   <span class="insight-bar-label">Pricing</span>
-                  <div class="insight-bar-track"><div class="insight-bar-fill" style="--w:92%;background:linear-gradient(90deg,#3B82F6,#60A5FA)"></div></div>
+                  <div class="insight-bar-track"><div class="insight-bar-fill" style="width:92%;background:linear-gradient(90deg,#3B82F6,#60A5FA)"></div></div>
                   <span class="insight-bar-val">92%</span>
                 </div>
                 <div class="insight-bar-row">
                   <span class="insight-bar-label">Quality</span>
-                  <div class="insight-bar-track"><div class="insight-bar-fill" style="--w:85%;background:linear-gradient(90deg,#3B82F6,#60A5FA)"></div></div>
+                  <div class="insight-bar-track"><div class="insight-bar-fill" style="width:85%;background:linear-gradient(90deg,#3B82F6,#60A5FA)"></div></div>
                   <span class="insight-bar-val">85%</span>
                 </div>
                 <div class="insight-bar-row">
                   <span class="insight-bar-label">Delivery</span>
-                  <div class="insight-bar-track"><div class="insight-bar-fill" style="--w:78%;background:linear-gradient(90deg,#3B82F6,#60A5FA)"></div></div>
+                  <div class="insight-bar-track"><div class="insight-bar-fill" style="width:78%;background:linear-gradient(90deg,#3B82F6,#60A5FA)"></div></div>
                   <span class="insight-bar-val">78%</span>
                 </div>
                 <div class="insight-bar-row">
@@ -857,7 +775,7 @@
               <h3 style="font-size:16px;font-weight:700;margin-top:6px">Recommended for You</h3>
               <p style="font-size:12px;color:var(--text-muted)">Based on your recent activity</p>
             </div>
-            <a href="zauctoAISpendInsight.html" style="font-size:12px;font-weight:600;color:var(--blue);display:inline-flex;align-items:center;gap:4px;white-space:nowrap;margin-top:8px">View All <svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="#" style="font-size:12px;font-weight:600;color:var(--blue);display:inline-flex;align-items:center;gap:4px;white-space:nowrap;margin-top:8px">View All <svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
           </div>
           <div class="rfx-rec-list" id="recGrid"></div>
         </div>
@@ -868,21 +786,21 @@
   <!-- MARKETPLACE -->
   <section class="section">
     <div class="container">
-      <div class="section-header gs-hidden blur-reveal">
+      <div class="section-header gs-hidden">
         <span class="badge">Marketplace</span>
         <h2>A catalogue built for sourcing at scale.</h2>
       </div>
       <div class="mp-header-row gs-hidden">
         <div class="mp-tabs">
-          <button class="mp-tab active" data-cat="raw" onclick="filterMP(this)">Raw Materials</button>
-          <button class="mp-tab" data-cat="elec" onclick="filterMP(this)">Electrical</button>
-          <button class="mp-tab" data-cat="raw" onclick="filterMP(this)">Hardware</button>
-          <button class="mp-tab" data-cat="safety" onclick="filterMP(this)">Safety</button>
-          <button class="mp-tab" data-cat="raw" onclick="filterMP(this)">Industrial</button>
-          <button class="mp-tab" data-cat="raw" onclick="filterMP(this)">Packaging</button>
-          <button class="mp-tab" data-cat="raw" onclick="filterMP(this)">Chemicals</button>
+          <button class="mp-tab active" onclick="filterMP(this)">Raw Materials</button>
+          <button class="mp-tab" onclick="filterMP(this)">Electrical</button>
+          <button class="mp-tab" onclick="filterMP(this)">Hardware</button>
+          <button class="mp-tab" onclick="filterMP(this)">Safety</button>
+          <button class="mp-tab" onclick="filterMP(this)">Industrial</button>
+          <button class="mp-tab" onclick="filterMP(this)">Packaging</button>
+          <button class="mp-tab" onclick="filterMP(this)">Chemicals</button>
         </div>
-        <a href="zauctoMarketplace.html" class="btn btn-sm btn-ghost">View All Products <span class="arrow"><svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+        <a href="#" class="btn btn-sm btn-ghost">View All Products <span class="arrow"><svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
       </div>
       <div class="mp-grid" id="mpGrid"></div>
     </div>
@@ -896,7 +814,7 @@
           <span class="badge">Auctions</span>
           <h2 style="font-size:32px;font-weight:800;margin-top:8px">Live Auctions</h2>
         </div>
-        <a href="zauctoAllAuctions.html" class="btn btn-sm btn-secondary">View All Auctions <span class="arrow"><svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+        <a href="#" class="btn btn-sm btn-secondary">View All Auctions <span class="arrow"><svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
       </div>
       <div class="auction-tabs gs-hidden">
         <button class="auction-tab active" data-tab="all" onclick="filterAuctionTab(this)"><span class="live-dot"></span> All</button>
@@ -942,84 +860,74 @@
     </div>
   </section>
 
-  <!-- HOW ZAUCTO WORKS (PREMIUM VERTICAL TIMELINE) -->
+  <!-- HOW ZAUCTO WORKS -->
   <section class="timeline-section section">
     <div class="container">
-      <div class="section-header gs-hidden blur-reveal" style="text-align:center">
+      <div class="section-header gs-hidden" style="text-align:center">
         <span class="badge">Process</span>
         <h2>How Zaucto Works</h2>
         <p style="margin:0 auto">From intake to award, powered by AI at every step.</p>
       </div>
-      <div class="timeline-container" id="pvContainer">
-        <div class="pv-line"><div class="pv-line-fill" id="pvFill"></div></div>
-        <div class="pv-spark" id="pvSpark"></div>
-        <div class="pv-steps" style="position:relative">
-          <div class="pv-item">
-            <div class="pv-glow"></div>
-            <div class="pv-node">01</div>
-            <div class="pv-card">
-              <div class="pv-icon blue"><svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
-              <div class="pv-title">Create RFQ</div>
-              <div class="pv-desc">Define your requirements in minutes</div>
-              <div class="pv-tag"><span class="dot"></span>AI parses your specs</div>
-            </div>
+      <div class="timeline-container">
+        <div class="timeline-line"><div class="timeline-line-fill" id="timelineFill"></div></div>
+        <div class="timeline-steps">
+          <div class="timeline-step gs-hidden">
+            <div class="timeline-bg-shape blue"></div>
+            <div class="timeline-step-num">01</div>
+            <div class="timeline-step-icon blue"><svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
+            <div class="timeline-step-title">Create RFQ</div>
+            <div class="timeline-step-desc">Define your requirements in minutes</div>
+            <div class="timeline-step-detail"><p>Upload specs, set deadlines, and let our AI parse your requirements instantly.</p></div>
+            <div class="timeline-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
-          <div class="pv-item">
-            <div class="pv-glow"></div>
-            <div class="pv-node">02</div>
-            <div class="pv-card">
-              <div class="pv-icon purple"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
-              <div class="pv-title">AI Finds Suppliers</div>
-              <div class="pv-desc">We find the best matching suppliers</div>
-              <div class="pv-tag"><span class="dot"></span>10,000+ supplier network</div>
-            </div>
+          <div class="timeline-step gs-hidden">
+            <div class="timeline-bg-shape purple"></div>
+            <div class="timeline-step-num">02</div>
+            <div class="timeline-step-icon purple"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+            <div class="timeline-step-title">AI Finds Suppliers</div>
+            <div class="timeline-step-desc">We find the best matching suppliers</div>
+            <div class="timeline-step-detail"><p>Our AI scans 10,000+ verified suppliers to find the perfect match for your needs.</p></div>
+            <div class="timeline-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
-          <div class="pv-item">
-            <div class="pv-glow"></div>
-            <div class="pv-node">03</div>
-            <div class="pv-card">
-              <div class="pv-icon gold"><svg class="ico" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-              <div class="pv-title">Suppliers Bid</div>
-              <div class="pv-desc">Receive competitive bids and proposals</div>
-              <div class="pv-tag"><span class="dot"></span>Live competitive bidding</div>
-            </div>
+          <div class="timeline-step gs-hidden">
+            <div class="timeline-bg-shape gold"></div>
+            <div class="timeline-step-num">03</div>
+            <div class="timeline-step-icon gold"><svg class="ico" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <div class="timeline-step-title">Suppliers Bid</div>
+            <div class="timeline-step-desc">Receive competitive bids and proposals</div>
+            <div class="timeline-step-detail"><p>Suppliers compete with real-time bids. Compare pricing, quality, and delivery side by side.</p></div>
+            <div class="timeline-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
-          <div class="pv-item">
-            <div class="pv-glow"></div>
-            <div class="pv-node">04</div>
-            <div class="pv-card">
-              <div class="pv-icon green"><svg class="ico" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-              <div class="pv-title">AI Negotiates</div>
-              <div class="pv-desc">Our AI negotiates the best possible deal</div>
-              <div class="pv-tag"><span class="dot"></span>15-30% savings</div>
-            </div>
+          <div class="timeline-step gs-hidden">
+            <div class="timeline-bg-shape green"></div>
+            <div class="timeline-step-num">04</div>
+            <div class="timeline-step-icon green"><svg class="ico" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div class="timeline-step-title">AI Negotiates</div>
+            <div class="timeline-step-desc">Our AI negotiates the best possible deal</div>
+            <div class="timeline-step-detail"><p>AI-driven negotiation gets you 15-30% better pricing than manual procurement.</p></div>
+            <div class="timeline-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
-          <div class="pv-item">
-            <div class="pv-glow"></div>
-            <div class="pv-node">05</div>
-            <div class="pv-card">
-              <div class="pv-icon teal"><svg class="ico" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
-              <div class="pv-title">Award Supplier</div>
-              <div class="pv-desc">Select the best supplier and award</div>
-              <div class="pv-tag"><span class="dot"></span>One-click award</div>
-            </div>
+          <div class="timeline-step gs-hidden">
+            <div class="timeline-bg-shape teal"></div>
+            <div class="timeline-step-num">05</div>
+            <div class="timeline-step-icon teal"><svg class="ico" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+            <div class="timeline-step-title">Award Supplier</div>
+            <div class="timeline-step-desc">Select the best supplier and award</div>
+            <div class="timeline-step-detail"><p>One-click award with automated PO generation and compliance checks.</p></div>
+            <div class="timeline-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
           </div>
-          <div class="pv-item">
-            <div class="pv-glow"></div>
-            <div class="pv-node">06</div>
-            <div class="pv-card">
-              <div class="pv-icon blue2"><svg class="ico" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-              <div class="pv-title">Track & Manage</div>
-              <div class="pv-desc">Track orders, invoices, and performance</div>
-              <div class="pv-tag"><span class="dot"></span>Real-time analytics</div>
-            </div>
+          <div class="timeline-step gs-hidden">
+            <div class="timeline-bg-shape blue"></div>
+            <div class="timeline-step-num">06</div>
+            <div class="timeline-step-icon blue"><svg class="ico" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+            <div class="timeline-step-title">Track & Manage</div>
+            <div class="timeline-step-desc">Track orders, invoices, and performance</div>
+            <div class="timeline-step-detail"><p>Real-time dashboard for orders, payments, and supplier performance analytics.</p></div>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  
 
   <!-- MEET ZAUCTO AI + SAVINGS CALCULATOR -->
   <section class="section ai-section">
@@ -1029,7 +937,7 @@
         <div class="ai-dark-card gs-hidden">
           <div class="ai-dark-top">
             <div class="ai-robot">
-              <img loading="lazy" src="assets/roboto.png" alt="Zaucto AI Robot" />
+              <img src="roboto.png" alt="Zaucto AI Robot" />
             </div>
             <div class="ai-dark-text">
               <h2>Meet Zaucto AI</h2>
@@ -1065,7 +973,7 @@
                 <div style="font-size:28px;font-weight:800;color:var(--success)">14.5%</div>
               </div>
             </div>
-            <button class="btn btn-primary magnetic-btn" style="width:100%;margin-top:12px">Calculate Savings <span class="arrow"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></button>
+            <button class="btn btn-primary" style="width:100%;margin-top:12px">Calculate Savings <span class="arrow"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></button>
           </div>
         </div>
       </div>
@@ -1166,8 +1074,8 @@
         <h2>Move sourcing from quarterly to <span class="gold">continuous.</span></h2>
         <p>Start a free 30-day trial, or talk to a procurement specialist about your category mix and rollout plan.</p>
         <div class="cta-buttons">
-          <a href="zauctoContact.html" class="btn btn-primary magnetic-btn">Start Free Trial <span class="arrow"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
-          <a href="zauctoContact.html" class="btn btn-secondary">Talk to Sales</a>
+          <a href="#" class="btn btn-primary">Start Free Trial <span class="arrow"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+          <a href="#" class="btn btn-secondary">Talk to Sales</a>
         </div>
       </div>
     </div>
@@ -1179,7 +1087,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="logo" style="margin-bottom:8px">
-            <div class="logo-icon"><img loading="lazy" src="assets/logo.png" alt="Zaucto Logo" /></div>
+            <div class="logo-icon"><img src="logo.png" alt="Zaucto Logo" /></div>
           </div>
           <p>Unlock True Value with Zaucto</p>
           <div class="footer-socials">
@@ -1196,7 +1104,7 @@
             <li><a href="#">Auctions</a></li>
             <li><a href="#">Request for Quotations</a></li>
             <li><a href="zauctoMarketplace.html">Marketplace</a></li>
-            <li><a href="https://www.youtube.com/@ZauctoAI" target="_blank" rel="noopener">How It Works</a></li>
+            <li><a href="#">How It Works</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -1244,7 +1152,7 @@
   </footer>
 
   <!-- SCROLL TO TOP -->
-  <button class="scroll-top" id="scrollTopBtn" title="Scroll to top" aria-label="Scroll to top">
+  <button class="scroll-top" id="scrollTopBtn" title="Scroll to top">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
   </button>
 
@@ -1270,29 +1178,25 @@
     ];
 
     const marketplaceData = [
-      {cat:'raw',name:'Copper Wire',desc:'99.9% Pure Copper',price:'₹155',unit:'/ kg',moq:'MOQ 500 KG',img:'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&h=300&fit=crop',verified:true,location:'Mumbai',delivery:'4-6 days',match:96,trend:'stable',trendText:'→ 0.1%'},
-      {cat:'raw',name:'Steel Coils',desc:'Cold Rolled, 2mm',price:'₹52,000',unit:'/ MT',moq:'MOQ 1 MT',img:'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&h=300&fit=crop',verified:true,location:'Delhi',delivery:'3-5 days',match:89,trend:'down',trendText:'↓ 1.8%'},
-      {cat:'raw',name:'Stainless Steel Pipes',desc:'304 Grade, Seamless',price:'₹185',unit:'/ meter',moq:'MOQ 50 meter',img:'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=300&fit=crop',verified:true,location:'Pune',delivery:'5-7 days',match:91,trend:'up',trendText:'↑ 2.3%'},
-      {cat:'raw',name:'Aluminum Sheets',desc:'6061 T6 Alloy',price:'₹320',unit:'/ kg',moq:'MOQ 50 KG',img:'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400&h=300&fit=crop',verified:true,location:'Bangalore',delivery:'4-6 days',match:82,trend:'stable',trendText:'→ 0.3%'},
-      {cat:'raw',name:'Silicon Rubber',desc:'High Temperature, 200°C',price:'₹450',unit:'/ kg',moq:'MOQ 20 KG',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',verified:true,location:'Hyderabad',delivery:'6-8 days',match:88,trend:'down',trendText:'↓ 1.2%'},
-      {cat:'raw',name:'Zinc Oxide',desc:'99.7% Purity, Industrial',price:'₹78.50',unit:'/ kg',moq:'MOQ 25 KG',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',verified:true,location:'Ahmedabad',delivery:'3-5 days',match:78,trend:'up',trendText:'↑ 1.5%'},
-      {cat:'elec',name:'Copper Cable',desc:'2.5mm Insulated',price:'₹155',unit:'/ meter',moq:'MOQ 100 meter',img:'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop',verified:true,location:'Pune',delivery:'3-5 days',match:93,trend:'stable',trendText:'→ 0.2%'},
-      {cat:'elec',name:'LED Panel Lights',desc:'Slim 600x600 40W',price:'₹1,450',unit:'/ piece',moq:'MOQ 50 PCS',img:'https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&h=300&fit=crop',verified:true,location:'Bangalore',delivery:'1-3 days',match:87,trend:'down',trendText:'↓ 0.8%'},
-      {cat:'elec',name:'Hydraulic Hoses',desc:'High-pressure R2AT',price:'₹320',unit:'/ meter',moq:'MOQ 30 meter',img:'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&h=300&fit=crop',verified:true,location:'Chennai',delivery:'2-4 days',match:89,trend:'up',trendText:'↑ 1.1%'},
-      {cat:'safety',name:'Safety Gloves',desc:'Cut-resistant A4',price:'₹125',unit:'/ pair',moq:'MOQ 200 PAIRS',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',verified:true,location:'Delhi',delivery:'1-2 days',match:96,trend:'stable',trendText:'→ 0.0%'},
+      {name:'Copper Wire',desc:'99.9% Pure Copper',price:'₹155',unit:'/ kg',moq:'MOQ 500 KG',img:'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&h=300&fit=crop',verified:true,location:'Mumbai',delivery:'4-6 days',match:96,trend:'stable',trendText:'→ 0.1%'},
+      {name:'Steel Coils',desc:'Cold Rolled, 2mm',price:'₹52,000',unit:'/ MT',moq:'MOQ 1 MT',img:'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&h=300&fit=crop',verified:true,location:'Delhi',delivery:'3-5 days',match:89,trend:'down',trendText:'↓ 1.8%'},
+      {name:'Stainless Steel Pipes',desc:'304 Grade, Seamless',price:'₹185',unit:'/ meter',moq:'MOQ 50 meter',img:'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=300&fit=crop',verified:true,location:'Pune',delivery:'5-7 days',match:91,trend:'up',trendText:'↑ 2.3%'},
+      {name:'Aluminum Sheets',desc:'6061 T6 Alloy',price:'₹320',unit:'/ kg',moq:'MOQ 50 KG',img:'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400&h=300&fit=crop',verified:true,location:'Bangalore',delivery:'4-6 days',match:82,trend:'stable',trendText:'→ 0.3%'},
+      {name:'Silicon Rubber',desc:'High Temperature, 200°C',price:'₹450',unit:'/ kg',moq:'MOQ 20 KG',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',verified:true,location:'Hyderabad',delivery:'6-8 days',match:88,trend:'down',trendText:'↓ 1.2%'},
+      {name:'Zinc Oxide',desc:'99.7% Purity, Industrial',price:'₹78.50',unit:'/ kg',moq:'MOQ 25 KG',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',verified:true,location:'Ahmedabad',delivery:'3-5 days',match:78,trend:'up',trendText:'↑ 1.5%'},
     ];
 
     const recData = [
-      {cat:'raw',name:'Industrial Bearings',desc:'Precision 6205-2RS',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',match:98,supplier:'BearingWorld India',price:'₹185',unit:'/ piece',delivery:'2-3 days Mumbai'},
-      {cat:'safety',name:'Safety Gloves',desc:'Cut-resistant A4',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',match:96,supplier:'SafeHands Corp',price:'₹125',unit:'/ pair',delivery:'1-2 days Delhi'},
-      {cat:'elec',name:'Copper Cable',desc:'2.5mm insulated',img:'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop',match:93,supplier:'CopperTech Ltd',price:'₹155',unit:'/ meter',delivery:'3-5 days Pune'},
-      {cat:'raw',name:'Steel Pipes',desc:'304 Seamless 2inch',img:'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&h=300&fit=crop',match:91,supplier:'SteelPro India',price:'₹185',unit:'/ meter',delivery:'4-6 days Gujarat'},
-      {cat:'elec',name:'Hydraulic Hoses',desc:'High-pressure R2AT',img:'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&h=300&fit=crop',match:89,supplier:'FlowTech Systems',price:'₹320',unit:'/ meter',delivery:'2-4 days Chennai'},
-      {cat:'elec',name:'LED Panel Lights',desc:'Slim 600x600 40W',img:'https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&h=300&fit=crop',match:87,supplier:'BrightPath LEDs',price:'₹1,450',unit:'/ piece',delivery:'1-3 days Bangalore'},
-      {cat:'raw',name:'Aluminium Sheets',desc:'6061-T6 2mm thick',img:'https://images.unsplash.com/photo-1534620808146-d33bb3fee4a3?w=400&h=300&fit=crop',match:85,supplier:'MetalWorks India',price:'₹420',unit:'/ sqft',delivery:'3-5 days Hyderabad'},
-      {cat:'raw',name:'PVC Pipes',desc:'Schedule 40 4inch',img:'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=400&h=300&fit=crop',match:82,supplier:'PipeLine Corp',price:'₹95',unit:'/ piece',delivery:'2-3 days Jaipur'},
-      {cat:'raw',name:'CNC Tools Set',desc:'Carbide 10-piece',img:'https://images.unsplash.com/photo-1567361808960-dec9cb578182?w=400&h=300&fit=crop',match:80,supplier:'ToolMaster Pro',price:'₹4,200',unit:'/ set',delivery:'5-7 days Pune'},
-      {cat:'raw',name:'Transformer Oil',desc:'Mineral 25L drum',img:'https://images.unsplash.com/photo-1581093458791-9d42e3c7e117?w=400&h=300&fit=crop',match:78,supplier:'OilChem Industries',price:'₹2,800',unit:'/ drum',delivery:'3-4 days Mumbai'},
+      {name:'Industrial Bearings',desc:'Precision 6205-2RS',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',match:98,supplier:'BearingWorld India',price:'₹185',unit:'/ piece',delivery:'2-3 days Mumbai'},
+      {name:'Safety Gloves',desc:'Cut-resistant A4',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',match:96,supplier:'SafeHands Corp',price:'₹125',unit:'/ pair',delivery:'1-2 days Delhi'},
+      {name:'Copper Cable',desc:'2.5mm insulated',img:'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop',match:93,supplier:'CopperTech Ltd',price:'₹155',unit:'/ meter',delivery:'3-5 days Pune'},
+      {name:'Steel Pipes',desc:'304 Seamless 2inch',img:'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&h=300&fit=crop',match:91,supplier:'SteelPro India',price:'₹185',unit:'/ meter',delivery:'4-6 days Gujarat'},
+      {name:'Hydraulic Hoses',desc:'High-pressure R2AT',img:'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&h=300&fit=crop',match:89,supplier:'FlowTech Systems',price:'₹320',unit:'/ meter',delivery:'2-4 days Chennai'},
+      {name:'LED Panel Lights',desc:'Slim 600x600 40W',img:'https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&h=300&fit=crop',match:87,supplier:'BrightPath LEDs',price:'₹1,450',unit:'/ piece',delivery:'1-3 days Bangalore'},
+      {name:'Aluminium Sheets',desc:'6061-T6 2mm thick',img:'https://images.unsplash.com/photo-1534620808146-d33bb3fee4a3?w=400&h=300&fit=crop',match:85,supplier:'MetalWorks India',price:'₹420',unit:'/ sqft',delivery:'3-5 days Hyderabad'},
+      {name:'PVC Pipes',desc:'Schedule 40 4inch',img:'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=400&h=300&fit=crop',match:82,supplier:'PipeLine Corp',price:'₹95',unit:'/ piece',delivery:'2-3 days Jaipur'},
+      {name:'CNC Tools Set',desc:'Carbide 10-piece',img:'https://images.unsplash.com/photo-1567361808960-dec9cb578182?w=400&h=300&fit=crop',match:80,supplier:'ToolMaster Pro',price:'₹4,200',unit:'/ set',delivery:'5-7 days Pune'},
+      {name:'Transformer Oil',desc:'Mineral 25L drum',img:'https://images.unsplash.com/photo-1581093458791-9d42e3c7e117?w=400&h=300&fit=crop',match:78,supplier:'OilChem Industries',price:'₹2,800',unit:'/ drum',delivery:'3-4 days Mumbai'},
     ];
 
     // ====== RFX ======
@@ -1329,7 +1233,7 @@
       if (!grid) return;
       grid.innerHTML = recData.map(item => `
         <div class="rfx-rec-item">
-          <img loading="lazy" src="${item.img}" alt="${item.name}" onerror="this.style.background='#E2E8F0'" />
+          <img src="${item.img}" alt="${item.name}" onerror="this.style.background='#1F293D'" />
           <div class="rfx-rec-item-info">
             <div class="rfx-rec-item-name">${item.name}</div>
             <div class="rfx-rec-item-meta">${item.supplier}</div>
@@ -1343,9 +1247,9 @@
     function renderMarketplace() {
       const grid = document.getElementById('mpGrid');
       grid.innerHTML = marketplaceData.map(item => `
-        <div class="mp-card" data-cat="${item.cat || 'raw'}">
+        <div class="mp-card">
           <div class="mp-img-wrap">
-            <img loading="lazy" src="${item.img}" alt="${item.name}" class="mp-card-img" onerror="this.style.background='#E2E8F0'" />
+            <img src="${item.img}" alt="${item.name}" class="mp-card-img" onerror="this.style.background='#1F293D'" />
             <span class="mp-ai-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg> AI ${item.match}%</span>
           </div>
           <div class="mp-card-body">
@@ -1369,13 +1273,6 @@
     function filterMP(el) {
       el.closest('.mp-tabs').querySelectorAll('.mp-tab').forEach(t => t.classList.remove('active'));
       el.classList.add('active');
-      var cat = el.getAttribute('data-cat');
-      var map = { 'raw-materials': 'raw', 'electrical': 'elec', 'safety': 'safety' };
-      var want = map[cat] || cat;
-      document.querySelectorAll('#mpGrid .mp-card').forEach(function (c) {
-        var show = !want || want === 'all' || c.getAttribute('data-cat') === want;
-        c.style.display = show ? '' : 'none';
-      });
     }
 
     // ====== AUCTIONS ======
@@ -1405,7 +1302,7 @@
       grid.innerHTML = visible.map((item, i) => {
         const badge = item.status === 'live' ? '<span class="auction-live-badge"><span class="dot"></span> LIVE</span>'
           : item.status === 'ended' ? '<span class="auction-live-badge" style="background:rgba(255,77,79,.08);color:var(--danger)"><span class="dot" style="background:var(--danger)"></span> ENDED</span>'
-          : '<span class="auction-live-badge" style="background:rgba(13,59,255,.08);color:var(--blue)"> UPCOMING</span>';
+          : '<span class="auction-live-badge" style="background:rgba(79,123,255,.18);color:var(--blue)"> UPCOMING</span>';
         return `
         <div class="auction-card ${item.hot ? 'hot' : ''} gs-hidden" style="animation-delay:${i * .05}s">
           <div class="auction-card-header">${badge}</div>
@@ -1510,12 +1407,8 @@
       if (!container) return;
       container.innerHTML = '<div class="impact-total-label">₹24.8Cr</div><div class="impact-total-sub">This Quarter</div>' +
         impactBars.map((b, i) => {
-          const isLast = i === impactBars.length - 1;
           const opacity = 0.35 + (b.height / 100) * 0.65;
-          const bg = isLast
-            ? `linear-gradient(180deg,rgba(255,159,32,${Math.min(opacity + 0.1, 1)}),rgba(255,159,32,${opacity * 0.45}))`
-            : `linear-gradient(180deg,rgba(13,59,255,${opacity}),rgba(13,59,255,${opacity * 0.4}))`;
-          return `<div class="impact-bar${isLast ? ' impact-bar-gold' : ''}" style="height:0%;background:${bg};opacity:0" data-height="${b.height}">
+          return `<div class="impact-bar" style="height:0%;background:linear-gradient(180deg,rgba(91,140,255,${opacity}),rgba(91,140,255,${opacity * 0.4}));opacity:0" data-height="${b.height}">
             <span class="bar-value">₹${b.value}Cr</span>
             <span class="bar-label">${b.label}</span>
           </div>`;
@@ -1551,7 +1444,7 @@
       });
 
       // Stagger for grids
-      ['.recommended-grid .gs-hidden', '.mp-grid .gs-hidden', '.auction-grid .gs-hidden', '.security-grid .gs-hidden'].forEach(sel => {
+      ['.recommended-grid .gs-hidden', '.mp-grid .gs-hidden', '.auction-grid .gs-hidden', '.security-grid .gs-hidden', '.timeline-steps .gs-hidden'].forEach(sel => {
         const els = document.querySelectorAll(sel);
         if (els.length) {
           gsap.to(els, { scrollTrigger: { trigger: els[0].parentElement, start: 'top 85%', toggleActions: 'play none none none' }, opacity: 1, y: 0, duration: .5, stagger: .08, ease: 'power3.out' });
@@ -1573,6 +1466,17 @@
             }});
           }, once: true
         });
+      });
+
+      // Timeline line fill
+      ScrollTrigger.create({
+        trigger: '.timeline-container', start: 'top 80%', end: 'bottom 20%',
+        onUpdate: (self) => {
+          document.getElementById('timelineFill').style.width = (self.progress * 100) + '%';
+          document.querySelectorAll('.timeline-step').forEach((step, i) => {
+            step.classList.toggle('active', self.progress > (i / 6));
+          });
+        }
       });
 
       // Sticky header
@@ -1631,7 +1535,7 @@
     var hero = cvs.parentElement;
     var W = 0, H = 0, GRID = 60;
     var dots = [];
-    var COLORS = ['#6B8CFF','#8BA8FF','#FFB86C'];
+    var COLORS = ['#5B8CFF','#9FB8FF','#FFB454'];
     var TRAIL_PX = 180;
     var MAX_DOTS = 8;
     var lastSpawn = 0;
@@ -1739,12 +1643,51 @@
   })();
   </script>
 
+  <!-- TIMELINE SCROLL ANIMATION -->
+  <script>
+  (function(){
+    var steps = document.querySelectorAll('.timeline-step');
+    var fill = document.getElementById('timelineFill');
+    if(!steps.length || !fill) return;
+    var section = document.querySelector('.timeline-section');
+    var currentActive = -1;
+
+    function onScroll() {
+      var rect = section.getBoundingClientRect();
+      var viewH = window.innerHeight;
+      var sectionTop = rect.top;
+      var sectionH = rect.height;
+      var progress = Math.max(0, Math.min(1, (viewH * 0.6 - sectionTop) / sectionH));
+      fill.style.width = (progress * 100) + '%';
+      var activeIdx = Math.min(Math.floor(progress * steps.length), steps.length - 1);
+      if(activeIdx !== currentActive) {
+        currentActive = activeIdx;
+        steps.forEach(function(s, i) {
+          if(i <= activeIdx) {
+            s.classList.add('active');
+          } else {
+            s.classList.remove('active');
+          }
+        });
+      }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+    steps.forEach(function(step) {
+      step.addEventListener('click', function() {
+        steps.forEach(function(s) { s.classList.remove('active'); });
+        step.classList.add('active');
+      });
+    });
+  })();
+  </script>
+
   <!-- INSIGHT CHART ANIMATION -->
   <script>
   (function(){
     var fills = document.querySelectorAll('.insight-bar-fill');
     if(!fills.length) return;
-    fills.forEach(function(f){ if(!f.style.getPropertyValue('--w')) f.style.setProperty('--w', '80%'); });
+    fills.forEach(function(f){ f.style.setProperty('--w', f.style.width); f.style.width = '0'; });
     var obs = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
         if(e.isIntersecting){
@@ -1761,7 +1704,23 @@
   <!-- SECURITY SECTION JS -->
   <script>
   (function(){
-    // 3D tilt now handled globally by advanced-animations.js (data-tilt)
+    // 3D Tilt on cards
+    var cards = document.querySelectorAll('.security-card');
+    cards.forEach(function(card) {
+      card.addEventListener('mousemove', function(e) {
+        var r = card.getBoundingClientRect();
+        var x = e.clientX - r.left;
+        var y = e.clientY - r.top;
+        var cx = r.width / 2;
+        var cy = r.height / 2;
+        var rx = (y - cy) / cy * -8;
+        var ry = (x - cx) / cx * 8;
+        card.style.transform = 'perspective(600px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-6px) scale(1.02)';
+      });
+      card.addEventListener('mouseleave', function() {
+        card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1)';
+      });
+    });
 
     // Counter animation
     var statsSection = document.querySelector('.security-stats');
@@ -1807,61 +1766,6 @@
         floatContainer.appendChild(el);
       }
     }
-  })();
-  </script>
-  <script src="advanced-animations.js"></script>
-  <script src="mobile-menu.js"></script>
-
-  <!-- PREMIUM PROCESS TIMELINE ENGINE -->
-  <script>
-  (function(){
-    'use strict';
-    var container = document.getElementById('pvContainer');
-    var fill = document.getElementById('pvFill');
-    var spark = document.getElementById('pvSpark');
-    var items = container ? Array.prototype.slice.call(container.querySelectorAll('.pv-item')) : [];
-    if (!container || !items.length) return;
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var ticking = false;
-
-    function update() {
-      ticking = false;
-      var line = container.querySelector('.pv-line');
-      var lr = line.getBoundingClientRect();
-      var vh = window.innerHeight;
-      // progress: line top enters 85% of viewport -> line bottom leaves 45%
-      var total = lr.height;
-      var passed = Math.min(Math.max(vh * 0.85 - lr.top, 0), total);
-      var progress = total > 0 ? passed / total : 0;
-      fill.style.height = (progress * 100) + '%';
-
-      // spark rides at the fill tip while line is mid-viewport
-      var tipY = lr.top + passed;
-      var inView = lr.top < vh * 0.9 && lr.bottom > vh * 0.15 && progress > 0.02 && progress < 0.999;
-      if (inView && !reduced) {
-        spark.style.top = tipY + 'px';
-        spark.classList.add('on');
-      } else {
-        spark.classList.remove('on');
-      }
-
-      // activate nodes whose center is above the tip
-      var activateAll = reduced;
-      items.forEach(function (item, i) {
-        var node = item.querySelector('.pv-node');
-        var nr = node.getBoundingClientRect();
-        var nodeMid = nr.top + nr.height / 2;
-        var on = activateAll || nodeMid <= tipY + 4;
-        item.classList.toggle('active', on);
-      });
-    }
-
-    function onScroll() {
-      if (!ticking) { ticking = true; requestAnimationFrame(update); }
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    update();
   })();
   </script>
 </body>
