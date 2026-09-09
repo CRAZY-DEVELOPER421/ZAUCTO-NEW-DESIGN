@@ -1,0 +1,283 @@
+/* ============================================================
+   ZAUCTO DESIGN SYSTEM v1.0
+   Unified tokens for consistent UI across all 26 pages
+   ============================================================ */
+
+/* ── BORDER RADIUS SYSTEM ────────────────────────────────── */
+/* Consistent radius scale: 4 values only */
+:root {
+  --radius-xs: 6px;    /* chips, tags, badges */
+  --radius-sm: 10px;   /* inputs, small cards */
+  --radius-md: 14px;   /* buttons, icons */
+  --radius-lg: 18px;   /* cards, modals */
+  --radius-xl: 24px;   /* large containers */
+  --radius-pill: 50px; /* pill buttons, nav */
+  --radius-full: 50%;  /* circles, avatars */
+}
+
+/* ── Z-INDEX LAYER SYSTEM ────────────────────────────────── */
+/* Prevent z-index wars */
+:root {
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-header: 500;
+  --z-overlay: 800;
+  --z-modal: 1000;
+  --z-toast: 1200;
+  --z-tooltip: 1500;
+}
+
+/* ── SHADOW / ELEVATION SYSTEM ───────────────────────────── */
+/* 5 levels of elevation */
+:root {
+  --elevation-0: none;
+  --elevation-1: 0 1px 3px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.03);
+  --elevation-2: 0 4px 12px rgba(0,0,0,.06), 0 1px 4px rgba(0,0,0,.03);
+  --elevation-3: 0 8px 24px rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.03);
+  --elevation-4: 0 12px 32px rgba(0,0,0,.10), 0 4px 12px rgba(0,0,0,.04);
+  --elevation-5: 0 20px 48px rgba(0,0,0,.14), 0 8px 20px rgba(0,0,0,.06);
+}
+
+/* ── TYPOGRAPHY SCALE ────────────────────────────────────── */
+/* Consistent type hierarchy */
+:root {
+  --text-xs: 11px;     /* labels, captions */
+  --text-sm: 13px;     /* body small, descriptions */
+  --text-base: 15px;   /* body text, paragraphs */
+  --text-lg: 17px;     /* subheadings */
+  --text-xl: 20px;     /* card titles */
+  --text-2xl: 26px;    /* section headings */
+  --text-3xl: 34px;    /* page headings */
+  --text-4xl: 44px;    /* hero headings */
+  --text-5xl: 56px;    /* display headings */
+  --leading-tight: 1.2;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.8;
+}
+
+/* ── SPACING SCALE ───────────────────────────────────────── */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --section-padding: 80px 0;
+}
+
+/* ── FOCUS STYLES (Accessibility) ────────────────────────── */
+/* Visible focus ring for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+/* Remove default outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+/* Button focus */
+.btn:focus-visible,
+.btn-dash:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.btn-gold:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(13, 59, 255, 0.15);
+}
+/* Input focus — skip wrapper-embedded search inputs */
+.fi:focus-visible,
+input[type="email"]:focus-visible,
+input[type="password"]:focus-visible,
+input[type="search"]:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(13, 59, 255, 0.1);
+}
+/* Search inputs inside styled wrappers: focus ring lives on the wrapper */
+.mp-search input:focus-visible,
+.wl-search input:focus-visible,
+.blog-search input:focus-visible,
+.faq-search input:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+/* Nav link focus */
+.nav-links a:focus-visible,
+.dropdown a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: -2px;
+}
+/* Filter chip focus */
+.filter-chip:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+/* Scroll to top focus */
+.scroll-top:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* ── LOADING STATE (Buttons) ─────────────────────────────── */
+.btn.loading,
+.btn-primary.loading,
+.btn-gold.loading,
+.btn-success.loading {
+  pointer-events: none;
+  position: relative;
+  color: transparent !important;
+}
+.btn.loading::after,
+.btn-primary.loading::after,
+.btn-gold.loading::after,
+.btn-success.loading::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btnSpin 0.6s linear infinite;
+}
+.btn-secondary.loading::after,
+.btn-ghost.loading::after {
+  border-color: rgba(13,59,255,.2);
+  border-top-color: var(--blue);
+}
+@keyframes btnSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── SKELETON LOADING ────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, var(--border) 25%, rgba(226,232,240,.5) 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-xs);
+}
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── CONSISTENT CARD STYLES ──────────────────────────────── */
+/* Override old inconsistent card styles */
+.auc-card,
+.value-card,
+.team-card,
+.culture-card,
+.partner-card,
+.investor-card,
+.award-card,
+.global-card,
+.blog-card,
+.faq-item,
+.pricing-card,
+.testimonial-card,
+.int-card,
+.job-card {
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--elevation-1) !important;
+  transition: transform 0.3s cubic-bezier(.22,1,.36,1),
+              box-shadow 0.3s cubic-bezier(.22,1,.36,1) !important;
+}
+.auc-card:hover,
+.value-card:hover,
+.team-card:hover,
+.culture-card:hover,
+.partner-card:hover,
+.investor-card:hover,
+.award-card:hover,
+.global-card:hover,
+.blog-card:hover,
+.faq-item:hover,
+.pricing-card:hover,
+.testimonial-card:hover,
+.int-card:hover,
+.job-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: var(--elevation-4) !important;
+}
+
+/* ── CONSISTENT BUTTON STYLES ────────────────────────────── */
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-gold,
+.btn-success,
+.btn-sm,
+.btn-lg {
+  border-radius: var(--radius-md) !important;
+}
+.btn-sm {
+  border-radius: var(--radius-sm) !important;
+}
+.btn-dash,
+.header-avatar {
+  border-radius: var(--radius-md) !important;
+}
+
+/* ── CONSISTENT INPUT STYLES ─────────────────────────────── */
+/* NOTE: bare inputs only — inputs inside styled search wrappers
+   (.mp-search, .wl-search, .blog-search, .faq-search) keep their
+   wrapper's design and must not get their own borders/radius */
+.fi,
+input[type="text"]:not(.mp-search input):not(.wl-search input):not(.blog-search input):not(.faq-search input),
+input[type="email"],
+input[type="password"],
+input[type="search"],
+select,
+textarea {
+  border-radius: var(--radius-sm) !important;
+}
+
+/* ── CONSISTENT DROPDOWN ─────────────────────────────────── */
+.dropdown {
+  border-radius: var(--radius-md) !important;
+}
+
+/* ── HEADER CONSISTENCY ──────────────────────────────────── */
+.header.scrolled .header-inner {
+  border-radius: var(--radius-pill) !important;
+}
+.header.scrolled .btn-dash {
+  border-radius: var(--radius-pill) !important;
+}
+
+/* ── BADGE CONSISTENCY ───────────────────────────────────── */
+.badge {
+  border-radius: var(--radius-xs) !important;
+  font-size: var(--text-xs) !important;
+}
+
+/* ── SECTION SPACING ─────────────────────────────────────── */
+section {
+  padding: var(--section-padding);
+}
+section:first-of-type {
+  padding-top: 120px;
+}
+
+/* ── MOBILE RESPONSIVE (Global) ──────────────────────────── */
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 60px 0;
+  }
+  section:first-of-type {
+    padding-top: 100px;
+  }
+}

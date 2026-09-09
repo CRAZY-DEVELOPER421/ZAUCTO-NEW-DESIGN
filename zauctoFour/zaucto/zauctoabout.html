@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - Zaucto | AI-Powered Procurement Platform</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#0D3BFF">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    :root{
+      --blue:#0D3BFF;--blue-dark:#0A2ED4;--gold:#FF9F20;--navy:#0A0F1C;
+      --bg:#F7F9FC;--card:#FFFFFF;--success:#16C784;--danger:#FF4D4F;
+      --text:#1E293B;--text-secondary:#64748B;--text-muted:#94A3B8;
+      --border:#E2E8F0;
+      --shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);
+      --shadow-md:0 4px 12px rgba(0,0,0,.06),0 1px 4px rgba(0,0,0,.04);
+      --shadow-lg:0 8px 24px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.04);
+      --radius:16px;--radius-lg:20px;
+    }
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;animation:pageLoad .6s ease-out}
+    @keyframes pageLoad{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    a{text-decoration:none;color:inherit}
+    ul{list-style:none}
+    .container{max-width:1440px;margin:0 auto;padding:0 40px}
+
+    /* BUTTONS */
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:12px;font-weight:600;font-size:14px;cursor:pointer;border:none;transition:all .3s cubic-bezier(.22,1,.36,1);font-family:inherit;white-space:nowrap}
+    .btn .arrow{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+    .btn:hover .arrow{transform:translateX(4px)}
+    .btn-primary{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(13,59,255,.25)}
+    .btn-primary:hover{background:var(--blue-dark);box-shadow:0 4px 16px rgba(13,59,255,.3);transform:translateY(-1px)}
+    .btn-secondary{background:var(--card);color:var(--text);border:1px solid var(--border)}
+    .btn-secondary:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-1px);box-shadow:var(--shadow)}
+    .btn-gold{background:var(--gold);color:#fff;box-shadow:0 2px 8px rgba(255,159,32,.25)}
+    .btn-gold:hover{background:#E8901A;transform:translateY(-1px)}
+    .btn-sm{padding:8px 18px;font-size:13px;border-radius:10px}
+    .btn-ghost{background:transparent;color:var(--text-secondary);padding:8px 16px}
+    .btn-ghost:hover{color:var(--blue);background:rgba(13,59,255,.05)}
+
+    /* SVG ICONS */
+    .ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+    .ico.sm{width:16px;height:16px}.ico.lg{width:28px;height:28px}.ico.xl{width:36px;height:36px}
+    .ico.white{stroke:#fff}.ico.blue{stroke:var(--blue)}.ico.gold{stroke:var(--gold)}
+
+    /* BADGE */
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--blue);background:rgba(13,59,255,.06);border:1px solid rgba(13,59,255,.1)}
+
+    /* ANIMATIONS */
+    @keyframes pulseLive{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(13,59,255,.15)}50%{box-shadow:0 0 40px rgba(13,59,255,.25)}}
+    @keyframes shimmer{0%{left:-100%}100%{left:200%}}
+    @keyframes countUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .gs-hidden{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.22,1,.36,1)}
+    .gs-visible{opacity:1!important;transform:translateY(0)!important}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes fadeInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+    @keyframes slideIn{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+    .hover-lift{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s cubic-bezier(.22,1,.36,1)}
+    .hover-lift:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.12)}
+    .hover-scale{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+    .hover-scale:hover{transform:scale(1.03)}
+
+    /* ===== HEADER ===== */
+    .header{position:fixed;top:8px;left:0;right:0;z-index:1000;padding:0;transition:all .5s cubic-bezier(.25,.46,.45,.94);background:transparent}
+    .header-inner{background:transparent;border-radius:0;transition:all .5s cubic-bezier(.25,.46,.45,.94);box-shadow:none;padding:0 32px}
+    .header.scrolled .header-inner{background:rgba(247,249,252,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);margin:0 12%;border-radius:50px;box-shadow:0 4px 20px rgba(0,0,0,.08),0 1px 6px rgba(0,0,0,.04);padding:4px 16px}
+    .header .container{display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:10px}
+    .logo-icon{width:72px;height:72px;border-radius:12px;overflow:hidden;flex-shrink:0;transition:all .5s cubic-bezier(.25,.46,.45,.94)}
+    .header.scrolled .logo-icon{width:44px;height:44px}
+    .logo-icon img{width:100%;height:100%;object-fit:contain}
+    .logo:hover .logo-icon{transform:scale(1.04)}
+    .nav-links{display:flex;align-items:center;gap:4px}
+    .header.scrolled .nav-links{gap:2px}
+    .nav-links a{font-size:14px;font-weight:500;color:var(--text-secondary);padding:8px 14px;border-radius:10px;transition:all .5s cubic-bezier(.25,.46,.45,.94);display:flex;align-items:center;gap:4px}
+    .header.scrolled .nav-links a{font-size:13px;padding:6px 10px}
+    .nav-links a:hover{color:var(--blue);background:rgba(13,59,255,.04)}
+    .nav-links a.active{color:var(--blue);font-weight:600;background:rgba(13,59,255,.06)}
+    .has-dropdown .ico{width:12px;height:12px;opacity:.5}
+    .nav-item{position:relative}
+    .dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);min-width:220px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:8px;z-index:200;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+    .nav-item:hover>.dropdown{opacity:1;visibility:visible}
+    .dropdown a{display:block;padding:10px 16px;font-size:13px;font-weight:500;color:var(--text-secondary);border-radius:10px;transition:all .2s}
+    .dropdown a:hover{background:rgba(13,59,255,.04);color:var(--blue)}
+    .ai-tag{color:var(--blue)!important;font-weight:600}
+    .ai-star{color:var(--gold);display:inline-flex}
+    .header-right{display:flex;align-items:center;gap:12px}
+    .contact-link{font-size:14px;font-weight:500;color:var(--text-secondary);transition:all .5s cubic-bezier(.25,.46,.45,.94)}
+    .header.scrolled .contact-link{font-size:12px}
+    .contact-link:hover{color:var(--blue)}
+    
+    
+    
+    .header-avatar{width:36px;height:36px;border-radius:10px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;transition:all .5s cubic-bezier(.25,.46,.45,.94)}
+    .header.scrolled .header-avatar{width:30px;height:30px}
+    .header-avatar:hover{border-color:var(--blue);color:var(--blue)}
+
+    /* ===== ABOUT HERO ===== */
+    .about-hero{padding:140px 0 60px;position:relative;overflow:hidden;background:linear-gradient(180deg,#F0F4FF 0%,var(--bg) 100%)}
+    .about-hero::before{content:'';position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(13,59,255,.05) 0%,transparent 70%);pointer-events:none;z-index:0}
+    .about-hero .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(13,59,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(13,59,255,.08) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+    .about-hero .container{position:relative;z-index:1;text-align:center;max-width:860px}
+    .about-hero-badge{margin-bottom:20px}
+    .about-hero h1{font-size:52px;font-weight:900;line-height:1.08;color:var(--text);margin-bottom:16px;letter-spacing:-.8px}
+    .about-hero h1 .highlight{color:var(--blue)}
+    .about-hero h1 .gold{color:var(--gold)}
+    .about-hero p{font-size:18px;color:var(--text-secondary);line-height:1.7;max-width:640px;margin:0 auto 28px}
+    .about-hero-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+    .hero-trust{display:inline-flex;align-items:center;gap:12px;padding:10px 20px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);position:relative;overflow:hidden;margin:0 auto}
+    .hero-trust::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);animation:shimmer 3s ease-in-out infinite}
+    .trust-avatars{display:flex}
+    .trust-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--card);margin-left:-8px;overflow:hidden;background:#E2E8F0;transition:transform .2s}
+    .trust-av:first-child{margin-left:0}
+    .trust-av:hover{transform:scale(1.15);z-index:2}
+    .trust-av img{width:100%;height:100%;object-fit:cover}
+    .trust-text{font-size:13px;color:var(--text-secondary)}
+    .trust-text strong{color:var(--text);font-weight:700}
+
+    /* ===== MISSION VISION SECTION ===== */
+    .mv-section{padding:60px 0}
+    .mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .mv-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px;box-shadow:var(--shadow);transition:all .3s;position:relative;overflow:hidden}
+    .mv-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+    .mv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+    .mv-card.mission::before{background:linear-gradient(90deg,var(--blue),#4F7BFF)}
+    .mv-card.vision::before{background:linear-gradient(90deg,var(--gold),#FFB366)}
+    .mv-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+    .mv-icon.blue{background:rgba(13,59,255,.08);color:var(--blue)}
+    .mv-icon.gold{background:rgba(255,159,32,.08);color:var(--gold)}
+    .mv-card h3{font-size:22px;font-weight:800;color:var(--text);margin-bottom:8px}
+    .mv-card p{font-size:15px;color:var(--text-secondary);line-height:1.7}
+
+    /* ===== STORY SECTION ===== */
+    .story-section{padding:60px 0;background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .story-layout{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+    .story-content h2{font-size:36px;font-weight:800;line-height:1.2;color:var(--text);margin-bottom:16px}
+    .story-content h2 .highlight{color:var(--blue)}
+    .story-content p{font-size:15px;color:var(--text-secondary);line-height:1.8;margin-bottom:16px}
+    .story-timeline{display:flex;flex-direction:column;gap:20px;margin-top:24px;position:relative;padding-left:8px}
+    .story-timeline.story-timeline::before{content:'';position:absolute;left:48px;top:6px;bottom:6px;width:2px;background:var(--border);z-index:0}
+    .story-timeline.story-timeline.timeline-line-drawn::before{background:linear-gradient(180deg,var(--blue),var(--gold))}
+    .story-timeline .story-milestone{position:relative;z-index:1}
+    .story-timeline .story-year{position:relative}
+    .story-timeline .story-year::after{content:'';position:absolute;right:-13px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px rgba(13,59,255,.15);transition:background .4s,box-shadow .4s}
+    .story-timeline.timeline-line-drawn .story-year::after{background:var(--gold);box-shadow:0 0 0 3px rgba(255,159,32,.18)}
+    .partners-section .marquee-track .partner-card{min-width:180px}
+    .story-milestone{display:flex;gap:16px;align-items:flex-start}
+    .story-year{font-size:14px;font-weight:800;color:var(--blue);background:rgba(13,59,255,.06);padding:6px 14px;border-radius:8px;flex-shrink:0;min-width:80px;text-align:center}
+    .story-milestone-text h4{font-size:15px;font-weight:700;color:var(--text);margin-bottom:2px}
+    .story-milestone-text p{font-size:13px;color:var(--text-muted);line-height:1.5;margin:0}
+    .story-visual{position:relative;display:flex;align-items:center;justify-content:center}
+    .story-visual-card{background:var(--navy);border-radius:var(--radius-lg);padding:36px;width:100%;max-width:480px;position:relative;overflow:hidden}
+    .story-visual-card::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(13,59,255,.25) 0%,transparent 70%);pointer-events:none}
+    .story-visual-card::after{content:'';position:absolute;bottom:-60px;left:-40px;width:250px;height:250px;background:radial-gradient(circle,rgba(13,59,255,.15) 0%,transparent 70%);pointer-events:none}
+    .story-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative;z-index:1}
+    .story-stat-item{text-align:center;padding:20px 12px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
+    .story-stat-item .num{font-size:28px;font-weight:900;color:#fff;line-height:1}
+    .story-stat-item .num .gold{color:var(--gold)}
+    .story-stat-item .lbl{font-size:11px;color:rgba(255,255,255,.5);margin-top:6px}
+    .story-quote{margin-top:20px;padding:16px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);position:relative;z-index:1}
+    .story-quote p{font-size:13px;color:rgba(255,255,255,.8);font-style:italic;line-height:1.6;margin:0}
+    .story-quote .author{font-size:12px;color:var(--gold);margin-top:8px;font-style:normal;font-weight:600}
+
+    /* ===== VALUES SECTION ===== */
+    .values-section{padding:60px 0}
+    .section-header{margin-bottom:32px}
+    .section-header h2{font-size:32px;font-weight:800;line-height:1.2;color:var(--text);margin-top:8px}
+    .section-header p{font-size:16px;color:var(--text-secondary);max-width:560px;margin-top:4px}
+    .section-header.center{text-align:center}
+    .section-header.center p{margin:4px auto 0}
+    .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .value-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow);transition:all .3s;text-align:center;position:relative;overflow:hidden}
+    .value-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(13,59,255,.15)}
+    .value-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+    .value-icon.blue{background:rgba(13,59,255,.08);color:var(--blue)}
+    .value-icon.gold{background:rgba(255,159,32,.08);color:var(--gold)}
+    .value-icon.green{background:rgba(22,199,132,.08);color:var(--success)}
+    .value-icon.purple{background:rgba(124,58,237,.08);color:#7C3AED}
+    .value-icon.teal{background:rgba(20,184,166,.08);color:#14B8A6}
+    .value-icon.red{background:rgba(255,77,79,.08);color:var(--danger)}
+    .value-card h4{font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px}
+    .value-card p{font-size:13px;color:var(--text-muted);line-height:1.6}
+
+    /* ===== METRICS STRIP ===== */
+    .metrics-section{padding:60px 0;background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .metric-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:28px 20px;text-align:center;transition:all .3s;position:relative;overflow:hidden}
+    .metric-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:rgba(13,59,255,.15)}
+    .metric-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+    .metric-icon.blue{background:rgba(13,59,255,.08);color:var(--blue)}
+    .metric-icon.gold{background:rgba(255,159,32,.08);color:var(--gold)}
+    .metric-icon.green{background:rgba(22,199,132,.08);color:var(--success)}
+    .metric-icon.purple{background:rgba(124,58,237,.08);color:#7C3AED}
+    .metric-number{font-size:36px;font-weight:900;color:var(--text);line-height:1.2}
+    .metric-label{font-size:13px;font-weight:500;color:var(--text-muted);margin-top:6px}
+
+    /* ===== TEAM SECTION ===== */
+    .team-section{padding:60px 0}
+    .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .team-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;text-align:center;box-shadow:var(--shadow);transition:all .3s;position:relative;overflow:hidden}
+    .team-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(13,59,255,.15)}
+    .team-avatar{width:80px;height:80px;border-radius:50%;margin:0 auto 14px;background:linear-gradient(135deg,var(--blue),#4F7BFF);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:800;position:relative}
+    .team-avatar::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid rgba(13,59,255,.15)}
+    .team-card h4{font-size:15px;font-weight:700;color:var(--text);margin-bottom:2px}
+    .team-card .role{font-size:12px;font-weight:600;color:var(--blue);margin-bottom:8px}
+    .team-card p{font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:12px}
+    .team-socials{display:flex;justify-content:center;gap:8px}
+    .team-social{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-muted);cursor:pointer;transition:all .2s}
+    .team-social:hover{color:var(--blue);border-color:var(--blue);transform:translateY(-2px)}
+
+    /* ===== TRUSTED BY / PARTNERS ===== */
+    .partners-section{padding:48px 0;background:var(--navy);position:relative;overflow:hidden}
+    .partners-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+    .partners-section .section-header h2{color:#fff}
+    .partners-section .section-header p{color:rgba(255,255,255,.5)}
+    .partners-section .badge{background:rgba(255,159,32,.1);color:var(--gold);border-color:rgba(255,159,32,.2)}
+    .partners-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;position:relative;z-index:1}
+    .partner-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:24px 16px;text-align:center;transition:all .3s;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100px}
+    .partner-card:hover{background:rgba(255,255,255,.1);border-color:rgba(13,59,255,.3);transform:translateY(-3px)}
+    .partner-logo{font-size:18px;font-weight:800;color:rgba(255,255,255,.7);letter-spacing:1px}
+    .partner-type{font-size:10px;color:rgba(255,255,255,.35);margin-top:6px;text-transform:uppercase;letter-spacing:1px}
+
+    /* ===== WHY ZAUCTO ===== */
+    .why-section{padding:60px 0;background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+    .why-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(13,59,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(13,59,255,.12) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0}
+    .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;position:relative;z-index:1}
+    .why-content h2{font-size:32px;font-weight:800;line-height:1.2;color:var(--text);margin-bottom:16px}
+    .why-content h2 .highlight{color:var(--blue)}
+    .why-content>p{font-size:15px;color:var(--text-secondary);line-height:1.8;margin-bottom:24px}
+    .why-list{display:flex;flex-direction:column;gap:14px}
+    .why-item{display:flex;gap:14px;align-items:flex-start;padding:16px;border-radius:12px;border:1px solid var(--border);background:var(--bg);transition:all .3s}
+    .why-item:hover{border-color:rgba(13,59,255,.15);background:var(--card);box-shadow:var(--shadow)}
+    .why-item-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .why-item-icon.blue{background:rgba(13,59,255,.08);color:var(--blue)}
+    .why-item-icon.gold{background:rgba(255,159,32,.08);color:var(--gold)}
+    .why-item-icon.green{background:rgba(22,199,132,.08);color:var(--success)}
+    .why-item h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
+    .why-item p{font-size:12px;color:var(--text-muted);line-height:1.5;margin:0}
+    .why-visual{display:flex;justify-content:center}
+    .why-visual-graphic{width:100%;max-width:420px;aspect-ratio:1;position:relative;display:flex;align-items:center;justify-content:center}
+    .why-visual-graphic img{max-width:100%;height:auto}
+
+    /* ===== CULTURE SECTION ===== */
+    .culture-section{padding:60px 0}
+    .culture-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .culture-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow);transition:all .3s;position:relative;overflow:hidden}
+    .culture-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+    .culture-card .culture-emoji{font-size:36px;margin-bottom:12px;display:block}
+    .culture-card h4{font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px}
+    .culture-card p{font-size:13px;color:var(--text-muted);line-height:1.6}
+
+    /* ===== INVESTORS SECTION ===== */
+    .investors-section{padding:60px 0;background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .investors-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .investor-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;transition:all .3s}
+    .investor-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:rgba(13,59,255,.15)}
+    .investor-logo{width:60px;height:60px;border-radius:12px;margin:0 auto 12px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+    .investor-card h4{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
+    .investor-card .type{font-size:11px;color:var(--text-muted)}
+
+    /* ===== FINAL CTA ===== */
+    .cta-section{padding:60px 0;position:relative;overflow:hidden}
+    .cta-section::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,#F0F4FF 0%,#E8EEFF 50%,#F0F4FF 100%);z-index:0}
+    .cta-section::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(13,59,255,.08) 0%,transparent 70%);pointer-events:none;z-index:0}
+    .cta-content{position:relative;z-index:1;text-align:center;max-width:640px;margin:0 auto}
+    .cta-content h2{font-size:36px;font-weight:800;line-height:1.2;color:var(--text);margin-bottom:12px}
+    .cta-content h2 .gold{color:var(--gold)}
+    .cta-content p{font-size:16px;color:var(--text-secondary);margin-bottom:24px;line-height:1.7}
+    .cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* ===== FOOTER ===== */
+    .footer{padding:48px 0 24px;background:var(--card);border-top:1px solid var(--border)}
+    .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:24px;margin-bottom:32px}
+    .footer-brand{max-width:280px}
+    .footer-brand .logo-icon{width:140px;height:140px;margin-bottom:8px}
+    .footer-brand p{font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.6}
+    .footer-socials{display:flex;gap:8px}
+    .footer-social-icon{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-muted);cursor:pointer;transition:all .25s}
+    .footer-social-icon:hover{color:var(--blue);border-color:var(--blue);transform:translateY(-2px) scale(1.1)}
+    .footer-col h6{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:14px}
+    .footer-col ul{display:flex;flex-direction:column;gap:8px}
+    .footer-col ul a{font-size:13px;color:var(--text-secondary);transition:all .2s;display:inline-block}
+    .footer-col ul a:hover{color:var(--blue);transform:translateX(3px)}
+    .footer-bottom{border-top:1px solid var(--border);padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .footer-bottom p{font-size:13px;color:var(--text-muted)}
+    .footer-bottom-links{display:flex;gap:16px}
+    .footer-bottom-links a{font-size:13px;color:var(--text-muted);transition:color .2s}
+    .footer-bottom-links a:hover{color:var(--blue)}
+    .footer-country{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-muted);padding:6px 12px;border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s}
+    .footer-country:hover{border-color:var(--blue);color:var(--blue)}
+
+    /* ===== SCROLL TO TOP ===== */
+    .scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:12px;background:var(--blue);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(13,59,255,.3);opacity:0;visibility:hidden;transition:all .3s;z-index:999}
+    .scroll-top.visible{opacity:1;visibility:visible}
+    .scroll-top:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(13,59,255,.4)}
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials-section{padding:60px 0;background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .testimonials-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:8px 0 20px;scrollbar-width:none}
+    .testimonials-track::-webkit-scrollbar{display:none}
+    .testimonial-card{min-width:380px;max-width:380px;flex-shrink:0;scroll-snap-align:start;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;transition:all .3s;position:relative;overflow:hidden}
+    .testimonial-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(13,59,255,.15)}
+    .testimonial-card::before{content:'"';position:absolute;top:12px;right:20px;font-size:64px;font-weight:900;color:rgba(13,59,255,.06);line-height:1;pointer-events:none}
+    .testimonial-stars{display:flex;gap:2px;margin-bottom:12px}
+    .testimonial-stars .star{color:var(--gold);font-size:16px}
+    .testimonial-text{font-size:14px;color:var(--text-secondary);line-height:1.7;margin-bottom:16px;font-style:italic}
+    .testimonial-author{display:flex;align-items:center;gap:12px}
+    .testimonial-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0}
+    .testimonial-info h4{font-size:14px;font-weight:700;color:var(--text)}
+    .testimonial-info .role{font-size:12px;color:var(--text-muted)}
+    .testimonial-info .company{font-size:11px;color:var(--blue);font-weight:600}
+    .testimonial-nav{display:flex;justify-content:center;gap:8px;margin-top:16px}
+    .testimonial-dot{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .3s}
+    .testimonial-dot.active{background:var(--blue);width:24px;border-radius:4px}
+
+    /* ===== GLOBAL PRESENCE ===== */
+    .global-section{padding:60px 0}
+    .global-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .global-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;text-align:center;transition:all .3s;position:relative;overflow:hidden}
+    .global-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(13,59,255,.15)}
+    .global-card .city-flag{font-size:32px;margin-bottom:8px;display:block}
+    .global-card h4{font-size:16px;font-weight:700;color:var(--text);margin-bottom:2px}
+    .global-card .country{font-size:12px;color:var(--text-muted);margin-bottom:10px}
+    .global-card .global-stat{display:flex;justify-content:center;gap:16px;margin-bottom:10px}
+    .global-card .global-stat div{text-align:center}
+    .global-card .global-stat .num{font-size:18px;font-weight:800;color:var(--blue)}
+    .global-card .global-stat .lbl{font-size:10px;color:var(--text-muted)}
+    .global-card .hiring-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:50px;font-size:11px;font-weight:600;background:rgba(22,199,132,.08);color:var(--success)}
+    .global-card .hiring-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--success);animation:pulseLive 1.5s infinite}
+
+    /* ===== AWARDS ===== */
+    .awards-section{padding:60px 0;background:var(--navy);position:relative;overflow:hidden}
+    .awards-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+    .awards-section .section-header h2{color:#fff}
+    .awards-section .section-header p{color:rgba(255,255,255,.5)}
+    .awards-section .badge{background:rgba(255,159,32,.1);color:var(--gold);border-color:rgba(255,159,32,.2)}
+    .awards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:1}
+    .award-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:24px 16px;text-align:center;transition:all .3s}
+    .award-card:hover{background:rgba(255,255,255,.1);border-color:rgba(255,159,32,.3);transform:translateY(-3px)}
+    .award-icon{font-size:36px;margin-bottom:10px;display:block}
+    .award-card h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+    .award-card p{font-size:12px;color:rgba(255,255,255,.5);line-height:1.5}
+    .award-card .award-year{display:inline-block;padding:3px 10px;border-radius:50px;font-size:10px;font-weight:700;background:rgba(255,159,32,.15);color:var(--gold);margin-top:8px}
+
+    /* ===== CAREERS / OPEN POSITIONS ===== */
+    .careers-section{padding:60px 0;background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .careers-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:40px;align-items:start}
+    .careers-content h2{font-size:32px;font-weight:800;line-height:1.2;color:var(--text);margin-bottom:12px}
+    .careers-content h2 .highlight{color:var(--blue)}
+    .careers-content>p{font-size:15px;color:var(--text-secondary);line-height:1.7;margin-bottom:20px}
+    .careers-perks{display:flex;flex-direction:column;gap:10px}
+    .careers-perk{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);font-weight:500}
+    .careers-perk .ico{color:var(--success);width:18px;height:18px}
+    .job-list{display:flex;flex-direction:column;gap:12px}
+    .job-card{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-radius:12px;border:1px solid var(--border);background:var(--bg);transition:all .3s;cursor:pointer}
+    .job-card:hover{border-color:rgba(13,59,255,.15);background:var(--card);box-shadow:var(--shadow-md);transform:translateX(4px)}
+    .job-card-left{display:flex;flex-direction:column;gap:2px}
+    .job-card-left h4{font-size:14px;font-weight:700;color:var(--text)}
+    .job-card-left .dept{font-size:12px;color:var(--blue);font-weight:600}
+    .job-card-right{display:flex;align-items:center;gap:12px}
+    .job-location{font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:4px}
+    .job-type{font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
+    .job-type.full{background:rgba(13,59,255,.06);color:var(--blue)}
+    .job-type.remote{background:rgba(22,199,132,.08);color:var(--success)}
+    .job-apply{width:36px;height:36px;border-radius:8px;background:var(--blue);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;flex-shrink:0}
+    .job-apply:hover{background:var(--blue-dark);transform:scale(1.1)}
+
+    /* ===== PRESS / MEDIA ===== */
+    .press-section{padding:48px 0}
+    .press-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+    .press-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;transition:all .3s;display:flex;align-items:center;justify-content:center;min-height:80px}
+    .press-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:rgba(13,59,255,.12)}
+    .press-card .press-name{font-size:16px;font-weight:800;color:var(--text-muted);letter-spacing:.5px;opacity:.6;transition:opacity .3s}
+    .press-card:hover .press-name{opacity:1;color:var(--text)}
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:1100px){
+      .about-hero h1{font-size:40px}
+      .mv-grid{grid-template-columns:1fr}
+      .story-layout{grid-template-columns:1fr}
+      .values-grid{grid-template-columns:repeat(2,1fr)}
+      .metrics-grid{grid-template-columns:repeat(2,1fr)}
+      .team-grid{grid-template-columns:repeat(2,1fr)}
+      .partners-grid{grid-template-columns:repeat(3,1fr)}
+      .why-grid{grid-template-columns:1fr}
+      .culture-grid{grid-template-columns:repeat(2,1fr)}
+      .investors-grid{grid-template-columns:repeat(2,1fr)}
+      .global-grid{grid-template-columns:repeat(2,1fr)}
+      .awards-grid{grid-template-columns:repeat(2,1fr)}
+      .careers-layout{grid-template-columns:1fr}
+      .press-grid{grid-template-columns:repeat(3,1fr)}
+      .footer-grid{grid-template-columns:repeat(2,1fr)}
+      .nav-links{display:none}
+    }
+    @media(max-width:768px){
+      .about-hero h1{font-size:32px}
+      .about-hero p{font-size:16px}
+      .values-grid{grid-template-columns:1fr}
+      .team-grid{grid-template-columns:1fr}
+      .partners-grid{grid-template-columns:repeat(2,1fr)}
+      .culture-grid{grid-template-columns:1fr}
+      .investors-grid{grid-template-columns:1fr}
+      .global-grid{grid-template-columns:1fr}
+      .awards-grid{grid-template-columns:1fr}
+      .press-grid{grid-template-columns:repeat(2,1fr)}
+      .footer-grid{grid-template-columns:1fr}
+      .cta-content h2{font-size:28px}
+      .testimonial-card{min-width:300px;max-width:300px}
+    }
+    @media(max-width:540px){
+      .about-hero h1{font-size:28px}
+      .metrics-grid{grid-template-columns:1fr}
+      .partners-grid{grid-template-columns:1fr}
+      .press-grid{grid-template-columns:1fr}
+      .cta-buttons{flex-direction:column;align-items:center}
+      .about-hero-buttons{flex-direction:column;align-items:center}
+      .testimonial-card{min-width:280px;max-width:280px}
+      .job-card{flex-direction:column;align-items:flex-start;gap:10px}
+      .job-card-right{width:100%;justify-content:space-between}
+    }
+  </style>
+  <script src="theme-toggle.js"></script>
+  <link rel="stylesheet" href="design-system.css" />
+  <link rel="stylesheet" href="negotiation-filter.css" />
+  <link rel="stylesheet" href="advanced-animations.css" />
+</head>
+<body>
+  <div class="scroll-progress-bar" aria-hidden="true"></div><div class="ambient-blob ambient-blob-1"></div><div class="ambient-blob ambient-blob-2"></div><div class="ambient-blob ambient-blob-3"></div></div>
+
+  <!-- HEADER -->
+  <header class="header" id="mainHeader">
+    <div class="header-inner">
+      <div class="container">
+      <a href="zauctofour.html" class="logo" aria-label="Zaucto Home">
+        <div class="logo-icon"><img loading="lazy" src="assets/logo.png" alt="Zaucto Logo" /></div>
+      </a>
+      <nav class="nav-links">
+        <a href="zauctofour.html">Home</a>
+        <div class="nav-item">
+          <a href="#" class="has-dropdown">RFX <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="dropdown">
+            <a href="zauctoRFI.html">RFI</a>
+            <a href="zauctoRFP.html">RFP</a>
+            <a href="zauctoRFQ.html">RFQ</a>
+            <a href="zauctoBulkRFQ.html">Bulk RFQ</a>
+            <a href="zauctoMyBulkRFQ.html">My Bulk RFQ</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="#" class="has-dropdown">Negotiation <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a><div class="dropdown"><a href="zauctoAllAuctions.html">All Auctions</a><a href="zauctoLiveAuctions.html">Live Auctions</a><a href="zauctoUpcomingAuctions.html">Upcoming Auctions</a><a href="zauctoFinishedAuctions.html">Finished Auctions</a><a href="zauctoLiveBulkAuctions.html">Live Bulk Auctions</a><a href="zauctoMyBid.html">My Bid</a><a href="zauctoMyBulkBid.html">My Bulk Bid</a><a href="zauctoMyBulkAuction.html">My Bulk Auction</a></div></div>
+        <div class="nav-item">
+          <a href="#" class="ai-tag">Zaucto AI <span class="ai-star"><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:none;stroke-width:2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0L9.937 15.5z"/><path d="M20 3v4M22 5h-4"/></svg></span></a>
+          <div class="dropdown">
+            <a href="zauctoAISpendInsight.html">AI Spend Insight</a>
+            <a href="zauctoAIRfpFlow.html">AI RFP Flow</a>
+          </div>
+        </div>
+        <a href="zauctoMarketplace.html">Marketplace</a>
+        <a href="zauctoPricing.html" style="color:var(--gold);font-weight:600">Pricing</a>
+        <div class="nav-item">
+          <a href="#" class="has-dropdown">More <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="dropdown">
+            <a href="zauctoabout.html" style="color:var(--blue);font-weight:600">About Us</a>
+            <a href="zauctoWishlist.html">Wishlist</a>
+            <a href="zauctoCareers.html">Careers</a>
+            <a href="zauctoFAQ.html">FAQs</a>
+            <a href="zauctoBlog.html">Blog</a>
+            <a href="zauctoTerms.html">Terms & Conditions</a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-right">
+        <a href="zauctoContact.html" class="contact-link">Contact Us</a>
+        <a href="zauctoLogin.html" class="header-avatar" aria-label="Account login">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+      </div>
+    </div>
+    </div>
+  </header>
+
+  <!-- ABOUT HERO -->
+  <section class="about-hero">
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="about-hero-badge badge gs-hidden">ABOUT ZAUCTO</div>
+      <h1 class="gs-hidden">We're building the <span class="highlight text-shimmer">future</span> of <span class="gold">procurement.</span></h1>
+      <p class="gs-hidden">Zaucto is an AI-powered procurement platform that helps businesses source smarter, negotiate better, and save more — autonomously.</p>
+      <div class="about-hero-buttons gs-hidden">
+        <a href="#" class="btn btn-primary magnetic-btn">Start Free Trial <span class="arrow"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+        <a href="#" class="btn btn-secondary">Talk to Sales</a>
+      </div>
+      <div class="hero-trust blur-reveal delay-4 gs-hidden">
+        <div class="trust-avatars">
+          <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=11" alt=""></div>
+          <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=32" alt=""></div>
+          <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=47" alt=""></div>
+          <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=56" alt=""></div>
+          <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=68" alt=""></div>
+        </div>
+        <div class="trust-text">Trusted by <strong>10,000+</strong> procurement teams worldwide</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION & VISION -->
+  <section class="mv-section">
+    <div class="container">
+      <div class="mv-grid">
+        <div class="mv-card blur-reveal-light mission gs-hidden">
+          <div class="mv-icon blue">
+            <svg class="ico lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <h3>Our Mission</h3>
+          <p>To democratize procurement intelligence by making AI-powered sourcing, negotiation, and supplier management accessible to every business — from startups to enterprises. We believe procurement should be proactive, not reactive.</p>
+        </div>
+        <div class="mv-card blur-reveal-light vision gs-hidden">
+          <div class="mv-icon gold">
+            <svg class="ico lg" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3>Our Vision</h3>
+          <p>To become the world's most trusted autonomous procurement platform — where AI agents handle end-to-end sourcing while human teams focus on strategic decisions. We envision a future where zero-touch procurement is the norm, not the exception.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR STORY -->
+  <section class="story-section">
+    <div class="container">
+      <div class="story-layout">
+        <div class="story-content gs-hidden">
+          <span class="badge">Our Story</span>
+          <h2>From a <span class="highlight text-shimmer">frustration</span> to a platform trusted by thousands.</h2>
+          <p>Zaucto was born from a simple observation: procurement teams spend too much time on manual sourcing, chasing quotes, and managing spreadsheets — instead of making strategic decisions.</p>
+          <p>Our founders, having spent over a decade in procurement and technology, saw an opportunity to leverage AI to transform this fragmented, inefficient process into a seamless, intelligent experience.</p>
+          <div class="story-timeline timeline-anim">
+            <div class="story-milestone timeline-item">
+              <span class="story-year">2023</span>
+              <div class="story-milestone-text">
+                <h4>Founded in India</h4>
+                <p>Zaucto was founded with a vision to revolutionize B2B procurement with AI</p>
+              </div>
+            </div>
+            <div class="story-milestone timeline-item">
+              <span class="story-year">2024</span>
+              <div class="story-milestone-text">
+                <h4>Platform Launch</h4>
+                <p>Launched our AI-powered RFX platform, onboarding 500+ enterprise clients in the first year</p>
+              </div>
+            </div>
+            <div class="story-milestone timeline-item">
+              <span class="story-year">2025</span>
+              <div class="story-milestone-text">
+                <h4>AI Agents Rollout</h4>
+                <p>Introduced autonomous procurement agents capable of end-to-end sourcing and negotiation</p>
+              </div>
+            </div>
+            <div class="story-milestone timeline-item">
+              <span class="story-year">2026</span>
+              <div class="story-milestone-text">
+                <h4>Global Expansion</h4>
+                <p>Expanding to Southeast Asia, Middle East, and Europe with 10,000+ active procurement teams</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="story-visual gs-hidden">
+          <div class="story-visual-card">
+            <div class="story-stat-grid">
+              <div class="story-stat-item">
+                <div class="num">₹24.8<span class="gold">Cr+</span></div>
+                <div class="lbl">Savings Delivered</div>
+              </div>
+              <div class="story-stat-item">
+                <div class="num">10K<span class="gold">+</span></div>
+                <div class="lbl">Teams Onboarded</div>
+              </div>
+              <div class="story-stat-item">
+                <div class="num">98.6<span class="gold">%</span></div>
+                <div class="lbl">Response Rate</div>
+              </div>
+              <div class="story-stat-item">
+                <div class="num">15-30<span class="gold">%</span></div>
+                <div class="lbl">Avg. Cost Savings</div>
+              </div>
+            </div>
+            <div class="story-quote">
+              <p>"Procurement shouldn't be a bottleneck. It should be a competitive advantage. That's exactly what we're building at Zaucto."</p>
+              <div class="author">— Zaucto Founding Team</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CORE VALUES -->
+  <section class="values-section">
+    <div class="container">
+      <div class="section-header center gs-hidden blur-reveal">
+        <span class="badge">Our Values</span>
+        <h2>The principles that guide everything we do.</h2>
+        <p>Our values are not just words on a wall — they shape every product decision, every customer interaction, and every line of code we write.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card blur-reveal-light card-glow gs-hidden">
+          <div class="value-icon blue">
+            <svg class="ico lg" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h4>AI-First Thinking</h4>
+          <p>We believe AI should augment human judgment, not replace it. Every feature we build is designed to make procurement teams smarter and faster.</p>
+        </div>
+        <div class="value-card blur-reveal-light card-glow gs-hidden">
+          <div class="value-icon gold">
+            <svg class="ico lg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h4>Trust & Transparency</h4>
+          <p>Procurement is built on trust. We ensure every transaction, every supplier, and every data point on our platform is verified and transparent.</p>
+        </div>
+        <div class="value-card blur-reveal-light card-glow gs-hidden">
+          <div class="value-icon green">
+            <svg class="ico lg" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h4>Speed at Scale</h4>
+          <p>From RFQ creation to supplier award, we compress weeks of procurement into minutes. Our platform is built for enterprises that move fast.</p>
+        </div>
+        <div class="value-card blur-reveal-light card-glow gs-hidden">
+          <div class="value-icon purple">
+            <svg class="ico lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          </div>
+          <h4>Customer Obsession</h4>
+          <p>Every procurement team has unique needs. We listen, adapt, and build solutions that solve real-world procurement challenges — not theoretical ones.</p>
+        </div>
+        <div class="value-card blur-reveal-light card-glow gs-hidden">
+          <div class="value-icon teal">
+            <svg class="ico lg" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h4>Collaborative Ecosystem</h4>
+          <p>Procurement is a team sport. We connect buyers, suppliers, and stakeholders on one intelligent platform that fosters collaboration and growth.</p>
+        </div>
+        <div class="value-card blur-reveal-light card-glow gs-hidden">
+          <div class="value-icon red">
+            <svg class="ico lg" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+          </div>
+          <h4>Measurable Impact</h4>
+          <p>We don't promise vague outcomes. Every Zaucto feature comes with clear metrics: cost savings, time saved, and efficiency gains you can track in real-time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BY THE NUMBERS -->
+  <section class="metrics-section">
+    <div class="container">
+      <div class="section-header center gs-hidden blur-reveal">
+        <span class="badge">Impact</span>
+        <h2>Zaucto by the numbers.</h2>
+        <p>Real results from real procurement teams using our platform every day.</p>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric-card gs-hidden blur-reveal-light">
+          <div class="metric-icon blue">
+            <svg class="ico lg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          </div>
+          <div class="metric-number" data-count="10000" data-suffix="+">0</div>
+          <div class="metric-label">Active Procurement Teams</div>
+        </div>
+        <div class="metric-card gs-hidden blur-reveal-light">
+          <div class="metric-icon gold">
+            <svg class="ico lg" viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="metric-number" data-prefix="₹" data-suffix=" Cr+" data-count="24.8" data-decimal="1">0</div>
+          <div class="metric-label">Total Savings Delivered</div>
+        </div>
+        <div class="metric-card gs-hidden blur-reveal-light">
+          <div class="metric-icon green">
+            <svg class="ico lg" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="metric-number" data-count="5000" data-suffix="+">0</div>
+          <div class="metric-label">Verified Suppliers</div>
+        </div>
+        <div class="metric-card gs-hidden blur-reveal-light">
+          <div class="metric-icon purple">
+            <svg class="ico lg" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <div class="metric-number" data-suffix="%" data-count="98.6" data-decimal="1">0</div>
+          <div class="metric-label">Platform Uptime</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEET THE TEAM -->
+  <section class="team-section">
+    <div class="container">
+      <div class="section-header center gs-hidden blur-reveal">
+        <span class="badge">Team</span>
+        <h2>The people behind Zaucto.</h2>
+        <p>A team of procurement veterans, AI researchers, and product builders on a mission to transform B2B sourcing.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card blur-reveal-light card-glow gs-hidden">
+          <div class="team-avatar glow-ring">AK</div>
+          <h4>Arjun Kapoor</h4>
+          <div class="role">Co-Founder & CEO</div>
+          <p>15+ years in procurement & supply chain. Previously led sourcing at a Fortune 500 manufacturing company.</p>
+          <div class="team-socials">
+            <div class="team-social"><svg class="ico sm" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+            <div class="team-social"><svg class="ico sm" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+          </div>
+        </div>
+        <div class="team-card blur-reveal-light card-glow gs-hidden">
+          <div class="team-avatar glow-ring" style="background:linear-gradient(135deg,var(--gold),#FFB366)">PR</div>
+          <h4>Priya Reddy</h4>
+          <div class="role">Co-Founder & CTO</div>
+          <p>Former AI lead at a top tech company. Built recommendation engines processing 10M+ queries daily.</p>
+          <div class="team-socials">
+            <div class="team-social"><svg class="ico sm" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+            <div class="team-social"><svg class="ico sm" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div>
+          </div>
+        </div>
+        <div class="team-card blur-reveal-light card-glow gs-hidden">
+          <div class="team-avatar glow-ring" style="background:linear-gradient(135deg,var(--success),#34D399)">VM</div>
+          <h4>Vikram Mehta</h4>
+          <div class="role">VP of Product</div>
+          <p>10+ years building enterprise SaaS products. Passionate about creating intuitive UX for complex workflows.</p>
+          <div class="team-socials">
+            <div class="team-social"><svg class="ico sm" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+            <div class="team-social"><svg class="ico sm" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+          </div>
+        </div>
+        <div class="team-card blur-reveal-light card-glow gs-hidden">
+          <div class="team-avatar glow-ring" style="background:linear-gradient(135deg,#7C3AED,#A78BFA)">NS</div>
+          <h4>Nisha Sharma</h4>
+          <div class="role">Head of AI & ML</div>
+          <p>PhD in Machine Learning. Previously published research on autonomous negotiation systems at Stanford.</p>
+          <div class="team-socials">
+            <div class="team-social"><svg class="ico sm" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+            <div class="team-social"><svg class="ico sm" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUSTED BY / PARTNERS -->
+  <section class="partners-section">
+    <div class="container">
+      <div class="section-header center gs-hidden blur-reveal">
+        <span class="badge">Ecosystem</span>
+        <h2 style="color:#fff">Trusted by industry leaders.</h2>
+        <p style="color:rgba(255,255,255,.5)">Leading enterprises and institutions power their procurement with Zaucto.</p>
+      </div>
+      <div class="marquee gs-hidden" data-marquee="partners">
+        <div class="marquee-track" data-marquee-duration="35s">
+          <div class="partner-card hover-pop"><div class="partner-logo">TATA</div><div class="partner-type">Manufacturing</div></div>
+          <div class="partner-card hover-pop"><div class="partner-logo">Reliance</div><div class="partner-type">Conglomerate</div></div>
+          <div class="partner-card hover-pop"><div class="partner-logo">L&T</div><div class="partner-type">Infrastructure</div></div>
+          <div class="partner-card hover-pop"><div class="partner-logo">BHEL</div><div class="partner-type">Heavy Engineering</div></div>
+          <div class="partner-card hover-pop"><div class="partner-logo">NTPC</div><div class="partner-type">Energy</div></div>
+          <div class="partner-card hover-pop"><div class="partner-logo">SAIL</div><div class="partner-type">Steel & Metals</div></div>
+          <div class="partner-card hover-pop"><div class="partner-logo">Adani</div><div class="partner-type">Logistics</div></div>
+          <div class="partner-card hover-pop"><div class="partner-logo">Wipro</div><div class="partner-type">Technology</div></div>
+          <div class="partner-card hover-pop"><div class="partner-logo">HCL</div><div class="partner-type">IT Services</div></div>
+          <div class="partner-card hover-pop"><div class="partner-logo">Infosys</div><div class="partner-type">Consulting</div></div>
+          <div class="partner-card hover-pop"><div class="partner-logo">Godrej</div><div class="partner-type">Consumer Goods</div></div>
+          <div class="partner-card hover-pop"><div class="partner-logo">Mahindra</div><div class="partner-type">Automotive</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY ZAUCTO -->
+  <section class="why-section">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-content gs-hidden">
+          <span class="badge">Why Zaucto</span>
+          <h2>Why procurement teams <span class="highlight text-shimmer">choose us.</span></h2>
+          <p>In a world of fragmented tools and manual processes, Zaucto brings everything together — from sourcing to award — in one intelligent platform powered by AI.</p>
+          <div class="why-list">
+            <div class="why-item">
+              <div class="why-item-icon blue">
+                <svg class="ico" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              </div>
+              <div>
+                <h4>AI-Powered Supplier Matching</h4>
+                <p>Our algorithms analyze 50+ data points to find the perfect suppliers for your requirements.</p>
+              </div>
+            </div>
+            <div class="why-item">
+              <div class="why-item-icon gold">
+                <svg class="ico" viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <div>
+                <h4>Autonomous Negotiation</h4>
+                <p>AI agents negotiate on your behalf, getting 15-30% better pricing than traditional procurement.</p>
+              </div>
+            </div>
+            <div class="why-item">
+              <div class="why-item-icon green">
+                <svg class="ico" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+              </div>
+              <div>
+                <h4>End-to-End RFX Management</h4>
+                <p>From RFI to RFQ to RFP — manage the entire sourcing lifecycle on a single platform.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="why-visual gs-hidden">
+          <div class="why-visual-graphic">
+            <img loading="lazy" src="assets/earth.png" alt="Zaucto Global" style="width:100%;height:100%;object-fit:contain;position:relative;z-index:2;mix-blend-mode:multiply" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CULTURE & LIFE AT ZAUCTO -->
+  <section class="culture-section">
+    <div class="container">
+      <div class="section-header center gs-hidden blur-reveal">
+        <span class="badge">Culture</span>
+        <h2>Life at Zaucto.</h2>
+        <p>We're a team of builders, thinkers, and problem-solvers united by our passion for transforming procurement.</p>
+      </div>
+      <div class="culture-grid">
+        <div class="culture-card blur-reveal-light gs-hidden">
+          <span class="culture-emoji"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--blue)"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span>
+          <h4>Move Fast, Build Smart</h4>
+          <p>We ship fast, iterate faster, and never let perfect be the enemy of great. Every team member has the autonomy to make an impact from day one.</p>
+        </div>
+        <div class="culture-card blur-reveal-light gs-hidden">
+          <span class="culture-emoji"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--gold)"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2z"/></svg></span>
+          <h4>Learn Continuously</h4>
+          <p>We invest in our people with learning budgets, conference sponsorships, and weekly knowledge-sharing sessions. Growth is a core expectation.</p>
+        </div>
+        <div class="culture-card blur-reveal-light gs-hidden">
+          <span class="culture-emoji"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--success)"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <h4>Radical Collaboration</h4>
+          <p>Engineers sit with procurement experts. Designers work with sales. We break silos because the best ideas come from cross-functional thinking.</p>
+        </div>
+        <div class="culture-card blur-reveal-light gs-hidden">
+          <span class="culture-emoji"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--blue)"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+          <h4>Global Impact</h4>
+          <p>Our platform powers procurement for enterprises across India and beyond. Every feature we ship impacts thousands of businesses and millions of dollars.</p>
+        </div>
+        <div class="culture-card blur-reveal-light gs-hidden">
+          <span class="culture-emoji"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--gold)"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg></span>
+          <h4>Innovation at Core</h4>
+          <p>We dedicate 20% of engineering time to experimental projects. Some of our best features started as "what if" conversations in Friday jams.</p>
+        </div>
+        <div class="culture-card blur-reveal-light gs-hidden">
+          <span class="culture-emoji"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--success)"><path d="M12 3v18"/><path d="M8 8l4-5 4 5"/><circle cx="8" cy="18" r="3"/><circle cx="16" cy="18" r="3"/></svg></span>
+          <h4>Work-Life Harmony</h4>
+          <p>Flexible remote policy, unlimited PTO, and a genuine belief that rested minds build better products. We work hard — and we rest well.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVESTORS / ADVISORS -->
+  <section class="investors-section">
+    <div class="container">
+      <div class="section-header center gs-hidden blur-reveal">
+        <span class="badge">Backed By</span>
+        <h2>Backed by leading investors.</h2>
+        <p>We're proud to be supported by investors who share our vision for the future of procurement.</p>
+      </div>
+      <div class="investors-grid">
+        <div class="investor-card blur-reveal-light hover-pop gs-hidden">
+          <div class="investor-logo">
+            <svg class="ico lg" style="stroke:var(--blue)" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h4>Sequoia Capital</h4>
+          <div class="type">Lead Investor — Series A</div>
+        </div>
+        <div class="investor-card blur-reveal-light hover-pop gs-hidden">
+          <div class="investor-logo">
+            <svg class="ico lg" style="stroke:var(--gold)" viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h4>Accel Partners</h4>
+          <div class="type">Seed Investor</div>
+        </div>
+        <div class="investor-card blur-reveal-light hover-pop gs-hidden">
+          <div class="investor-logo">
+            <svg class="ico lg" style="stroke:var(--success)" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+          </div>
+          <h4>Tiger Global</h4>
+          <div class="type">Growth Investor</div>
+        </div>
+        <div class="investor-card blur-reveal-light hover-pop gs-hidden">
+          <div class="investor-logo">
+            <svg class="ico lg" style="stroke:#7C3AED" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h4>Y Combinator</h4>
+          <div class="type">Accelerator — Batch YC W24</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header center gs-hidden blur-reveal">
+        <span class="badge">Testimonials</span>
+        <h2>Loved by procurement teams worldwide.</h2>
+        <p>Don't just take our word for it — hear from the teams who transformed their procurement with Zaucto.</p>
+      </div>
+      <div class="testimonials-track" id="testimonialsTrack">
+        <div class="testimonial-card blur-reveal-light">
+          <div class="testimonial-stars"><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <p class="testimonial-text">Zaucto cut our sourcing cycle from 3 weeks to 3 days. The AI supplier matching is scarily accurate — it found vendors we never would have discovered on our own.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--blue),#4F7BFF)">RK</div>
+            <div class="testimonial-info">
+              <h4>Rajesh Kumar</h4>
+              <div class="role">Head of Procurement</div>
+              <div class="company">Tata Advanced Materials</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card blur-reveal-light">
+          <div class="testimonial-stars"><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <p class="testimonial-text">We saved ₹4.2 Crore in our first year alone. The autonomous negotiation feature is a game-changer — it literally negotiates better than our senior buyers.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--gold),#FFB366)">SP</div>
+            <div class="testimonial-info">
+              <h4>Sunita Patel</h4>
+              <div class="role">VP Supply Chain</div>
+              <div class="company">L&T Infrastructure</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card blur-reveal-light">
+          <div class="testimonial-stars"><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <p class="testimonial-text">The real-time auction feature brought transparency to our entire bidding process. Suppliers love it too — response rates jumped 4x within the first month.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--success),#34D399)">AM</div>
+            <div class="testimonial-info">
+              <h4>Amit Mishra</h4>
+              <div class="role">CPO</div>
+              <div class="company">BHEL</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card blur-reveal-light">
+          <div class="testimonial-stars"><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <p class="testimonial-text">We replaced 5 different tools with Zaucto. RFX management, supplier database, analytics — everything in one place. Our team's productivity doubled overnight.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background:linear-gradient(135deg,#7C3AED,#A78BFA)">PN</div>
+            <div class="testimonial-info">
+              <h4>Priyanka Nair</h4>
+              <div class="role">Director Operations</div>
+              <div class="company">Reliance Industries</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card blur-reveal-light">
+          <div class="testimonial-stars"><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <p class="testimonial-text">The AI Spend Insight dashboard gave us visibility we never had before. We identified ₹80 lakhs in maverick spend in the first quarter itself.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background:linear-gradient(135deg,#14B8A6,#5EEAD4)">VR</div>
+            <div class="testimonial-info">
+              <h4>Vikram Rao</h4>
+              <div class="role">Finance Controller</div>
+              <div class="company">Wipro Enterprises</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card blur-reveal-light">
+          <div class="testimonial-stars"><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <p class="testimonial-text">Zaucto's supplier verification process gave us confidence we never had before. Every vendor on the platform is pre-vetted, which saved us months of due diligence.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--danger),#F87171)">DG</div>
+            <div class="testimonial-info">
+              <h4>Deepak Gupta</h4>
+              <div class="role">Sourcing Manager</div>
+              <div class="company">Mahindra & Mahindra</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-nav" id="testimonialNav"></div>
+    </div>
+  </section>
+
+  <!-- GLOBAL PRESENCE -->
+  <section class="global-section">
+    <div class="container">
+      <div class="section-header center gs-hidden blur-reveal">
+        <span class="badge">Global Presence</span>
+        <h2>Where Zaucto operates.</h2>
+        <p>From Mumbai to Dubai, we're building procurement infrastructure for the world.</p>
+      </div>
+      <div class="global-grid">
+        <div class="global-card blur-reveal-light gs-hidden">
+          <span class="city-flag" style="font-size:0"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--blue)"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></span>
+          <h4>Mumbai</h4>
+          <div class="country">India — Headquarters</div>
+          <div class="global-stat">
+            <div><div class="num">240+</div><div class="lbl">Team</div></div>
+            <div><div class="num">4,200+</div><div class="lbl">Clients</div></div>
+          </div>
+          <span class="hiring-badge"><span class="dot"></span> Hiring</span>
+        </div>
+        <div class="global-card blur-reveal-light gs-hidden">
+          <span class="city-flag" style="font-size:0"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--blue)"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></span>
+          <h4>Bengaluru</h4>
+          <div class="country">India — Tech Hub</div>
+          <div class="global-stat">
+            <div><div class="num">120+</div><div class="lbl">Engineers</div></div>
+            <div><div class="num">1,800+</div><div class="lbl">Clients</div></div>
+          </div>
+          <span class="hiring-badge"><span class="dot"></span> Hiring</span>
+        </div>
+        <div class="global-card blur-reveal-light gs-hidden">
+          <span class="city-flag" style="font-size:0"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--gold)"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></span>
+          <h4>Dubai</h4>
+          <div class="country">UAE — Middle East Hub</div>
+          <div class="global-stat">
+            <div><div class="num">35+</div><div class="lbl">Team</div></div>
+            <div><div class="num">600+</div><div class="lbl">Clients</div></div>
+          </div>
+          <span class="hiring-badge"><span class="dot"></span> Hiring</span>
+        </div>
+        <div class="global-card blur-reveal-light gs-hidden">
+          <span class="city-flag" style="font-size:0"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--success)"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></span>
+          <h4>Singapore</h4>
+          <div class="country">Singapore — APAC Hub</div>
+          <div class="global-stat">
+            <div><div class="num">20+</div><div class="lbl">Team</div></div>
+            <div><div class="num">400+</div><div class="lbl">Clients</div></div>
+          </div>
+          <span class="hiring-badge"><span class="dot"></span> Hiring</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARDS & RECOGNITION -->
+  <section class="awards-section">
+    <div class="container">
+      <div class="section-header center gs-hidden blur-reveal">
+        <span class="badge">Recognition</span>
+        <h2>Awards & accolades.</h2>
+        <p>Recognized by industry leaders for innovation in procurement technology.</p>
+      </div>
+      <div class="awards-grid">
+        <div class="award-card blur-reveal-light gs-hidden">
+          <span class="award-icon" style="font-size:0"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--gold)"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span>
+          <h4>Best Procurement Platform</h4>
+          <p>SaaS Awards 2025 — Enterprise Category</p>
+          <span class="award-year">2025</span>
+        </div>
+        <div class="award-card blur-reveal-light gs-hidden">
+          <span class="award-icon" style="font-size:0"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--gold);fill:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+          <h4>Top 50 AI Startups</h4>
+          <p>Forbes India — Technology Section</p>
+          <span class="award-year">2025</span>
+        </div>
+        <div class="award-card blur-reveal-light gs-hidden">
+          <span class="award-icon" style="font-size:0"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--blue)"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg></span>
+          <h4>Fastest Growing SaaS</h4>
+          <p>SaaSBOOMi Awards — 300% YoY Growth</p>
+          <span class="award-year">2024</span>
+        </div>
+        <div class="award-card blur-reveal-light gs-hidden">
+          <span class="award-icon" style="font-size:0"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--gold)"><path d="M12 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"/><path d="M8 21l4-4 4 4"/></svg></span>
+          <h4>Innovation in Procurement</h4>
+          <p>Gartner Cool Vendor — Supply Chain</p>
+          <span class="award-year">2024</span>
+        </div>
+        <div class="award-card blur-reveal-light gs-hidden">
+          <span class="award-icon" style="font-size:0"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--blue)"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg></span>
+          <h4>Best AI Implementation</h4>
+          <p>NASSCOM AI Awards — Enterprise AI</p>
+          <span class="award-year">2024</span>
+        </div>
+        <div class="award-card blur-reveal-light gs-hidden">
+          <span class="award-icon">⭐</span>
+          <h4>Customer Choice Award</h4>
+          <p>G2 — Highest Satisfaction in Procurement</p>
+          <span class="award-year">2025</span>
+        </div>
+        <div class="award-card blur-reveal-light gs-hidden">
+          <span class="award-icon" style="font-size:0"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--blue)"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
+          <h4>Best B2B Platform</h4>
+          <p>ET Startup Awards — B2B Category</p>
+          <span class="award-year">2023</span>
+        </div>
+        <div class="award-card blur-reveal-light gs-hidden">
+          <span class="award-icon" style="font-size:0"><svg class="ico lg" viewBox="0 0 24 24" style="stroke:var(--gold)"><path d="M8 21h8"/><path d="M12 17V3"/><path d="M6 7l6-4 6 4"/><path d="M6 7v4a6 6 0 0 0 12 0V7"/></svg></span>
+          <h4>Rising Star Award</h4>
+          <p>Deloitte Technology Fast 50 India</p>
+          <span class="award-year">2023</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAREERS / OPEN POSITIONS -->
+  <section class="careers-section">
+    <div class="container">
+      <div class="careers-layout">
+        <div class="careers-content gs-hidden">
+          <span class="badge">Careers</span>
+          <h2>Join the team that's <span class="highlight text-shimmer">reinventing</span> procurement.</h2>
+          <p>We're always looking for exceptional people who are passionate about AI, procurement, and building products that matter.</p>
+          <div class="careers-perks">
+            <div class="careers-perk"><svg class="ico" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> Competitive salary + equity</div>
+            <div class="careers-perk"><svg class="ico" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> Flexible remote-first culture</div>
+            <div class="careers-perk"><svg class="ico" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> Learning budget of ₹1.5L/year</div>
+            <div class="careers-perk"><svg class="ico" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> Health insurance for family</div>
+            <div class="careers-perk"><svg class="ico" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> Unlimited PTO policy</div>
+          </div>
+        </div>
+        <div class="job-list gs-hidden">
+          <div class="job-card blur-reveal-light">
+            <div class="job-card blur-reveal-left">
+              <h4>Senior ML Engineer</h4>
+              <div class="dept">AI & Machine Learning</div>
+            </div>
+            <div class="job-card blur-reveal-right">
+              <span class="job-location"><svg class="ico sm" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Bengaluru</span>
+              <span class="job-type full">Full-time</span>
+              <button class="job-apply"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+          <div class="job-card blur-reveal-light">
+            <div class="job-card blur-reveal-left">
+              <h4>Product Designer</h4>
+              <div class="dept">Design</div>
+            </div>
+            <div class="job-card blur-reveal-right">
+              <span class="job-location"><svg class="ico sm" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Remote</span>
+              <span class="job-type remote">Remote</span>
+              <button class="job-apply"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+          <div class="job-card blur-reveal-light">
+            <div class="job-card blur-reveal-left">
+              <h4>Backend Engineer (Go/Node)</h4>
+              <div class="dept">Engineering</div>
+            </div>
+            <div class="job-card blur-reveal-right">
+              <span class="job-location"><svg class="ico sm" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Mumbai</span>
+              <span class="job-type full">Full-time</span>
+              <button class="job-apply"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+          <div class="job-card blur-reveal-light">
+            <div class="job-card blur-reveal-left">
+              <h4>Enterprise Sales Lead</h4>
+              <div class="dept">Sales</div>
+            </div>
+            <div class="job-card blur-reveal-right">
+              <span class="job-location"><svg class="ico sm" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Dubai</span>
+              <span class="job-type full">Full-time</span>
+              <button class="job-apply"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+          <div class="job-card blur-reveal-light">
+            <div class="job-card blur-reveal-left">
+              <h4>DevOps Engineer</h4>
+              <div class="dept">Infrastructure</div>
+            </div>
+            <div class="job-card blur-reveal-right">
+              <span class="job-location"><svg class="ico sm" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Bengaluru</span>
+              <span class="job-type full">Full-time</span>
+              <button class="job-apply"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+          <div style="text-align:center;padding-top:8px">
+            <a href="#" class="btn btn-primary btn-sm">View All Open Positions <span class="arrow"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESS / MEDIA -->
+  <section class="press-section">
+    <div class="container">
+      <div class="section-header center gs-hidden blur-reveal">
+        <span class="badge">Press</span>
+        <h2>As featured in.</h2>
+      </div>
+      <div class="press-grid gs-hidden">
+        <div class="press-card hover-pop"><span class="press-name">Forbes India</span></div>
+        <div class="press-card hover-pop"><span class="press-name">Economic Times</span></div>
+        <div class="press-card hover-pop"><span class="press-name">TechCrunch</span></div>
+        <div class="press-card hover-pop"><span class="press-name">YourStory</span></div>
+        <div class="press-card hover-pop"><span class="press-name">Inc42</span></div>
+        <div class="press-card hover-pop"><span class="press-name">LiveMint</span></div>
+        <div class="press-card hover-pop"><span class="press-name">BW Businessworld</span></div>
+        <div class="press-card hover-pop"><span class="press-name">CNBC TV18</span></div>
+        <div class="press-card hover-pop"><span class="press-name">MoneyControl</span></div>
+        <div class="press-card hover-pop"><span class="press-name">NDTV Profit</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content gs-hidden">
+        <h2>Ready to transform your <span class="gold">procurement?</span></h2>
+        <p>Join 10,000+ procurement teams who save an average of 14.8% on every purchase. Start your free 30-day trial today — no credit card required.</p>
+        <div class="cta-buttons">
+          <a href="#" class="btn btn-primary magnetic-btn">Start Free Trial <span class="arrow"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+          <a href="#" class="btn btn-secondary">Talk to Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo" style="margin-bottom:8px">
+            <div class="logo-icon"><img loading="lazy" src="assets/logo.png" alt="Zaucto Logo" /></div>
+          </div>
+          <p>Unlock True Value with Zaucto</p>
+          <div class="footer-socials">
+            <div class="footer-social-icon"><svg class="ico sm" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+            <div class="footer-social-icon"><svg class="ico sm" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+            <div class="footer-social-icon"><svg class="ico sm" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+            <div class="footer-social-icon"><svg class="ico sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+            <div class="footer-social-icon"><svg class="ico sm" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h6>Services</h6>
+          <ul>
+            <li><a href="#">Auctions</a></li>
+            <li><a href="#">Request for Quotations</a></li>
+            <li><a href="zauctoMarketplace.html">Marketplace</a></li>
+            <li><a href="https://www.youtube.com/@ZauctoAI" target="_blank" rel="noopener">How It Works</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h6>Company</h6>
+          <ul>
+            <li><a href="zauctoabout.html">About Us</a></li>
+            <li><a href="zauctoPricing.html">Pricing</a></li>
+            <li><a href="zauctoContact.html">Contact Us</a></li>
+            <li><a href="zauctoCareers.html">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h6>Resources</h6>
+          <ul>
+            <li><a href="zauctoFAQ.html">Help Center / FAQs</a></li>
+            <li><a href="#">Case Studies</a></li>
+            <li><a href="zauctoBlog.html">Blog</a></li>
+            <li><a href="#">API Docs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h6>Legal</h6>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+            <li><a href="#">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Zaucto. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Security</a>
+          <a href="#">Compliance</a>
+        </div>
+        <div class="footer-country">
+          <svg class="ico sm" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> India
+          <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCROLL TO TOP -->
+  <button class="scroll-top" id="scrollTopBtn" title="Scroll to top" aria-label="Scroll to top">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Scroll reveal
+      document.querySelectorAll('.gs-hidden').forEach(el => {
+        gsap.to(el, {
+          scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' },
+          opacity: 1, y: 0, duration: .6, ease: 'power3.out'
+        });
+      });
+
+      // Staggered reveals for grids
+      ['.values-grid .gs-hidden', '.team-grid .gs-hidden', '.partners-grid .gs-hidden', '.culture-grid .gs-hidden', '.investors-grid .gs-hidden', '.metrics-grid .gs-hidden'].forEach(sel => {
+        const els = document.querySelectorAll(sel);
+        if (els.length) {
+          gsap.to(els, {
+            scrollTrigger: { trigger: els[0].parentElement, start: 'top 85%', toggleActions: 'play none none none' },
+            opacity: 1, y: 0, duration: .5, stagger: .08, ease: 'power3.out'
+          });
+        }
+      });
+
+      // Counter animations
+      document.querySelectorAll('.metric-number[data-count]').forEach(el => {
+        const target = parseFloat(el.dataset.count);
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        const decimal = parseInt(el.dataset.decimal) || 0;
+        ScrollTrigger.create({
+          trigger: el, start: 'top 90%',
+          onEnter: () => {
+            const obj = { val: 0 };
+            gsap.to(obj, {
+              val: target, duration: 1.8, ease: 'power2.out',
+              onUpdate: () => {
+                el.textContent = prefix + (decimal ? obj.val.toFixed(decimal) : Math.floor(obj.val).toLocaleString('en-IN')) + suffix;
+              }
+            });
+          }, once: true
+        });
+      });
+
+      // Sticky header
+      ScrollTrigger.create({
+        trigger: '.about-hero', start: '10% top', end: '30% top',
+        onEnter: () => document.getElementById('mainHeader').classList.add('scrolled'),
+        onLeaveBack: () => document.getElementById('mainHeader').classList.remove('scrolled'),
+      });
+
+      // Testimonials auto-scroll
+      const track = document.getElementById('testimonialsTrack');
+      const nav = document.getElementById('testimonialNav');
+      if (track && nav) {
+        const cards = track.querySelectorAll('.testimonial-card');
+        let currentIdx = 0;
+        // Create dots
+        cards.forEach((_, i) => {
+          const dot = document.createElement('div');
+          dot.className = 'testimonial-dot' + (i === 0 ? ' active' : '');
+          dot.addEventListener('click', () => { scrollToCard(i); });
+          nav.appendChild(dot);
+        });
+        function scrollToCard(idx) {
+          currentIdx = idx;
+          const card = cards[idx];
+          if (card) {
+            track.scrollTo({ left: card.offsetLeft - 16, behavior: 'smooth' });
+            nav.querySelectorAll('.testimonial-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+          }
+        }
+        // Auto-scroll every 4s
+        setInterval(() => {
+          currentIdx = (currentIdx + 1) % cards.length;
+          scrollToCard(currentIdx);
+        }, 4000);
+        // Update dots on manual scroll
+        track.addEventListener('scroll', () => {
+          const scrollLeft = track.scrollLeft;
+          let closest = 0;
+          cards.forEach((c, i) => {
+            if (Math.abs(c.offsetLeft - scrollLeft) < Math.abs(cards[closest].offsetLeft - scrollLeft)) closest = i;
+          });
+          if (closest !== currentIdx) {
+            currentIdx = closest;
+            nav.querySelectorAll('.testimonial-dot').forEach((d, i) => d.classList.toggle('active', i === currentIdx));
+          }
+        }, { passive: true });
+      }
+
+      // Scroll to top
+      const scrollBtn = document.getElementById('scrollTopBtn');
+      window.addEventListener('scroll', () => {
+        scrollBtn.classList.toggle('visible', window.scrollY > 400);
+      });
+      scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    });
+  </script>
+  <script src="advanced-animations.js"></script>
+  <script src="mobile-menu.js"></script>
+</body>
+</html>
