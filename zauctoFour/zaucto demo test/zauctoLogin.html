@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login / Sign Up - Zaucto</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#122136">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--blue:#122136;--blue-dark:#0E1C2F;--gold:#FF9F20;--navy:#0A0F1C;--bg:#F7F9FC;--card:#FFF;--success:#16C784;--danger:#FF4D4F;--text:#1E293B;--text-secondary:#64748B;--text-muted:#94A3B8;--border:#E2E8F0;--shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);--shadow-lg:0 8px 24px rgba(0,0,0,.08);--radius:16px}
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow:hidden;height:100vh}
+
+    /* ===== LAYOUT ===== */
+    .auth{display:grid;grid-template-columns:1fr 1fr;height:100vh}
+
+    /* LEFT PANEL */
+    .left{background:linear-gradient(160deg,#F0F4FF 0%,#E8EEFF 40%,#F7F9FC 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:48px;position:relative;overflow:hidden}
+    .left::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(18,33,54,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(18,33,54,.05) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+    .left::after{content:'';position:absolute;bottom:-150px;left:-150px;width:400px;height:400px;background:radial-gradient(circle,rgba(18,33,54,.08) 0%,transparent 70%);pointer-events:none}
+    .left-brand{position:relative;z-index:1;text-align:center;max-width:360px}
+    .left-logo{width:64px;height:64px;border-radius:14px;overflow:hidden;margin:0 auto 20px;background:#fff;padding:6px;box-shadow:0 2px 12px rgba(18,33,54,.1)}
+    .left-logo img{width:100%;height:100%;object-fit:contain}
+    .left-brand h2{font-size:26px;font-weight:800;color:var(--text);margin-bottom:8px;line-height:1.2}
+    .left-brand h2 span{color:var(--blue)}
+    .left-brand p{font-size:14px;color:var(--text-secondary);line-height:1.6;margin-bottom:28px}
+    .left-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%}
+    .stat-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;box-shadow:var(--shadow)}
+    .stat-card .num{font-size:22px;font-weight:900;color:var(--text);line-height:1}
+    .stat-card .num span{color:var(--gold)}
+    .stat-card .lbl{font-size:11px;color:var(--text-muted);margin-top:4px;font-weight:500}
+    .left-features{display:flex;flex-direction:column;gap:10px;margin-top:24px;width:100%}
+    .feat{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary)}
+    .feat .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0}
+
+    /* RIGHT PANEL */
+    .right{background:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px;position:relative;overflow-y:auto}
+    .back{position:absolute;top:20px;left:20px;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--text-muted);text-decoration:none;transition:color .2s}
+    .back:hover{color:var(--blue)}
+    .back svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .form-wrap{width:100%;max-width:380px}
+
+    /* TABS */
+    .tabs{display:flex;background:var(--bg);border-radius:12px;padding:3px;margin-bottom:24px;border:1px solid var(--border)}
+    .tab{flex:1;padding:10px;border-radius:9px;border:none;background:transparent;font-size:13px;font-weight:600;font-family:inherit;color:var(--text-muted);cursor:pointer;transition:all .25s}
+    .tab.active{background:#fff;color:var(--blue);box-shadow:var(--shadow)}
+
+    /* FORM */
+    .form{display:none}
+    .form.active{display:block}
+    .form h3{font-size:22px;font-weight:800;color:var(--text);margin-bottom:2px}
+    .form .sub{font-size:13px;color:var(--text-muted);margin-bottom:20px}
+    .fg{margin-bottom:14px}
+    .fg label{display:block;font-size:12px;font-weight:600;color:var(--text);margin-bottom:5px}
+    .fg label .req{color:var(--danger)}
+    .fi{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);font-size:13px;font-family:inherit;color:var(--text);outline:none;transition:all .25s}
+    .fi:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(18,33,54,.08);background:#fff}
+    .fi::placeholder{color:var(--text-muted)}
+    .fi.err{border-color:var(--danger);box-shadow:0 0 0 3px rgba(255,77,79,.08)}
+    .ferr{font-size:11px;color:var(--danger);margin-top:3px;display:none}
+    .ferr.show{display:block}
+    .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .fcheck{display:flex;align-items:center;gap:6px;margin-bottom:14px}
+    .fcheck input{width:16px;height:16px;border-radius:4px;border:1px solid var(--border);cursor:pointer;accent-color:var(--blue)}
+    .fcheck label{font-size:12px;color:var(--text-secondary);cursor:pointer}
+    .fcheck a{color:var(--blue);font-weight:600}
+    .flink{font-size:12px;color:var(--blue);font-weight:600;cursor:pointer}
+    .flink:hover{text-decoration:underline}
+
+    /* BUTTONS */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;border-radius:10px;font-weight:600;font-size:14px;cursor:pointer;border:none;transition:all .25s;font-family:inherit}
+    .btn-p{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(18,33,54,.2)}
+    .btn-p:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 4px 12px rgba(18,33,54,.25)}
+    .btn-s{background:#fff;color:var(--text);border:1px solid var(--border);font-size:13px}
+    .btn-s:hover{border-color:var(--blue);background:var(--bg)}
+    .btn-s svg{width:18px;height:18px}
+    .div{display:flex;align-items:center;gap:12px;margin:16px 0}
+    .div::before,.div::after{content:'';flex:1;height:1px;background:var(--border)}
+    .div span{font-size:11px;color:var(--text-muted);white-space:nowrap}
+
+    /* PWD TOGGLE */
+    .pw-wrap{position:relative}
+    .pw-tog{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text-muted);padding:2px}
+    .pw-tog:hover{color:var(--blue)}
+    .pw-tog svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+    /* SUCCESS */
+    .success{display:none;text-align:center;padding:32px 16px}
+    .success.show{display:block}
+    .success-icon{width:64px;height:64px;border-radius:50%;background:rgba(22,199,132,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+    .success-icon svg{width:32px;height:32px;stroke:var(--success);fill:none;stroke-width:2}
+    .success h3{font-size:20px;font-weight:800;margin-bottom:6px}
+    .success p{font-size:13px;color:var(--text-muted);margin-bottom:20px}
+
+    /* TOAST */
+    .toast{position:fixed;top:20px;right:20px;padding:12px 16px;border-radius:10px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:8px;z-index:9999;transform:translateX(120%);transition:transform .35s cubic-bezier(.22,1,.36,1);font-size:13px;font-weight:500}
+    .toast.show{transform:translateX(0)}
+    .toast.ok{border-color:rgba(22,199,132,.3)}
+    .toast.no{border-color:rgba(255,77,79,.3)}
+    .toast-i{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .toast.ok .toast-i{background:rgba(22,199,132,.1);color:var(--success)}
+    .toast.no .toast-i{background:rgba(255,77,79,.1);color:var(--danger)}
+    .toast-i svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+
+    /* Login form entrance animation */
+    .form-wrap{opacity:0;transform:translateY(20px);transition:all .6s cubic-bezier(.22,1,.36,1)}
+    .form-wrap.visible{opacity:1;transform:translateY(0)}
+    .tabs{opacity:0;transform:translateY(10px);transition:all .5s cubic-bezier(.22,1,.36,1) .1s}
+    .tabs.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:900px){.auth{grid-template-columns:1fr}.left{display:none}.right{padding:40px 24px}}
+    @media(max-width:480px){.right{padding:20px}.frow{grid-template-columns:1fr}.form-wrap{padding:0 8px}}
+  </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="theme-toggle.js"></script>
+  <link rel="stylesheet" href="design-system.css" />
+  <link rel="stylesheet" href="negotiation-filter.css" />
+  <link rel="stylesheet" href="advanced-animations.css" />
+</head>
+<body>
+  <div class="scroll-progress-bar" aria-hidden="true"></div>
+  <div class="ambient-blobs" aria-hidden="true"><div class="ambient-blob ambient-blob-1"></div><div class="ambient-blob ambient-blob-2"></div><div class="ambient-blob ambient-blob-3"></div></div>
+
+<div class="auth">
+  <!-- LEFT -->
+  <div class="left">
+    <div class="left-brand">
+      <a href="zauctofour.html" class="left-logo" aria-label="Zaucto Home"><img loading="lazy" src="assets/logo.png" alt="Zaucto" /></a>
+      <h2>Unlock True Value with <span>Zaucto</span></h2>
+      <p>AI-powered procurement platform trusted by 10,000+ teams worldwide.</p>
+      <div class="left-stats">
+        <div class="stat-card gradient-border-hover"><div class="num">10K<span>+</span></div><div class="lbl">Teams Onboarded</div></div>
+        <div class="stat-card gradient-border-hover"><div class="num">₹24.8<span>Cr</span></div><div class="lbl">Savings Delivered</div></div>
+        <div class="stat-card gradient-border-hover"><div class="num">30<span>%</span></div><div class="lbl">Avg Cost Savings</div></div>
+        <div class="stat-card gradient-border-hover"><div class="num">98.6<span>%</span></div><div class="lbl">Response Rate</div></div>
+      </div>
+      <div class="left-features">
+        <div class="feat"><span class="dot"></span>AI-powered procurement automation</div>
+        <div class="feat"><span class="dot"></span>Live auctions & bulk RFQ</div>
+        <div class="feat"><span class="dot"></span>Enterprise-grade security</div>
+        <div class="feat"><span class="dot"></span>14-day free trial, no credit card</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <a href="zauctofour.html" class="back"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to home</a>
+
+    <div class="form-wrap">
+      <div class="tabs">
+        <button class="tab active" data-tab="login">Log In</button>
+        <button class="tab" data-tab="signup">Sign Up</button>
+      </div>
+
+      <!-- LOGIN -->
+      <form class="form active" id="loginForm">
+        <h3>Welcome back</h3>
+        <p class="sub">Log in to your Zaucto account</p>
+
+        <div class="fg">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" class="fi" id="loginEmail" placeholder="you@company.com" required />
+          <div class="ferr" id="loginEmailErr">Please enter a valid email</div>
+        </div>
+        <div class="fg">
+          <label>Password <span class="req">*</span></label>
+          <div class="pw-wrap">
+            <input type="password" class="fi" id="loginPassword" placeholder="Enter your password" required />
+            <button type="button" class="pw-tog" onclick="togglePw('loginPassword',this)"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+          </div>
+          <div class="ferr" id="loginPassErr">Password is required</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div class="fcheck"><input type="checkbox" id="remember" /><label for="remember">Remember me</label></div>
+          <span class="flink">Forgot password?</span>
+        </div>
+        <button type="submit" class="btn btn-p">Log In</button>
+        <div class="div"><span>or continue with</span></div>
+        <button type="button" class="btn btn-s" onclick="socialLogin()">
+          <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Continue with Google
+        </button>
+      </form>
+
+      <!-- SIGNUP -->
+      <form class="form" id="signupForm">
+        <h3>Create account</h3>
+        <p class="sub">Start your free trial today</p>
+        <div class="frow">
+          <div class="fg"><label>First Name <span class="req">*</span></label><input type="text" class="fi" id="signupFirst" placeholder="John" required /></div>
+          <div class="fg"><label>Last Name <span class="req">*</span></label><input type="text" class="fi" id="signupLast" placeholder="Doe" required /></div>
+        </div>
+        <div class="fg">
+          <label>Work Email <span class="req">*</span></label>
+          <input type="email" class="fi" id="signupEmail" placeholder="you@company.com" required />
+          <div class="ferr" id="signupEmailErr">Please enter a valid email</div>
+        </div>
+        <div class="fg"><label>Company Name <span class="req">*</span></label><input type="text" class="fi" id="signupCompany" placeholder="Acme Corp" required /></div>
+        <div class="fg">
+          <label>Password <span class="req">*</span></label>
+          <div class="pw-wrap">
+            <input type="password" class="fi" id="signupPassword" placeholder="Min 8 characters" required minlength="8" />
+            <button type="button" class="pw-tog" onclick="togglePw('signupPassword',this)"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+          </div>
+          <div class="ferr" id="signupPassErr">Min 8 characters required</div>
+        </div>
+        <div class="fg">
+          <label>I am a</label>
+          <select class="fi" id="signupRole"><option value="" disabled selected>Select your role</option><option>Procurement Manager</option><option>Buyer / Sourcing Lead</option><option>Finance / Accounts</option><option>IT / Operations</option><option>Founder / CEO</option><option>Other</option></select>
+        </div>
+        <div class="fcheck"><input type="checkbox" id="agreeTerms" required /><label for="agreeTerms">I agree to the <a href="zauctoTerms.html">Terms</a> & <a href="#">Privacy Policy</a></label></div>
+        <button type="submit" class="btn btn-p">Create Account</button>
+        <div class="div"><span>or continue with</span></div>
+        <button type="button" class="btn btn-s" onclick="socialLogin()">
+          <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          Continue with Google
+        </button>
+      </form>
+
+      <!-- SUCCESS -->
+      <div class="success" id="successMsg">
+        <div class="success-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+        <h3 id="sucTitle">Welcome to Zaucto!</h3>
+        <p id="sucText">Your account is ready. Redirecting...</p>
+        <a href="zauctofour.html" class="btn btn-p">Go to Dashboard</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><div class="toast-i" id="toastI"></div><span id="toastT"></span></div>
+
+<script>
+// Tab switching
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.querySelectorAll('.form').forEach(f=>f.classList.remove('active'));
+    document.getElementById(t.dataset.tab+'Form').classList.add('active');
+  });
+});
+
+// Password toggle
+function togglePw(id,btn){
+  const i=document.getElementById(id);
+  const show=i.type==='password';
+  i.type=show?'text':'password';
+  btn.innerHTML=show?'<svg viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>':'<svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+}
+
+// Toast
+function toast(msg,type='ok'){
+  const t=document.getElementById('toast');
+  const i=document.getElementById('toastI');
+  document.getElementById('toastT').textContent=msg;
+  t.className='toast '+type;
+  i.innerHTML=type==='ok'?'<svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>':'<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// localStorage helpers
+function getUsers(){return JSON.parse(localStorage.getItem('z_users')||'[]')}
+function saveUser(u){const a=getUsers();a.push(u);localStorage.setItem('z_users',JSON.stringify(a))}
+function findUser(e){return getUsers().find(u=>u.email===e)}
+function setCur(u){localStorage.setItem('z_cur',JSON.stringify(u))}
+function getCur(){return JSON.parse(localStorage.getItem('z_cur')||'null')}
+
+// Login
+document.getElementById('loginForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const email=document.getElementById('loginEmail').value.trim();
+  const pass=document.getElementById('loginPassword').value;
+  let ok=true;
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('loginEmailErr').classList.add('show');document.getElementById('loginEmail').classList.add('err');ok=false}else{document.getElementById('loginEmailErr').classList.remove('show');document.getElementById('loginEmail').classList.remove('err')}
+  if(!pass){document.getElementById('loginPassErr').classList.add('show');document.getElementById('loginPassword').classList.add('err');ok=false}else{document.getElementById('loginPassErr').classList.remove('show');document.getElementById('loginPassword').classList.remove('err')}
+  if(!ok)return;
+  const u=findUser(email);
+  if(u&&u.password===pass){setCur(u);toast('Login successful!');setTimeout(()=>location.href='zauctofour.html',1200)}
+  else if(u){toast('Incorrect password','no');document.getElementById('loginPassErr').textContent='Incorrect password';document.getElementById('loginPassErr').classList.add('show')}
+  else{toast('Account not found. Please sign up.','no')}
+});
+
+// Signup
+document.getElementById('signupForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const f=document.getElementById('signupFirst').value.trim();
+  const l=document.getElementById('signupLast').value.trim();
+  const email=document.getElementById('signupEmail').value.trim();
+  const co=document.getElementById('signupCompany').value.trim();
+  const pw=document.getElementById('signupPassword').value;
+  const ro=document.getElementById('signupRole').value;
+  const ag=document.getElementById('agreeTerms').checked;
+  let ok=true;
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('signupEmailErr').classList.add('show');document.getElementById('signupEmail').classList.add('err');ok=false}else{document.getElementById('signupEmailErr').classList.remove('show');document.getElementById('signupEmail').classList.remove('err')}
+  if(!pw||pw.length<8){document.getElementById('signupPassErr').classList.add('show');document.getElementById('signupPassword').classList.add('err');ok=false}else{document.getElementById('signupPassErr').classList.remove('show');document.getElementById('signupPassword').classList.remove('err')}
+  if(!f||!l||!co){toast('Please fill all required fields','no');ok=false}
+  if(!ag){toast('Please agree to Terms','no');ok=false}
+  if(!ok)return;
+  if(findUser(email)){toast('Email already registered','no');return}
+  const u={id:Date.now(),firstName:f,lastName:l,email,company:co,password:pw,role:ro||'Not specified',plan:'Bronze',joined:new Date().toISOString(),avatar:f.charAt(0)+l.charAt(0)};
+  saveUser(u);setCur(u);
+  document.getElementById('signupForm').style.display='none';
+  document.querySelector('.tabs').style.display='none';
+  document.getElementById('sucTitle').textContent='Welcome to Zaucto!';
+  document.getElementById('sucText').textContent='Your account is ready. You are on the Free (Bronze) plan.';
+  document.getElementById('successMsg').classList.add('show');
+  toast('Account created!');
+});
+
+function socialLogin(){toast('Google sign-in coming soon!','no')}
+
+// Check if logged in
+window.addEventListener('DOMContentLoaded',()=>{
+  const u=getCur();
+  if(u){toast('Already logged in');setTimeout(()=>location.href='zauctofour.html',800)}
+});
+</script>
+    <script>
+  // Login form entrance animation
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      const tabs = document.querySelector('.tabs');
+      const form = document.querySelector('.form-wrap');
+      if (tabs) tabs.classList.add('visible');
+      if (form) form.classList.add('visible');
+    }, 200);
+  });
+  </script>
+  <button class="scroll-top" id="scrollTopBtn" title="Scroll to top" aria-label="Scroll to top"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg></button>
+  <script src="advanced-animations.js"></script>
+  <script src="mobile-menu.js"></script>
+</body>
+</html>

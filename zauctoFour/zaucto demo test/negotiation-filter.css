@@ -1,0 +1,186 @@
+/* ============================================================
+   NEGOTIATION FILTER BAR — Reusable Component
+   Used across: AllAuctions, LiveAuctions, UpcomingAuctions,
+   FinishedAuctions, LiveBulkAuctions, MyBid, MyBulkBid
+   ============================================================ */
+
+.filter-bar {
+  margin-top: 110px;
+  margin-bottom: 24px;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: rgba(255,255,255,.75);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(226,232,240,.6);
+  border-radius: var(--radius-lg, 18px);
+  box-shadow: var(--elevation-1, 0 1px 3px rgba(0,0,0,.04));
+  transition: box-shadow 0.3s;
+}
+.filter-bar:hover {
+  box-shadow: var(--elevation-2, 0 4px 12px rgba(0,0,0,.06));
+}
+.filter-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted, #94A3B8);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  white-space: nowrap;
+}
+.filter-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border, #E2E8F0);
+  flex-shrink: 0;
+}
+.filter-chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border: 1.5px solid var(--border, #E2E8F0);
+  border-radius: var(--radius-sm, 10px);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary, #64748B);
+  background: var(--card, #fff);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(.22,1,.36,1);
+  white-space: nowrap;
+  font-family: inherit;
+}
+.filter-chip:hover {
+  border-color: var(--blue, #122136);
+  color: var(--blue, #122136);
+  background: rgba(18,33,54,.03);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(18,33,54,.08);
+}
+.filter-chip.active {
+  background: var(--blue, #122136);
+  color: #fff;
+  border-color: var(--blue, #122136);
+  box-shadow: 0 4px 16px rgba(18,33,54,.25);
+  transform: translateY(-1px);
+}
+.filter-chip.active:hover {
+  background: var(--blue-dark, #0E1C2F);
+  box-shadow: 0 6px 20px rgba(18,33,54,.3);
+}
+.filter-chip .chip-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(0,0,0,.06);
+  line-height: 1;
+}
+.filter-chip.active .chip-count {
+  background: rgba(255,255,255,.25);
+}
+.filter-chip .chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.filter-chip .chip-dot.green { background: var(--success, #16C784); }
+.filter-chip .chip-dot.gold  { background: var(--gold, #FF9F20); }
+.filter-chip .chip-dot.blue  { background: var(--blue, #122136); }
+.filter-chip .chip-dot.muted { background: var(--text-muted, #94A3B8); }
+.filter-spacer {
+  flex: 1;
+  min-width: 12px;
+}
+.filter-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1.5px solid var(--border, #E2E8F0);
+  border-radius: var(--radius-sm, 10px);
+  background: var(--card, #fff);
+  transition: all 0.25s;
+  width: 200px;
+}
+.filter-search:focus-within {
+  border-color: var(--blue, #122136);
+  box-shadow: 0 0 0 3px rgba(18,33,54,.08);
+}
+.filter-search svg {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted, #94A3B8);
+  flex-shrink: 0;
+}
+.filter-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  color: var(--text, #1E293B);
+  width: 100%;
+}
+.filter-search input::placeholder {
+  color: var(--text-muted, #94A3B8);
+}
+.sort-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.sort-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 8px 36px 8px 16px;
+  border: 1.5px solid var(--border, #E2E8F0);
+  border-radius: var(--radius-sm, 10px);
+  background: var(--card, #fff) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;
+  color: var(--text, #1E293B);
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.sort-select:hover {
+  border-color: var(--blue, #122136);
+  color: var(--blue, #122136);
+}
+.sort-select:focus {
+  outline: none;
+  border-color: var(--blue, #122136);
+  box-shadow: 0 0 0 3px rgba(18,33,54,.08);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .filter-search { width: 160px; }
+}
+@media (max-width: 768px) {
+  .filter-bar {
+    padding: 12px 16px;
+    gap: 8px;
+    margin-top: 100px;
+  }
+  .filter-label { display: none; }
+  .filter-divider { display: none; }
+  .filter-search { width: 100%; }
+  .sort-select { width: 100%; }
+}

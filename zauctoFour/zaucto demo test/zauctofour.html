@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zaucto - AI-Powered Procurement Platform</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#122136">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    :root{
+      --blue:#122136;--blue-dark:#0E1C2F;--gold:#FF9F20;--navy:#0A0F1C;
+      --bg:#F7F9FC;--card:#FFFFFF;--success:#16C784;--danger:#FF4D4F;
+      --text:#1E293B;--text-secondary:#64748B;--text-muted:#94A3B8;
+      --border:#E2E8F0;
+      --shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);
+      --shadow-md:0 4px 12px rgba(0,0,0,.06),0 1px 4px rgba(0,0,0,.04);
+      --shadow-lg:0 8px 24px rgba(0,0,0,.08),0 2px 8px rgba(0,0,0,.04);
+      --radius:16px;--radius-lg:20px;
+    }
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;animation:pageLoad .6s ease-out}
+    @keyframes pageLoad{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    a{text-decoration:none;color:inherit}
+    ul{list-style:none}
+    .container{max-width:1440px;margin:0 auto;padding:0 40px}
+
+    /* BUTTONS */
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:12px;font-weight:600;font-size:14px;cursor:pointer;border:none;transition:all .3s cubic-bezier(.22,1,.36,1);font-family:inherit;white-space:nowrap}
+    .btn .arrow{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+    .btn:hover .arrow{transform:translateX(4px)}
+    .btn-primary{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(18,33,54,.25)}
+    .btn-primary:hover{background:var(--blue-dark);box-shadow:0 4px 16px rgba(18,33,54,.3);transform:translateY(-1px)}
+    .btn-secondary{background:var(--card);color:var(--text);border:1px solid var(--border)}
+    .btn-secondary:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-1px);box-shadow:var(--shadow)}
+    .btn-gold{background:var(--gold);color:#fff;box-shadow:0 2px 8px rgba(255,159,32,.25)}
+    .btn-gold:hover{background:#E8901A;transform:translateY(-1px)}
+    .btn-sm{padding:8px 18px;font-size:13px;border-radius:10px}
+    .btn-ghost{background:transparent;color:var(--text-secondary);padding:8px 16px}
+    .btn-ghost:hover{color:var(--blue);background:rgba(18,33,54,.05)}
+
+    /* SVG ICONS */
+    .ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+    .ico.sm{width:16px;height:16px}.ico.lg{width:28px;height:28px}.ico.xl{width:36px;height:36px}
+    .ico.white{stroke:#fff}.ico.blue{stroke:var(--blue)}.ico.gold{stroke:var(--gold)}
+
+    /* BADGE */
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--blue);background:rgba(18,33,54,.06);border:1px solid rgba(18,33,54,.1)}
+
+    /* ANIMATIONS */
+    @keyframes pulseLive{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(18,33,54,.15)}50%{box-shadow:0 0 40px rgba(18,33,54,.25)}}
+    @keyframes pulseRing{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}
+    @keyframes shimmer{0%{left:-100%}100%{left:200%}}
+    @keyframes nodeGlow{0%,100%{opacity:.4;r:2}50%{opacity:1;r:3}}
+    @keyframes orbit{0%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-4px) rotate(2deg)}100%{transform:translateY(0) rotate(0deg)}}
+    @keyframes dataFlow{0%{stroke-dashoffset:20}100%{stroke-dashoffset:0}}
+    .gs-hidden{opacity:0;transform:translateY(30px);transition:all .7s cubic-bezier(.22,1,.36,1)}
+    .gs-visible{opacity:1!important;transform:translateY(0)!important}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes fadeInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+    @keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+    @keyframes slideIn{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+    @keyframes shimmerSlide{0%{background-position:-200% 0}100%{background-position:200% 0}}
+    .hover-lift{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s cubic-bezier(.22,1,.36,1)}
+    .hover-lift:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.12)}
+    .hover-scale{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+    .hover-scale:hover{transform:scale(1.03)}
+    .hover-glow:hover{box-shadow:0 0 30px rgba(18,33,54,.2)}
+    .stagger-1{animation-delay:.1s}
+    .stagger-2{animation-delay:.2s}
+    .stagger-3{animation-delay:.3s}
+    .stagger-4{animation-delay:.4s}
+    .stagger-5{animation-delay:.5s}
+    .stagger-6{animation-delay:.6s}
+    a{text-decoration:none;color:inherit}
+
+    /* ===== HEADER ===== */
+    .header{position:fixed;top:8px;left:0;right:0;z-index:1000;padding:0;transition:all .5s cubic-bezier(.25,.46,.45,.94);background:transparent}
+    .header-inner{background:transparent;border-radius:0;transition:all .5s cubic-bezier(.25,.46,.45,.94);box-shadow:none;padding:0 32px}
+    .header.scrolled .header-inner{background:rgba(247,249,252,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);margin:0 12%;border-radius:50px;box-shadow:0 4px 20px rgba(0,0,0,.08),0 1px 6px rgba(0,0,0,.04);padding:4px 16px}
+    .header .container{display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:10px}
+    .logo-icon{width:72px;height:72px;border-radius:12px;overflow:hidden;flex-shrink:0;transition:all .5s cubic-bezier(.25,.46,.45,.94)}
+    .header.scrolled .logo-icon{width:44px;height:44px}
+    .logo-icon img{width:100%;height:100%;object-fit:contain}
+    .logo:hover .logo-icon{transform:scale(1.04)}
+    .nav-links{display:flex;align-items:center;gap:4px}
+    .header.scrolled .nav-links{gap:2px}
+    .nav-links a{font-size:14px;font-weight:500;color:var(--text-secondary);padding:8px 14px;border-radius:10px;transition:all .5s cubic-bezier(.25,.46,.45,.94);display:flex;align-items:center;gap:4px}
+    .header.scrolled .nav-links a{font-size:13px;padding:6px 10px}
+    .nav-links a:hover{color:var(--blue);background:rgba(18,33,54,.04)}
+    .nav-links a.active{color:var(--blue);font-weight:600;background:rgba(18,33,54,.06)}
+    .has-dropdown .ico{width:12px;height:12px;opacity:.5}
+    .nav-item{position:relative}
+    .dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);min-width:220px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:8px;z-index:200;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+    .nav-item:hover>.dropdown{opacity:1;visibility:visible}
+    .dropdown a{display:block;padding:10px 16px;font-size:13px;font-weight:500;color:var(--text-secondary);border-radius:10px;transition:all .2s}
+    .dropdown a:hover{background:rgba(18,33,54,.04);color:var(--blue)}
+    .ai-tag{color:var(--blue)!important;font-weight:600}
+    .ai-star{color:var(--gold);display:inline-flex}
+    .header-right{display:flex;align-items:center;gap:12px}
+    .contact-link{font-size:14px;font-weight:500;color:var(--text-secondary);transition:all .5s cubic-bezier(.25,.46,.45,.94)}
+    .header.scrolled .contact-link{font-size:12px}
+    .contact-link:hover{color:var(--blue)}
+    
+    
+    
+    .header-avatar{width:36px;height:36px;border-radius:10px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);cursor:pointer;transition:all .5s cubic-bezier(.25,.46,.45,.94)}
+    .header.scrolled .header-avatar{width:30px;height:30px}
+    .header-avatar:hover{border-color:var(--blue);color:var(--blue)}
+
+    /* ===== HERO ===== */
+    .hero{padding:140px 0 40px;position:relative;overflow:hidden;background:linear-gradient(180deg,#F0F4FF 0%,var(--bg) 100%)}
+    .hero::before{content:'';position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;background:radial-gradient(circle,rgba(18,33,54,.05) 0%,transparent 70%);pointer-events:none;z-index:0}
+    .hero::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(18,33,54,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(18,33,54,.2) 1px,transparent 1px);background-size:50px 50px;opacity:0;transition:opacity .3s ease;mask-image:radial-gradient(circle 200px at var(--mx,50%) var(--my,50%),black 10%,transparent 100%);-webkit-mask-image:radial-gradient(circle 200px at var(--mx,50%) var(--my,50%),black 10%,transparent 100%);z-index:0}
+    .hero-spotlight{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle 250px at var(--mx,50%) var(--my,50%),rgba(18,33,54,.08) 0%,transparent 100%);opacity:0;transition:opacity .3s ease;z-index:0}
+    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(18,33,54,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(18,33,54,.08) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+    #gridDotsCanvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+    .hero .container{display:grid;grid-template-columns:1fr 1.2fr;gap:30px;align-items:center;position:relative;z-index:1;transform-style:preserve-3d;transition:transform .15s ease-out}
+    .hero-content{max-width:580px}
+    .hero-badge{margin-bottom:20px}
+    .hero-title{font-size:46px;font-weight:800;line-height:1.1;color:var(--text);margin-bottom:16px;letter-spacing:-.5px}
+    .hero-title .highlight{color:var(--blue)}
+    .hero-desc{font-size:16px;color:var(--text-secondary);line-height:1.7;margin-bottom:16px}
+    .hero-features{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px}
+    .hero-feature{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);font-weight:500}
+    .hero-feature .ico{width:16px;height:16px;color:var(--blue);flex-shrink:0}
+    .hero-buttons{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap;align-items:center}
+    .btn-play{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;font-weight:600;font-size:14px;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--text);transition:all .3s;font-family:inherit}
+    .btn-play:hover{border-color:var(--blue);color:var(--blue)}
+    .btn-play .play-icon{width:28px;height:28px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;color:#fff}
+    .btn-play .play-icon svg{width:12px;height:12px}
+    .hero-trust{display:inline-flex;align-items:center;gap:12px;padding:10px 20px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .hero-trust::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);animation:shimmer 3s ease-in-out infinite}
+    .trust-avatars{display:flex}
+    .trust-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--card);margin-left:-8px;overflow:hidden;background:#E2E8F0;transition:transform .2s}
+    .trust-av:first-child{margin-left:0}
+    .trust-av:hover{transform:scale(1.15);z-index:2}
+    .trust-av img{width:100%;height:100%;object-fit:cover}
+    .trust-text{font-size:13px;color:var(--text-secondary)}
+    .trust-text strong{color:var(--text);font-weight:700}
+
+    /* HERO COMMAND CENTER */
+    .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;min-height:460px}
+    .command-center{position:relative;width:100%;max-width:520px;height:420px}
+    .cc-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#1A2E47);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:900;box-shadow:0 0 40px rgba(18,33,54,.3),0 0 80px rgba(18,33,54,.15);z-index:10;animation:glow 3s ease-in-out infinite}
+    .cc-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:110px;height:110px;border-radius:50%;border:2px solid rgba(18,33,54,.15);z-index:9}
+    .cc-ring:nth-child(2){width:150px;height:150px;border-color:rgba(18,33,54,.08)}
+    .cc-module{position:absolute;padding:10px 16px;border-radius:12px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow-md);font-size:12px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;white-space:nowrap;z-index:5;transition:all .3s;animation:float 5s ease-in-out infinite}
+    .cc-module:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:rgba(18,33,54,.15)}
+    .cc-module .mod-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .cc-module .mod-icon.blue{background:rgba(18,33,54,.08);color:var(--blue)}
+    .cc-module .mod-icon.green{background:rgba(22,199,132,.08);color:var(--success)}
+    .cc-module .mod-icon.gold{background:rgba(255,159,32,.08);color:var(--gold)}
+    .cc-module .mod-icon.purple{background:rgba(124,58,237,.08);color:#7C3AED}
+    .cc-module .mod-icon.teal{background:rgba(20,184,166,.08);color:#14B8A6}
+    .cc-module small{display:block;font-size:10px;font-weight:400;color:var(--text-muted)}
+    .cc-module.m1{top:15%;left:0;animation-delay:0s}
+    .cc-module.m2{top:5%;right:10%;animation-delay:.5s}
+    .cc-module.m3{top:35%;right:-5%;animation-delay:1s}
+    .cc-module.m4{bottom:30%;right:5%;animation-delay:1.5s}
+    .cc-module.m5{bottom:10%;left:15%;animation-delay:2s}
+    .cc-module.m6{top:35%;left:-5%;animation-delay:2.5s}
+    .cc-savings-card{position:absolute;bottom:5%;right:-10%;padding:12px 16px;border-radius:12px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow-md);z-index:5;animation:float 4s ease-in-out infinite;animation-delay:1s}
+    .cc-savings-card .savings-label{font-size:10px;color:var(--text-muted);margin-bottom:2px}
+    .cc-savings-card .savings-amount{font-size:18px;font-weight:800;color:var(--success)}
+    .cc-savings-card .savings-graph{display:flex;align-items:flex-end;gap:2px;height:24px;margin-top:6px}
+    .cc-savings-card .savings-graph .bar{width:4px;border-radius:2px;background:var(--success);transition:height .3s}
+    .cc-lines{position:absolute;inset:0;z-index:1;pointer-events:none}
+    .cc-lines line{stroke:var(--blue);stroke-width:1;stroke-dasharray:4 4;opacity:.2;animation:dataFlow 2s linear infinite}
+
+    /* ===== METRICS STRIP ===== */
+    .metrics-strip{padding:0 0 40px;position:relative;z-index:1}
+    .metrics-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+    .metric-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px 16px;text-align:center;transition:all .3s;box-shadow:var(--shadow)}
+    .metric-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:rgba(18,33,54,.15)}
+    .metric-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+    .metric-icon.blue{background:rgba(18,33,54,.08);color:var(--blue)}
+    .metric-icon.gold{background:rgba(255,159,32,.08);color:var(--gold)}
+    .metric-icon.green{background:rgba(22,199,132,.08);color:var(--success)}
+    .metric-icon.purple{background:rgba(124,58,237,.08);color:#7C3AED}
+    .metric-number{font-size:28px;font-weight:800;color:var(--text);line-height:1.2}
+    .metric-label{font-size:12px;font-weight:500;color:var(--text-muted);margin-top:4px}
+
+    /* ===== SECTIONS COMMON ===== */
+    .section{padding:48px 0}
+    .section-header{margin-bottom:32px}
+    .section-header h2{font-size:32px;font-weight:800;line-height:1.2;color:var(--text);margin-top:8px}
+    .section-header p{font-size:16px;color:var(--text-secondary);max-width:560px;margin-top:4px}
+
+    /* ===== LIVE RFX ===== */
+    .rfx-layout{display:grid;grid-template-columns:1.5fr 1fr 1.2fr;gap:20px}
+    .rfx-panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow)}
+    .rfx-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .rfx-panel-header h3{font-size:16px;font-weight:700}
+    .rfx-filters{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+    .rfx-filter{padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-muted);transition:all .25s;font-family:inherit}
+    .rfx-filter.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+    .rfx-filter:hover:not(.active){border-color:var(--blue);color:var(--blue)}
+    .rfx-list{display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(18,33,54,.2) transparent}
+    .rfx-list::-webkit-scrollbar{width:5px}
+    .rfx-list::-webkit-scrollbar-track{background:transparent}
+    .rfx-list::-webkit-scrollbar-thumb{background:rgba(18,33,54,.2);border-radius:10px}
+    .rfx-list::-webkit-scrollbar-thumb:hover{background:rgba(18,33,54,.4)}
+    .rfx-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:10px;border:1px solid transparent;transition:all .2s;cursor:pointer}
+    .rfx-item:hover{background:rgba(18,33,54,.03);border-color:rgba(18,33,54,.08)}
+    .rfx-item-left{display:flex;align-items:center;gap:10px}
+    .rfx-item-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .rfx-item-icon.rfp{background:rgba(18,33,54,.08)}.rfx-item-icon.rfq{background:rgba(22,199,132,.08)}.rfx-item-icon.rfi{background:rgba(255,159,32,.08)}
+    .rfx-item-title{font-size:13px;font-weight:600;color:var(--text)}
+    .rfx-item-desc{font-size:11px;color:var(--text-muted)}
+    .rfx-item-right{display:flex;align-items:center;gap:10px}
+    .rfx-responses{font-size:11px;color:var(--text-muted);white-space:nowrap}
+    .rfx-status{font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
+    .rfx-status.open{background:rgba(22,199,132,.08);color:var(--success)}
+    .rfx-status.bid{background:rgba(255,159,32,.08);color:var(--gold)}
+    .rfx-status.closed{background:rgba(255,77,79,.08);color:var(--danger)}
+    .rfx-tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
+    .rfx-tag.rfp-tag{background:rgba(18,33,54,.08);color:var(--blue)}
+    .rfx-tag.rfq-tag{background:rgba(22,199,132,.08);color:var(--success)}
+    .rfx-tag.rfi-tag{background:rgba(255,159,32,.08);color:var(--gold)}
+    .rfx-bottom{display:flex;justify-content:center;padding-top:12px}
+    .rfx-bottom a{font-size:13px;font-weight:600;color:var(--blue);display:inline-flex;align-items:center;gap:4px;transition:gap .2s}
+    .rfx-bottom a:hover{gap:8px}
+
+    /* AI INSIGHT CARD */
+    .ai-insight{display:flex;flex-direction:column;gap:16px}
+    .ai-insight-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow);flex:1}
+    .ai-insight-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+    .ai-insight-icon{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--blue),#1A2E47);display:flex;align-items:center;justify-content:center;color:#fff}
+    .ai-insight-header h3{font-size:16px;font-weight:700}
+    .ai-insight-text{font-size:14px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px}
+    .ai-insight-stat{display:flex;align-items:baseline;gap:8px;margin-bottom:16px}
+    .insight-chart{background:var(--bg);border-radius:12px;padding:16px;border:1px solid var(--border)}
+    .insight-chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    .insight-bars{display:flex;flex-direction:column;gap:10px}
+    .insight-bar-row{display:flex;align-items:center;gap:10px}
+    .insight-bar-label{font-size:11px;font-weight:600;color:var(--text-secondary);width:56px;flex-shrink:0}
+    .insight-bar-track{flex:1;height:8px;border-radius:4px;background:var(--border);overflow:hidden}
+    .insight-bar-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.22,1,.36,1);width:0}
+    .insight-bar-fill.animated{width:var(--w)}
+    .insight-bar-val{font-size:11px;font-weight:700;color:var(--text);width:32px;text-align:right;flex-shrink:0}
+    .insight-chart-footer{display:flex;gap:16px;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
+    .insight-legend{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-muted)}
+    .insight-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .ai-insight-stat .number{font-size:32px;font-weight:800;color:var(--success)}
+    .ai-insight-stat .label{font-size:13px;color:var(--text-muted)}
+    .donut-3d{width:150px;height:130px;margin:0 auto 12px;position:relative;perspective:400px;cursor:pointer}
+    .donut-3d-inner{width:150px;height:150px;position:relative;transform:rotateX(20deg);transform-style:preserve-3d;transition:transform .3s}
+    .donut-3d:hover .donut-3d-inner{transform:rotateX(10deg) scale(1.05)}
+    .donut-3d svg{width:150px;height:150px}
+    .donut-shadow{position:absolute;bottom:-10px;left:15px;right:15px;height:24px;background:radial-gradient(ellipse,rgba(0,0,0,.12) 0%,transparent 70%);border-radius:50%;filter:blur(4px)}
+    .donut-seg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:5}
+    .donut-seg svg{width:100%;height:100%}
+    .donut-seg .seg-hit{fill:transparent;cursor:pointer}
+    .donut-seg .seg-arc{transition:opacity .2s,filter .2s}
+    .donut-seg:hover .seg-arc{opacity:1;filter:brightness(1.15)}
+    .donut-seg .seg-tip{position:absolute;padding:14px 16px;border-radius:12px;background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow-lg);z-index:20;opacity:0;visibility:hidden;transition:all .25s cubic-bezier(.22,1,.36,1);pointer-events:none;white-space:nowrap;display:flex;flex-direction:column;gap:6px;min-width:180px;transform:translateX(-50%) translateY(8px)}
+    .donut-seg .seg-tip::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:var(--card);border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .donut-seg:hover .seg-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    .donut-seg .seg-tip-top{display:flex;align-items:center;gap:8px}
+    .donut-seg .seg-tip-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+    .donut-seg .seg-tip-title{font-size:12px;font-weight:700;color:var(--text)}
+    .donut-seg .seg-tip-pct{font-size:18px;font-weight:800;color:var(--text);margin-left:auto}
+    .donut-seg .seg-tip-bar{width:100%;height:6px;border-radius:3px;background:var(--border);overflow:hidden}
+    .donut-seg .seg-tip-bar-fill{height:100%;border-radius:3px;transition:width .3s}
+    .donut-seg .seg-tip-desc{font-size:11px;color:var(--text-muted);line-height:1.4}
+    .donut-tip-blue{top:-8px;left:50%;transform:translateX(-50%) translateY(8px)}
+    .donut-tip-blue:hover{transform:translateX(-50%) translateY(0)}
+    .donut-tip-gold{bottom:-8px;left:50%;transform:translateX(-50%) translateY(-8px)}
+    .donut-tip-gold::after{bottom:auto;top:-6px;transform:translateX(-50%) rotate(-135deg)}
+    .donut-tip-gold:hover{transform:translateX(-50%) translateY(0)}
+    .donut-seg:hover .seg-arc{opacity:1;filter:brightness(1.2) drop-shadow(0 0 6px rgba(0,0,0,.15))}
+
+    /* ===== AI RECOMMENDED ===== */
+    .recommended-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
+    .rfx-rec-col{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .rfx-rec-list{display:flex;flex-direction:column;gap:10px;flex:1;max-height:360px;overflow-y:auto;scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(18,33,54,.2) transparent}
+    .rfx-rec-list::-webkit-scrollbar{width:5px}
+    .rfx-rec-list::-webkit-scrollbar-track{background:transparent}
+    .rfx-rec-list::-webkit-scrollbar-thumb{background:rgba(18,33,54,.2);border-radius:10px}
+    .rfx-rec-list::-webkit-scrollbar-thumb:hover{background:rgba(18,33,54,.4)}
+    .rfx-rec-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;border:1px solid var(--border);transition:all .2s;cursor:pointer}
+    .rfx-rec-item:hover{border-color:rgba(18,33,54,.15);background:rgba(18,33,54,.02)}
+    .rfx-rec-item img{width:42px;height:42px;border-radius:8px;object-fit:cover;background:#E2E8F0;flex-shrink:0}
+    .rfx-rec-item-info{display:flex;flex-direction:column;justify-content:center;min-width:0;flex:1}
+    .rfx-rec-item-name{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .rfx-rec-item-meta{font-size:10px;color:var(--text-muted)}
+    .rfx-rec-item-match{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(18,33,54,.06);color:var(--blue);flex-shrink:0;white-space:nowrap}
+    .rec-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;transition:all .3s;box-shadow:var(--shadow);cursor:pointer}
+    .rec-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:rgba(18,33,54,.12)}
+    .rec-img-wrap{position:relative;overflow:hidden;border-radius:10px;margin-bottom:10px}
+    .rec-card-img{width:100%;height:100px;border-radius:10px;object-fit:cover;background:#E2E8F0;display:block;transition:transform .4s}
+    .rec-card:hover .rec-card-img{transform:scale(1.06)}
+    .rec-ai-badge{position:absolute;top:6px;right:6px;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(18,33,54,.9);color:#fff;backdrop-filter:blur(4px)}
+    .rec-card-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px}
+    .rec-card-desc{font-size:11px;color:var(--text-muted);margin-bottom:6px}
+    .rec-card-supplier{font-size:11px;color:var(--text-muted);margin-bottom:6px;display:flex;align-items:center;gap:4px}
+    .rec-card-price{font-size:16px;font-weight:800;color:var(--text)}
+    .rec-card-price .unit{font-size:11px;font-weight:500;color:var(--text-muted)}
+    .rec-card-delivery{font-size:11px;color:var(--text-muted);margin-bottom:10px;display:flex;align-items:center;gap:4px}
+    .rec-card-btn{width:100%;padding:7px;border:1px solid var(--blue);border-radius:8px;background:transparent;color:var(--blue);font-size:11px;font-weight:600;cursor:pointer;transition:all .25s;font-family:inherit}
+    .rec-card-btn:hover{background:var(--blue);color:#fff}
+
+    /* ===== MARKETPLACE ===== */
+    .mp-header-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+    .mp-tabs{display:flex;gap:6px;flex-wrap:wrap}
+    .mp-tab{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-muted);transition:all .25s;font-family:inherit}
+    .mp-tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+    .mp-tab:hover:not(.active){border-color:var(--blue);color:var(--blue)}
+    .mp-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+    /* MODERN CARD: gradient ring + glass body + shine sweep */
+    .mp-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:0;cursor:pointer;display:flex;flex-direction:column;overflow:hidden;transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s cubic-bezier(.22,1,.36,1),border-color .3s;isolation:isolate}
+    .mp-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,33,54,.03),transparent 45%);opacity:0;transition:opacity .4s;z-index:-1;pointer-events:none}
+    .mp-card::after{content:'';position:absolute;top:0;left:-80%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);transition:left .7s cubic-bezier(.22,1,.36,1);pointer-events:none;z-index:2}
+    .mp-card:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 16px 40px rgba(18,33,54,.14),0 4px 12px rgba(0,0,0,.06);border-color:rgba(18,33,54,.25)}
+    .mp-card:hover::before{opacity:1}
+    .mp-card:hover::after{left:130%}
+    .mp-img-wrap{position:relative;overflow:hidden}
+    .mp-card-img{width:100%;height:140px;object-fit:cover;background:#E2E8F0;display:block;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+    .mp-card:hover .mp-card-img{transform:scale(1.1)}
+    .mp-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(10,15,28,.25));opacity:0;transition:opacity .4s;pointer-events:none}
+    .mp-card:hover .mp-img-wrap::after{opacity:1}
+    .mp-ai-badge{position:absolute;top:8px;left:8px;padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(18,33,54,.9);color:#fff;display:flex;align-items:center;gap:4px;backdrop-filter:blur(4px)}
+    .mp-card-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
+    .mp-card-desc{font-size:12px;color:var(--text-muted);margin-bottom:8px;line-height:1.3}
+    .mp-card-price{font-size:18px;font-weight:800;color:var(--text)}
+    .mp-card-price .unit{font-size:12px;font-weight:500;color:var(--text-muted)}
+    .mp-price-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+    .mp-trend{font-size:11px;font-weight:700;padding:2px 8px;border-radius:50px}
+    .mp-trend.up{background:rgba(22,199,132,.08);color:var(--success)}
+    .mp-trend.down{background:rgba(255,77,79,.08);color:var(--danger)}
+    .mp-trend.stable{background:rgba(148,163,184,.08);color:var(--text-muted)}
+    .mp-card-moq{font-size:11px;color:var(--text-muted);margin-bottom:8px}
+    .mp-card-meta{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:11px;color:var(--text-muted)}
+    .mp-card-meta span{display:flex;align-items:center;gap:3px}
+    .mp-card-verified{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--success);margin-bottom:10px;font-weight:500}
+    .mp-card-verified svg{width:14px;height:14px}
+    .mp-card-match{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(18,33,54,.06);color:var(--blue);margin-bottom:10px;display:inline-flex;align-items:center;gap:4px;transition:background .25s,color .25s}
+    .mp-card:hover .mp-card-match{background:rgba(18,33,54,.12);color:var(--blue-dark)}
+    .mp-card:hover .mp-card-btn{background:linear-gradient(135deg,var(--blue),#1A2E47);box-shadow:0 4px 14px rgba(18,33,54,.3)}
+    .mp-card-body{padding:14px;display:flex;flex-direction:column;flex:1}
+    .mp-card-btn{width:100%;padding:8px;border:none;border-radius:8px;background:var(--blue);color:#fff;font-size:12px;font-weight:600;cursor:pointer;transition:all .25s;font-family:inherit}
+    .mp-card-btn:hover{background:var(--blue-dark)}
+
+    /* ===== AUCTIONS ===== */
+    .auction-header-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+    .auction-tabs{display:flex;gap:6px;margin-bottom:20px}
+    .auction-tab{padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text-muted);transition:all .25s;font-family:inherit;display:flex;align-items:center;gap:6px}
+    .auction-tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+    .auction-tab:hover:not(.active){border-color:var(--blue);color:var(--blue)}
+    .auction-tab .live-dot{width:7px;height:7px;border-radius:50%;background:#22C55E;animation:pulseLive 1.5s infinite}
+    .auction-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+    .auction-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;transition:all .35s cubic-bezier(.22,1,.36,1);cursor:pointer;display:flex;flex-direction:column;position:relative;overflow:hidden;isolation:isolate}
+    .auction-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,33,54,.035),transparent 40%);opacity:0;transition:opacity .35s;z-index:-1;pointer-events:none}
+    .auction-card::after{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-18deg);transition:left .7s cubic-bezier(.22,1,.36,1);pointer-events:none;z-index:2}
+    .auction-card:hover{transform:translateY(-5px) !important;box-shadow:0 12px 32px rgba(18,33,54,.14),0 3px 10px rgba(0,0,0,.05);border-color:rgba(18,33,54,.35)}
+    .auction-card:hover::before{opacity:1}
+    .auction-card:hover::after{left:130%}
+    .auction-card:hover .auction-live-badge{box-shadow:0 0 10px rgba(22,199,132,.4)}
+    .auction-card:hover .auction-card-timer{color:var(--blue-dark)}
+    .auction-card.hot{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),var(--shadow)}
+    /* HOT ribbon reuses ::before — reset the gradient-wash geometry so it stays a ribbon */
+    .auction-card.hot::before{content:'HOT AUCTION';position:absolute;top:-1px;right:16px;left:auto;bottom:auto;width:auto;height:auto;inset:auto;font-size:9px;font-weight:800;padding:4px 10px;border-radius:0 0 8px 8px;background:var(--gold);color:#fff;letter-spacing:.5px;opacity:1}
+    .auction-card.hot:hover::before{opacity:1}
+    .auction-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+    .auction-live-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:6px;background:rgba(22,199,132,.08);color:var(--success);font-size:10px;font-weight:700;text-transform:uppercase}
+    .auction-live-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--success);animation:pulseLive 1.5s infinite}
+    .auction-card-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;line-height:1.3}
+    .auction-card-cat{font-size:11px;color:var(--text-muted);margin-bottom:8px}
+    .auction-card-bid{font-size:18px;font-weight:800;color:var(--text)}
+    .auction-card-bids{font-size:11px;color:var(--text-muted);margin-bottom:6px}
+    .auction-card-timer{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--blue);margin-bottom:8px}
+    .auction-mini-graph{height:28px;display:flex;align-items:flex-end;gap:2px;margin-top:auto}
+    .auction-mini-graph .bar{flex:1;border-radius:2px;transition:height .3s}
+
+    /* ===== PROCUREMENT IMPACT ===== */
+    .impact-section{background:var(--navy);padding:60px 0;position:relative;overflow:hidden}
+    .impact-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+    .impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
+    .impact-left .badge{background:rgba(255,159,32,.1);color:var(--gold);border-color:rgba(255,159,32,.2)}
+    .impact-left h2{font-size:14px;font-weight:500;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-top:12px;margin-bottom:4px}
+    .impact-number{font-size:56px;font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
+    .impact-number .currency{font-size:36px;color:var(--gold)}
+    .impact-subtitle{font-size:18px;color:rgba(255,255,255,.7);margin-bottom:8px}
+    .impact-this-month{font-size:13px;color:rgba(255,255,255,.4);margin-bottom:32px}
+    .impact-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .impact-metric{text-align:center;padding:16px 8px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+    .impact-metric .num{font-size:24px;font-weight:800;color:#fff;margin-bottom:2px}
+    .impact-metric .lbl{font-size:11px;color:rgba(255,255,255,.5)}
+    .impact-graph{position:relative;height:280px;display:flex;align-items:flex-end;gap:6px;padding:20px 0}
+    .impact-bar{flex:1;border-radius:6px 6px 0 0;transition:height 1.2s cubic-bezier(.22,1,.36,1);position:relative;min-width:0}
+    .impact-bar-gold{box-shadow:0 0 18px rgba(255,159,32,.35)}
+    .impact-bar:hover{opacity:1!important;transform:scaleX(1.1)}
+    .impact-bar .bar-label{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:600;color:rgba(255,255,255,.5);white-space:nowrap;opacity:0;transition:opacity .3s}
+    .impact-bar:hover .bar-label{opacity:1}
+    .impact-bar .bar-value{position:absolute;top:-40px;left:50%;transform:translateX(-50%);font-size:13px;font-weight:800;color:#fff;white-space:nowrap;opacity:0;transition:opacity .3s}
+    .impact-bar:hover .bar-value{opacity:1}
+    .impact-total-label{position:absolute;top:0;right:0;font-size:24px;font-weight:900;color:var(--gold);line-height:1}
+    .impact-total-sub{position:absolute;top:28px;right:0;font-size:11px;color:rgba(255,255,255,.4)}
+
+    /* ===== HOW IT WORKS TIMELINE (PREMIUM REBUILD) ===== */
+    .timeline-section{padding:72px 0;position:relative}
+    .timeline-container{position:relative;max-width:1080px;margin:0 auto;padding:20px 0 40px}
+    .pv-line{position:absolute;left:50%;transform:translateX(-50%);top:0;bottom:0;width:3px;border-radius:3px;background:var(--border);overflow:hidden}
+    .pv-line-fill{position:absolute;top:0;left:-1px;right:-1px;height:0%;background:linear-gradient(180deg,var(--blue) 0%,#1A2E47 55%,var(--gold) 100%);box-shadow:0 0 16px rgba(18,33,54,.45);transition:height .15s linear}
+    .pv-spark{position:absolute;left:50%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 12px 4px rgba(18,33,54,.55),0 0 30px 10px rgba(18,33,54,.2);opacity:0;pointer-events:none;z-index:5;transition:opacity .3s}
+    .pv-spark.on{opacity:1}
+    .pv-item{position:relative;width:50%;padding:0 56px 44px 0;text-align:right}
+    .pv-item:nth-child(even){margin-left:50%;text-align:left;padding:0 0 44px 56px}
+    .pv-node{position:absolute;top:6px;right:-27px;width:54px;height:54px;border-radius:50%;background:var(--card);border:3px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:var(--text-muted);z-index:2;opacity:0;transform:scale(.5);transition:all .55s cubic-bezier(.34,1.56,.64,1)}
+    .pv-item:nth-child(even) .pv-node{right:auto;left:-27px}
+    .pv-item.active .pv-node{border-color:var(--blue);color:#fff;background:linear-gradient(135deg,var(--blue),#1A2E47);box-shadow:0 0 0 6px rgba(18,33,54,.12),0 8px 24px rgba(18,33,54,.3);opacity:1;transform:scale(1.06)}
+    .pv-glow{position:absolute;top:6px;right:-27px;width:54px;height:54px;border-radius:50%;pointer-events:none;z-index:1;opacity:0;transition:opacity .5s;background:radial-gradient(circle,rgba(18,33,54,.25) 0%,transparent 70%)}
+    .pv-item:nth-child(even) .pv-glow{right:auto;left:-27px}
+    .pv-item.active .pv-glow{opacity:1;animation:pvGlowPulse 2.4s ease-in-out infinite}
+    @keyframes pvGlowPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.5)}}
+    .pv-card{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px 22px;min-width:300px;max-width:420px;box-shadow:var(--elevation-1,var(--shadow));position:relative;overflow:hidden;opacity:0;transform:translateY(22px) scale(.97);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),box-shadow .45s cubic-bezier(.22,1,.36,1),border-color .35s}
+    .pv-item.active .pv-card{opacity:1;transform:translateY(0) scale(1);transition-delay:.15s}
+    .pv-card::after{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-18deg);transition:left .8s cubic-bezier(.22,1,.36,1);pointer-events:none}
+    .pv-item:hover .pv-card{transform:translateY(-4px) scale(1);box-shadow:0 16px 44px rgba(18,33,54,.13);border-color:rgba(18,33,54,.22)}
+    .pv-item:hover .pv-card::after{left:130%}
+    .pv-item.active .pv-card{border-color:rgba(18,33,54,.28);box-shadow:0 12px 36px rgba(18,33,54,.12)}
+    .pv-icon{width:44px;height:44px;border-radius:12px;align-items:center;justify-content:center;margin-bottom:12px;display:inline-flex;transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+    .pv-item:hover .pv-icon{transform:scale(1.12) rotate(-6deg)}
+    .pv-icon.blue{background:rgba(18,33,54,.08);color:var(--blue)}
+    .pv-icon.purple{background:rgba(124,58,237,.08);color:#7C3AED}
+    .pv-icon.gold{background:rgba(255,159,32,.08);color:var(--gold)}
+    .pv-icon.green{background:rgba(22,199,132,.08);color:var(--success)}
+    .pv-icon.teal{background:rgba(20,184,166,.08);color:#14B8A6}
+    .pv-icon.blue2{background:rgba(18,33,54,.08);color:var(--blue)}
+    .pv-title{font-size:17px;font-weight:800;color:var(--text);margin-bottom:4px;transition:color .3s}
+    .pv-item.active .pv-title{color:var(--blue)}
+    .pv-desc{font-size:13px;color:var(--text-secondary);line-height:1.55;margin-bottom:10px}
+    .pv-tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 12px;border-radius:50px;background:rgba(18,33,54,.06);color:var(--blue);opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+    .pv-item.active .pv-tag{opacity:1;transform:translateY(0)}
+    .pv-tag .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulseLive 1.6s infinite}
+
+    /* hidden cards should not be hoverable */
+    .pv-item:not(.active) .pv-card{pointer-events:none}
+    /* accessibility: show everything without motion */
+    @media (prefers-reduced-motion: reduce){
+      .pv-card,.pv-node{opacity:1!important;transform:none!important;transition:none!important}
+    }
+    @media (max-width:900px){
+      .pv-line{left:27px;transform:none}
+      .pv-spark{left:27px}
+      .pv-item{width:100%;padding:0 0 36px 72px;text-align:left}
+      .pv-item:nth-child(even){margin-left:0;padding:0 0 36px 72px;text-align:left}
+      .pv-node{left:0!important;right:auto!important}
+      .pv-glow{left:0!important;right:auto!important}
+      .pv-card{min-width:0;max-width:100%}
+    }
+
+    /* ===== MEET ZAUCTO AI ===== */
+    .ai-section{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+    .ai-dark-card{background:var(--navy);border-radius:var(--radius-lg);padding:36px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+    .ai-dark-card::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(18,33,54,.25) 0%,transparent 70%);pointer-events:none}
+    .ai-dark-card::after{content:'';position:absolute;bottom:-60px;left:-40px;width:250px;height:250px;background:radial-gradient(circle,rgba(18,33,54,.15) 0%,transparent 70%);pointer-events:none}
+    .ai-dark-top{display:flex;gap:24px;align-items:flex-start;margin-bottom:24px;position:relative;z-index:1}
+    .ai-robot{flex-shrink:0}
+    .ai-robot img{height:200px;width:auto;object-fit:contain}
+    .ai-dark-text{flex:1;padding-top:20px}
+    .ai-dark-text h2{font-size:28px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:6px}
+    .ai-dark-text p{font-size:14px;color:rgba(255,255,255,.6);margin-bottom:0}
+    .ai-dark-prompts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;position:relative;z-index:1}
+    .ai-dark-prompt{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);font-size:12px;font-weight:500;color:rgba(255,255,255,.85);cursor:pointer;transition:all .25s;white-space:nowrap}
+    .ai-dark-prompt:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.2)}
+    .ai-dark-prompt .ico{width:14px;height:14px;stroke:var(--blue);flex-shrink:0}
+    .ai-dark-input{display:flex;align-items:center;gap:8px;padding:6px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);position:relative;z-index:1}
+    .ai-dark-input input{flex:1;padding:10px 12px;border:none;background:transparent;font-size:14px;font-family:inherit;color:#fff;outline:none}
+    .ai-dark-input input::placeholder{color:rgba(255,255,255,.4)}
+    .ai-dark-input button{width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;flex-shrink:0}
+    .ai-dark-input button:hover{background:var(--blue-dark)}
+    .ai-calc-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px;box-shadow:var(--shadow)}
+
+    /* ===== SAVINGS CALCULATOR ===== */
+    .calc-slider-label{font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:8px}
+    .calc-slider-value{font-size:28px;font-weight:800;color:var(--text);margin-bottom:12px}
+    .calc-slider{width:100%;-webkit-appearance:none;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--blue),rgba(18,33,54,.2));outline:none;margin-bottom:8px}
+    .calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--blue);cursor:pointer;box-shadow:0 2px 8px rgba(18,33,54,.3)}
+    .calc-range{display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted)}
+    .calc-result{text-align:center;padding:40px;background:var(--bg);border-radius:var(--radius);border:1px solid var(--border)}
+    .calc-result .label{font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:8px}
+    .calc-result .amount{font-size:42px;font-weight:900;color:var(--blue);line-height:1}
+    .calc-result .savings-label{font-size:14px;color:var(--text-secondary);margin-top:8px;margin-bottom:24px}
+    .calc-result .avg{font-size:13px;color:var(--text-muted);margin-bottom:20px}
+    .calc-result .avg strong{color:var(--success);font-weight:700}
+
+    /* ===== SECURITY ===== */
+    .security-section{padding:60px 0;background:var(--navy);position:relative;overflow:hidden}
+    .security-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+    .security-section::after{content:'';position:absolute;top:-200px;right:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(18,33,54,.12) 0%,transparent 70%);pointer-events:none}
+    .security-header{text-align:center;margin-bottom:40px;position:relative;z-index:2}
+    .security-header h2{font-size:28px;font-weight:800;color:#fff}
+    .security-header p{font-size:14px;color:rgba(255,255,255,.5);margin-top:8px}
+    .security-stats{display:flex;justify-content:center;gap:40px;margin-bottom:40px;position:relative;z-index:2}
+    .security-stat{text-align:center}
+    .security-stat .num{font-size:36px;font-weight:900;color:#fff;line-height:1}
+    .security-stat .num .suffix{font-size:18px;color:var(--gold)}
+    .security-stat .lbl{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px}
+    .security-carousel{position:relative;z-index:2;margin:0 -40px;padding:20px 40px}
+    .security-grid{display:flex;gap:16px;overflow-x:auto;scroll-behavior:smooth;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;position:relative;z-index:2;padding:8px 0 16px}
+    .security-grid::-webkit-scrollbar{display:none}
+    .security-card{min-width:220px;max-width:220px;flex-shrink:0;scroll-snap-align:start}
+    .security-carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;z-index:5;backdrop-filter:blur(10px)}
+    .security-carousel-btn:hover{background:rgba(18,33,54,.4);border-color:var(--blue);transform:translateY(-50%) scale(1.1)}
+    .security-carousel-btn.left{left:12px}
+    .security-carousel-btn.right{right:12px}
+    .security-carousel-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .security-certs{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:36px;position:relative;z-index:2}
+    .security-cert-badge{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:50px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:13px;font-weight:700;letter-spacing:.5px;transition:all .3s}
+    .security-cert-badge:hover{background:rgba(18,33,54,.15);border-color:rgba(18,33,54,.3);color:#fff;transform:translateY(-2px)}
+    .security-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:24px 16px;text-align:center;transition:all .4s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden;backdrop-filter:blur(10px);cursor:pointer}
+    .security-card::before{content:'';position:absolute;inset:-2px;border-radius:var(--radius);background:conic-gradient(from 0deg,transparent,rgba(18,33,54,.3),transparent,rgba(79,123,255,.3),transparent);opacity:0;transition:opacity .4s;z-index:-1}
+    .security-card:hover::before{opacity:1}
+    .security-card::after{content:'';position:absolute;inset:1px;border-radius:calc(var(--radius) - 1px);background:var(--navy);z-index:-1}
+    .security-card:hover{transform:translateY(-6px) scale(1.02)!important;box-shadow:0 8px 32px rgba(18,33,54,.2)}
+    .security-card:not(:hover){transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s cubic-bezier(.22,1,.36,1)}
+    .security-card-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;position:relative}
+    .security-card-icon::after{content:'';position:absolute;inset:-4px;border-radius:18px;border:2px solid transparent;transition:all .4s}
+    .security-card:hover .security-card-icon::after{border-color:rgba(18,33,54,.2);animation:iconRing 2s linear infinite}
+    @keyframes iconRing{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+    .security-card-icon.blue{background:rgba(18,33,54,.12);color:var(--blue)}
+    .security-card-icon.purple{background:rgba(124,58,237,.12);color:#7C3AED}
+    .security-card-icon.green{background:rgba(22,199,132,.12);color:var(--success)}
+    .security-card-icon.gold{background:rgba(255,159,32,.12);color:var(--gold)}
+    .security-card-icon.teal{background:rgba(20,184,166,.12);color:#14B8A6}
+    .security-card h5{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+    .security-card p{font-size:12px;color:rgba(255,255,255,.5);line-height:1.5}
+    .security-card .learn-more{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--blue);margin-top:10px;transition:all .3s}
+    .security-card .learn-more:hover{gap:8px;color:#fff}
+    .security-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;background:rgba(22,199,132,.12);color:var(--success);margin-top:8px;border:1px solid rgba(22,199,132,.15)}
+    .security-floating{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+    .security-float-icon{position:absolute;opacity:.06;color:#fff;animation:secFloat 12s ease-in-out infinite;will-change:transform}
+    @keyframes secFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-15px) rotate(10deg)}}
+
+    /* ===== FINAL CTA ===== */
+    .cta-section{background:var(--bg);padding:60px 0;position:relative;overflow:hidden}
+    .cta-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(18,33,54,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(18,33,54,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+    .cta-section::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 50%,rgba(18,33,54,.08) 0%,transparent 50%),radial-gradient(circle at 80% 50%,rgba(255,159,32,.06) 0%,transparent 50%);pointer-events:none}
+    .cta-content{text-align:center;position:relative;z-index:1}
+    .cta-content h2{font-size:40px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:12px}
+    .cta-content h2 .gold{color:var(--gold)}
+    .cta-content p{font-size:17px;color:var(--text-secondary);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto}
+    .cta-buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+
+    /* ===== FOOTER ===== */
+    .footer{padding:48px 0 24px;background:var(--card);border-top:1px solid var(--border)}
+    .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:24px;margin-bottom:32px}
+    .footer-brand .logo-icon{width:140px;height:140px;margin-bottom:8px}
+    .footer-brand p{font-size:13px;color:var(--text-muted);margin-bottom:16px;line-height:1.6}
+    .footer-socials{display:flex;gap:8px}
+    .footer-social-icon{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-muted);cursor:pointer;transition:all .25s}
+    .footer-social-icon:hover{color:var(--blue);border-color:var(--blue);transform:translateY(-2px) scale(1.1)}
+    .footer-col h6{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:14px}
+    .footer-col ul{display:flex;flex-direction:column;gap:8px}
+    .footer-col ul a{font-size:13px;color:var(--text-secondary);transition:all .2s;display:inline-block}
+    .footer-col ul a:hover{color:var(--blue);transform:translateX(3px)}
+    .footer-bottom{border-top:1px solid var(--border);padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .footer-bottom p{font-size:13px;color:var(--text-muted)}
+    .footer-bottom-links{display:flex;gap:16px}
+    .footer-bottom-links a{font-size:13px;color:var(--text-muted);transition:color .2s}
+    .footer-bottom-links a:hover{color:var(--blue)}
+    .footer-country{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-muted);padding:6px 12px;border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s}
+    .footer-country:hover{border-color:var(--blue);color:var(--blue)}
+
+    /* ===== SCROLL TO TOP ===== */
+    .scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:12px;background:var(--blue);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(18,33,54,.3);opacity:0;visibility:hidden;transition:all .3s;z-index:999}
+    .scroll-top.visible{opacity:1;visibility:visible}
+    .scroll-top:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(18,33,54,.4)}
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:1100px){
+      .hero .container{grid-template-columns:1fr}
+      .hero-visual{min-height:320px}
+      .command-center{max-width:100%;height:320px}
+      .metrics-grid{grid-template-columns:repeat(3,1fr)}
+      .rfx-layout{grid-template-columns:1fr}
+      .rfx-rec-list{flex-direction:row;flex-wrap:wrap}
+      .rfx-rec-item{flex:1 1 calc(50% - 10px)}
+      .recommended-grid{grid-template-columns:repeat(2,1fr)}
+      .mp-grid{grid-template-columns:repeat(3,1fr)}
+      .auction-grid{grid-template-columns:repeat(3,1fr)}
+      .impact-grid{grid-template-columns:1fr}
+      .impact-number{font-size:40px}
+      .timeline-line,.timeline-line-fill{display:none}
+      .ai-grid{grid-template-columns:1fr}
+      .ai-visual{min-height:200px}
+
+      .security-card{min-width:200px;max-width:200px}
+      .security-certs{gap:8px}
+      .footer-grid{grid-template-columns:repeat(2,1fr)}
+      .nav-links{display:none}
+    }
+    @media(max-width:768px){
+      .hero-title{font-size:32px}
+      .metrics-grid{grid-template-columns:repeat(2,1fr)}
+      .recommended-grid{grid-template-columns:1fr}
+      .mp-grid{grid-template-columns:repeat(2,1fr)}
+      .auction-grid{grid-template-columns:repeat(2,1fr)}
+      .impact-metrics{grid-template-columns:repeat(2,1fr)}
+      .security-card{min-width:180px;max-width:180px}
+      .footer-grid{grid-template-columns:1fr}
+      .cta-content h2{font-size:28px}
+    }
+    @media(max-width:540px){
+      .hero-title{font-size:28px}
+      .hero-features{grid-template-columns:1fr}
+      .mp-grid{grid-template-columns:1fr}
+      .auction-grid{grid-template-columns:1fr}
+      .security-card{min-width:170px;max-width:170px}
+      .cta-buttons{flex-direction:column;align-items:center}
+      .footer-grid{grid-template-columns:1fr}
+      .hero-buttons{flex-direction:column}
+      .impact-metrics{grid-template-columns:1fr 1fr}
+    }
+  </style>
+  <script src="theme-toggle.js"></script>
+  <link rel="stylesheet" href="design-system.css" />
+  <link rel="stylesheet" href="negotiation-filter.css" />
+  <link rel="stylesheet" href="advanced-animations.css" />
+</head>
+<body>
+  <div class="scroll-progress-bar" aria-hidden="true"></div>
+  <div class="ambient-blobs" aria-hidden="true"><div class="ambient-blob ambient-blob-1"></div><div class="ambient-blob ambient-blob-2"></div><div class="ambient-blob ambient-blob-3"></div></div>
+
+  <!-- HEADER -->
+  <header class="header" id="mainHeader">
+    <div class="header-inner">
+      <div class="container">
+      <a href="zauctofour.html" class="logo" aria-label="Zaucto Home">
+        <div class="logo-icon"><img loading="lazy" src="assets/logo.png" alt="Zaucto Logo" /></div>
+      </a>
+      <nav class="nav-links">
+        <a href="#" class="active">Home</a>
+        <div class="nav-item">
+          <a href="#" class="has-dropdown">RFX <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="dropdown">
+            <a href="zauctoRFI.html">RFI</a>
+            <a href="zauctoRFP.html">RFP</a>
+            <a href="zauctoRFQ.html">RFQ</a>
+            <a href="zauctoBulkRFQ.html">Bulk RFQ</a>
+            <a href="zauctoMyBulkRFQ.html">My Bulk RFQ</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="#" class="has-dropdown">Negotiation <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a><div class="dropdown"><a href="zauctoAllAuctions.html">All Auctions</a><a href="zauctoLiveAuctions.html">Live Auctions</a><a href="zauctoUpcomingAuctions.html">Upcoming Auctions</a><a href="zauctoFinishedAuctions.html">Finished Auctions</a><a href="zauctoLiveBulkAuctions.html">Live Bulk Auctions</a><a href="zauctoMyBid.html">My Bid</a><a href="zauctoMyBulkBid.html">My Bulk Bid</a><a href="zauctoMyBulkAuction.html">My Bulk Auction</a></div></div>
+        <div class="nav-item">
+          <a href="#" class="ai-tag">Zaucto AI <span class="ai-star"><svg class="ico sm" viewBox="0 0 24 24" style="stroke:var(--gold);fill:none;stroke-width:2"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0L9.937 15.5z"/><path d="M20 3v4M22 5h-4"/></svg></span></a>
+          <div class="dropdown">
+            <a href="zauctoAISpendInsight.html">AI Spend Insight</a>
+            <a href="zauctoAIRfpFlow.html">AI RFP Flow</a>
+          </div>
+        </div>
+        <a href="zauctoMarketplace.html">Marketplace</a>
+        <a href="zauctoPricing.html" style="color:var(--gold);font-weight:600">Pricing</a>
+        <div class="nav-item">
+          <a href="#" class="has-dropdown">More <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+          <div class="dropdown">
+            <a href="zauctoabout.html">About Us</a>
+            <a href="zauctoWishlist.html">Wishlist</a>
+            <a href="zauctoCareers.html">Careers</a>
+            <a href="zauctoFAQ.html">FAQs</a>
+            <a href="zauctoBlog.html">Blog</a>
+            <a href="zauctoTerms.html">Terms & Conditions</a>
+          </div>
+        </div>
+      </nav>
+      <div class="header-right">
+        <a href="zauctoContact.html" class="contact-link">Contact Us</a>
+        <a href="zauctoLogin.html" class="header-avatar" aria-label="Account login">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+      </div>
+    </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <canvas id="gridDotsCanvas"></canvas>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge badge blur-reveal">AI-POWERED PROCUREMENT PLATFORM</div>
+        <h1 class="hero-title blur-reveal delay-1">Autonomous sourcing agents for <span class="highlight text-shimmer">modern</span> <span style="color:var(--gold)">procurement teams.</span></h1>
+        <p class="hero-desc blur-reveal delay-2" data-typewriter="Manage RFPs, RFQs, auctions, and supplier decisions in one intelligent platform powered by AI." data-typewriter-speed="22" style="min-height:3.2em"></p>
+        <div class="hero-features">
+          <div class="hero-feature">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            AI-Powered Sourcing
+          </div>
+          <div class="hero-feature">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            Real-time Auctions
+          </div>
+          <div class="hero-feature">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+            Verified Suppliers
+          </div>
+          <div class="hero-feature">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Enterprise Security
+          </div>
+        </div>
+        <div class="hero-buttons blur-reveal delay-3">
+          <a href="zauctoContact.html" class="btn btn-primary magnetic-btn">Start Free <span class="arrow"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+          <a href="https://www.youtube.com/@ZauctoAI" target="_blank" rel="noopener" class="btn-play">
+            <span class="play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></span>
+            How It Works
+          </a>
+        </div>
+        <div class="hero-trust blur-reveal delay-4">
+          <div class="trust-avatars">
+            <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=11" alt=""></div>
+            <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=32" alt=""></div>
+            <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=47" alt=""></div>
+            <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=56" alt=""></div>
+            <div class="trust-av glow-ring"><img loading="lazy" src="https://i.pravatar.cc/60?img=68" alt=""></div>
+          </div>
+          <div class="trust-text">Trusted by <strong>10,000+</strong> procurement teams worldwide</div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <video preload="metadata" autoplay muted loop playsinline style="width:100%;max-width:750px;height:auto;border-radius:16px;object-fit:cover;">
+          <source src="assets/animated-hero.webm" type="video/webm" />
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS STRIP -->
+  <section class="metrics-strip">
+    <div class="container">
+      <div class="metrics-grid">
+        <div class="metric-card gs-hidden blur-reveal-light" data-tilt="" data-tilt-max="10">
+          <div class="metric-icon blue"><svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
+          <div class="metric-number" data-count="428">0</div>
+          <div class="metric-label">Active RFQs</div>
+        </div>
+        <div class="metric-card gs-hidden blur-reveal-light" data-tilt="" data-tilt-max="10">
+          <div class="metric-icon purple"><svg class="ico" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="metric-number" data-count="2341">0</div>
+          <div class="metric-label">Suppliers Matched</div>
+        </div>
+        <div class="metric-card gs-hidden blur-reveal-light" data-tilt="" data-tilt-max="10">
+          <div class="metric-icon gold"><svg class="ico" viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="metric-number" data-prefix="₹" data-suffix=" Cr+" data-count="24">0</div>
+          <div class="metric-label">Spend Optimized</div>
+        </div>
+        <div class="metric-card gs-hidden blur-reveal-light" data-tilt="" data-tilt-max="10">
+          <div class="metric-icon green"><svg class="ico" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <div class="metric-number" data-count="156">0</div>
+          <div class="metric-label">Negotiations Running</div>
+        </div>
+        <div class="metric-card gs-hidden blur-reveal-light" data-tilt="" data-tilt-max="10">
+          <div class="metric-icon blue"><svg class="ico" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+          <div class="metric-number" data-suffix="%" data-count="98.6" data-decimal="1">0</div>
+          <div class="metric-label">Response Rate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE RFX + INSIGHT + AI RECOMMENDED -->
+  <section class="section">
+    <div class="container">
+      <div class="rfx-layout">
+        <!-- Column 1: Live RFX -->
+        <div class="rfx-panel gs-hidden">
+          <div class="rfx-panel-header">
+            <h3>Live RFX Events</h3>
+            <a href="zauctoRFQ.html" class="btn btn-sm btn-secondary" style="font-size:12px">View All <span class="arrow"><svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+          </div>
+          <div class="rfx-filters">
+            <button class="rfx-filter active" onclick="filterRFX(this,'all')">All</button>
+            <button class="rfx-filter" onclick="filterRFX(this,'rfp')">RFP</button>
+            <button class="rfx-filter" onclick="filterRFX(this,'rfq')">RFQ</button>
+            <button class="rfx-filter" onclick="filterRFX(this,'rfi')">RFI</button>
+          </div>
+          <div class="rfx-list" id="rfxList"></div>
+        </div>
+        <div class="ai-insight">
+          <div class="ai-insight-card gs-hidden">
+            <div class="ai-insight-header">
+              <div class="ai-insight-icon">
+                <svg class="ico white" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              </div>
+              <div>
+                <h3>Insight</h3>
+              </div>
+            </div>
+            <div class="ai-insight-text">
+              <strong>12 verified suppliers</strong> match this requirement based on capability, location, and pricing history.
+            </div>
+            <div class="ai-insight-stat">
+              <span class="number">11-16%</span>
+              <span class="label">Estimated savings</span>
+            </div>
+            <div class="insight-chart">
+              <div class="insight-chart-header">
+                <span style="font-size:12px;font-weight:700;color:var(--text)">Supplier Match Breakdown</span>
+                <span style="font-size:11px;color:var(--text-muted)">12 suppliers</span>
+              </div>
+              <div class="insight-bars">
+                <div class="insight-bar-row">
+                  <span class="insight-bar-label">Pricing</span>
+                  <div class="insight-bar-track"><div class="insight-bar-fill" style="--w:92%;background:linear-gradient(90deg,#3B82F6,#60A5FA)"></div></div>
+                  <span class="insight-bar-val">92%</span>
+                </div>
+                <div class="insight-bar-row">
+                  <span class="insight-bar-label">Quality</span>
+                  <div class="insight-bar-track"><div class="insight-bar-fill" style="--w:85%;background:linear-gradient(90deg,#3B82F6,#60A5FA)"></div></div>
+                  <span class="insight-bar-val">85%</span>
+                </div>
+                <div class="insight-bar-row">
+                  <span class="insight-bar-label">Delivery</span>
+                  <div class="insight-bar-track"><div class="insight-bar-fill" style="--w:78%;background:linear-gradient(90deg,#3B82F6,#60A5FA)"></div></div>
+                  <span class="insight-bar-val">78%</span>
+                </div>
+                <div class="insight-bar-row">
+                  <span class="insight-bar-label">Location</span>
+                  <div class="insight-bar-track"><div class="insight-bar-fill" style="width:70%;background:linear-gradient(90deg,#F59E0B,#FBBF24)"></div></div>
+                  <span class="insight-bar-val">70%</span>
+                </div>
+                <div class="insight-bar-row">
+                  <span class="insight-bar-label">Capacity</span>
+                  <div class="insight-bar-track"><div class="insight-bar-fill" style="width:65%;background:linear-gradient(90deg,#F59E0B,#FBBF24)"></div></div>
+                  <span class="insight-bar-val">65%</span>
+                </div>
+              </div>
+              <div class="insight-chart-footer">
+                <div class="insight-legend"><span class="insight-dot" style="background:#3B82F6"></span> Strong Match</div>
+                <div class="insight-legend"><span class="insight-dot" style="background:#F59E0B"></span> Moderate</div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm" style="width:100%">View Matches <span class="arrow"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></button>
+          </div>
+        </div>
+        <!-- Column 3: AI Recommended for You -->
+        <div class="rfx-rec-col gs-hidden">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px">
+            <div>
+              <span class="badge" style="margin-bottom:6px">AI Recommended</span>
+              <h3 style="font-size:16px;font-weight:700;margin-top:6px">Recommended for You</h3>
+              <p style="font-size:12px;color:var(--text-muted)">Based on your recent activity</p>
+            </div>
+            <a href="zauctoAISpendInsight.html" style="font-size:12px;font-weight:600;color:var(--blue);display:inline-flex;align-items:center;gap:4px;white-space:nowrap;margin-top:8px">View All <svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          </div>
+          <div class="rfx-rec-list" id="recGrid"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKETPLACE -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header gs-hidden blur-reveal">
+        <span class="badge">Marketplace</span>
+        <h2>A catalogue built for sourcing at scale.</h2>
+      </div>
+      <div class="mp-header-row gs-hidden">
+        <div class="mp-tabs">
+          <button class="mp-tab active" data-cat="raw" onclick="filterMP(this)">Raw Materials</button>
+          <button class="mp-tab" data-cat="elec" onclick="filterMP(this)">Electrical</button>
+          <button class="mp-tab" data-cat="raw" onclick="filterMP(this)">Hardware</button>
+          <button class="mp-tab" data-cat="safety" onclick="filterMP(this)">Safety</button>
+          <button class="mp-tab" data-cat="raw" onclick="filterMP(this)">Industrial</button>
+          <button class="mp-tab" data-cat="raw" onclick="filterMP(this)">Packaging</button>
+          <button class="mp-tab" data-cat="raw" onclick="filterMP(this)">Chemicals</button>
+        </div>
+        <a href="zauctoMarketplace.html" class="btn btn-sm btn-ghost">View All Products <span class="arrow"><svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+      </div>
+      <div class="mp-grid" id="mpGrid"></div>
+    </div>
+  </section>
+
+  <!-- LIVE AUCTIONS -->
+  <section class="section" style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="container">
+      <div class="auction-header-row gs-hidden" style="margin-bottom:20px">
+        <div>
+          <span class="badge">Auctions</span>
+          <h2 style="font-size:32px;font-weight:800;margin-top:8px">Live Auctions</h2>
+        </div>
+        <a href="zauctoAllAuctions.html" class="btn btn-sm btn-secondary">View All Auctions <span class="arrow"><svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+      </div>
+      <div class="auction-tabs gs-hidden">
+        <button class="auction-tab active" data-tab="all" onclick="filterAuctionTab(this)"><span class="live-dot"></span> All</button>
+        <button class="auction-tab" data-tab="live" onclick="filterAuctionTab(this)">Live</button>
+        <button class="auction-tab" data-tab="ended" onclick="filterAuctionTab(this)">Ended</button>
+        <button class="auction-tab" data-tab="upcoming" onclick="filterAuctionTab(this)">Upcoming</button>
+      </div>
+      <div class="auction-grid" id="auctionGrid"></div>
+    </div>
+  </section>
+
+  <!-- PROCUREMENT IMPACT -->
+  <section class="impact-section">
+    <div class="container">
+      <div class="impact-grid">
+        <div class="impact-left gs-hidden">
+          <span class="badge">Impact</span>
+          <h2>Procurement Impact</h2>
+          <div class="impact-number"><span class="currency">₹</span>24.8 Cr+</div>
+          <div class="impact-subtitle">Total Savings Achieved</div>
+          <div class="impact-this-month">This Month</div>
+          <div class="impact-metrics">
+            <div class="impact-metric">
+              <div class="num">14.8%</div>
+              <div class="lbl">Average Savings</div>
+            </div>
+            <div class="impact-metric">
+              <div class="num">32%</div>
+              <div class="lbl">Faster Sourcing</div>
+            </div>
+            <div class="impact-metric">
+              <div class="num">4.6×</div>
+              <div class="lbl">More Responses</div>
+            </div>
+            <div class="impact-metric">
+              <div class="num">67%</div>
+              <div class="lbl">Less Manual Work</div>
+            </div>
+          </div>
+        </div>
+        <div class="impact-graph gs-hidden" id="impactChart"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW ZAUCTO WORKS (PREMIUM VERTICAL TIMELINE) -->
+  <section class="timeline-section section">
+    <div class="container">
+      <div class="section-header gs-hidden blur-reveal" style="text-align:center">
+        <span class="badge">Process</span>
+        <h2>How Zaucto Works</h2>
+        <p style="margin:0 auto">From intake to award, powered by AI at every step.</p>
+      </div>
+      <div class="timeline-container" id="pvContainer">
+        <div class="pv-line"><div class="pv-line-fill" id="pvFill"></div></div>
+        <div class="pv-spark" id="pvSpark"></div>
+        <div class="pv-steps" style="position:relative">
+          <div class="pv-item">
+            <div class="pv-glow"></div>
+            <div class="pv-node">01</div>
+            <div class="pv-card">
+              <div class="pv-icon blue"><svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
+              <div class="pv-title">Create RFQ</div>
+              <div class="pv-desc">Define your requirements in minutes</div>
+              <div class="pv-tag"><span class="dot"></span>AI parses your specs</div>
+            </div>
+          </div>
+          <div class="pv-item">
+            <div class="pv-glow"></div>
+            <div class="pv-node">02</div>
+            <div class="pv-card">
+              <div class="pv-icon purple"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+              <div class="pv-title">AI Finds Suppliers</div>
+              <div class="pv-desc">We find the best matching suppliers</div>
+              <div class="pv-tag"><span class="dot"></span>10,000+ supplier network</div>
+            </div>
+          </div>
+          <div class="pv-item">
+            <div class="pv-glow"></div>
+            <div class="pv-node">03</div>
+            <div class="pv-card">
+              <div class="pv-icon gold"><svg class="ico" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+              <div class="pv-title">Suppliers Bid</div>
+              <div class="pv-desc">Receive competitive bids and proposals</div>
+              <div class="pv-tag"><span class="dot"></span>Live competitive bidding</div>
+            </div>
+          </div>
+          <div class="pv-item">
+            <div class="pv-glow"></div>
+            <div class="pv-node">04</div>
+            <div class="pv-card">
+              <div class="pv-icon green"><svg class="ico" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+              <div class="pv-title">AI Negotiates</div>
+              <div class="pv-desc">Our AI negotiates the best possible deal</div>
+              <div class="pv-tag"><span class="dot"></span>15-30% savings</div>
+            </div>
+          </div>
+          <div class="pv-item">
+            <div class="pv-glow"></div>
+            <div class="pv-node">05</div>
+            <div class="pv-card">
+              <div class="pv-icon teal"><svg class="ico" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+              <div class="pv-title">Award Supplier</div>
+              <div class="pv-desc">Select the best supplier and award</div>
+              <div class="pv-tag"><span class="dot"></span>One-click award</div>
+            </div>
+          </div>
+          <div class="pv-item">
+            <div class="pv-glow"></div>
+            <div class="pv-node">06</div>
+            <div class="pv-card">
+              <div class="pv-icon blue2"><svg class="ico" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+              <div class="pv-title">Track & Manage</div>
+              <div class="pv-desc">Track orders, invoices, and performance</div>
+              <div class="pv-tag"><span class="dot"></span>Real-time analytics</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <!-- MEET ZAUCTO AI + SAVINGS CALCULATOR -->
+  <section class="section ai-section">
+    <div class="container">
+      <div class="ai-grid">
+        <!-- Left: Dark Card with Robot + Prompts -->
+        <div class="ai-dark-card gs-hidden">
+          <div class="ai-dark-top">
+            <div class="ai-robot">
+              <img loading="lazy" src="assets/roboto.png" alt="Zaucto AI Robot" />
+            </div>
+            <div class="ai-dark-text">
+              <h2>Meet Zaucto AI</h2>
+              <p>Your autonomous procurement assistant.</p>
+            </div>
+          </div>
+          <div class="ai-dark-prompts">
+            <div class="ai-dark-prompt"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg> Find steel suppliers in Mumbai</div>
+            <div class="ai-dark-prompt"><svg class="ico" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg> Compare quotes for this RFP</div>
+            <div class="ai-dark-prompt"><svg class="ico" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> Show active auctions</div>
+            <div class="ai-dark-prompt"><svg class="ico" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-4 12.73V17h8v-2.27A7 7 0 0 0 12 2z"/><path d="M9 21h6"/></svg> How can I reduce procurement cost?</div>
+          </div>
+          <div class="ai-dark-input">
+            <input type="text" placeholder="Ask Zaucto AI anything..." />
+            <button><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          </div>
+        </div>
+        <!-- Right: Savings Calculator -->
+        <div class="ai-calc-card gs-hidden">
+          <h2 style="font-size:22px;font-weight:800;line-height:1.2;margin-bottom:4px">How much can you save?</h2>
+          <p style="font-size:13px;color:var(--text-secondary);margin-bottom:20px">Calculate your estimated procurement savings with Zaucto.</p>
+          <div class="calc-slider-label">Annual Procurement Spend</div>
+          <div class="calc-slider-value" id="calcSpend">₹5,00,000</div>
+          <input type="range" class="calc-slider" id="calcRange" min="100000" max="100000000" value="5000000" step="100000" oninput="updateCalc()" />           <div class="calc-range"><span>₹10 Lakh</span><span>₹10 Crore</span></div>
+          <div class="calc-result" style="margin-top:20px;padding:24px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+              <div>
+                <div class="label">Estimated Savings</div>
+                <div class="amount" id="calcSavings" style="font-size:32px">₹72.5 Lakhs</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:13px;color:var(--text-muted)">Average Optimization</div>
+                <div style="font-size:28px;font-weight:800;color:var(--success)">14.5%</div>
+              </div>
+            </div>
+            <button class="btn btn-primary magnetic-btn" style="width:100%;margin-top:12px">Calculate Savings <span class="arrow"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENTERPRISE SECURITY -->
+  <section class="security-section">
+    <div class="security-floating" id="secFloats"></div>
+    <div class="container">
+      <div class="security-header gs-hidden">
+        <span class="badge" style="background:rgba(255,159,32,.1);color:var(--gold);border-color:rgba(255,159,32,.2)">Security</span>
+        <h2>Enterprise-Grade Security</h2>
+        <p>Your data is protected by industry-leading security standards</p>
+      </div>
+      <div class="security-stats gs-hidden">
+        <div class="security-stat"><div class="num"><span data-count="99.9" data-decimal="1">0</span><span class="suffix">%</span></div><div class="lbl">Uptime SLA</div></div>
+        <div class="security-stat"><div class="num"><span data-count="256">0</span><span class="suffix">-bit</span></div><div class="lbl">AES Encryption</div></div>
+        <div class="security-stat"><div class="num"><span data-count="50">0</span><span class="suffix">+</span></div><div class="lbl">Enterprise Clients</div></div>
+        <div class="security-stat"><div class="num"><span data-count="0">0</span><span class="suffix"> Breaches</span></div><div class="lbl">Security Record</div></div>
+      </div>
+      <div class="security-carousel">
+        <button class="security-carousel-btn left" onclick="document.getElementById('secGrid').scrollBy({left:-240,behavior:'smooth'})"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <div class="security-grid" id="secGrid">
+        <div class="security-card gs-hidden">
+          <div class="security-card-icon blue"><svg class="ico lg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h5>SOC 2 Compliant</h5>
+          <p>Industry-standard security audit compliance</p>
+          <div class="security-badge">Verified</div>
+          <a href="#" class="learn-more">Learn More <svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="security-card gs-hidden">
+          <div class="security-card-icon purple"><svg class="ico lg" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+          <h5>AWS Infrastructure</h5>
+          <p>Global server network with enterprise scalability</p>
+          <div class="security-badge">Certified</div>
+          <a href="#" class="learn-more">Learn More <svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="security-card gs-hidden">
+          <div class="security-card-icon green"><svg class="ico lg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <h5>Data Encryption</h5>
+          <p>All data encrypted in transit and at rest</p>
+          <div class="security-badge">256-bit AES</div>
+          <a href="#" class="learn-more">Learn More <svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="security-card gs-hidden">
+          <div class="security-card-icon gold"><svg class="ico lg" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <h5>Role-Based Access</h5>
+          <p>Fine-grained permissions for every user</p>
+          <div class="security-badge">GDPR Ready</div>
+          <a href="#" class="learn-more">Learn More <svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="security-card gs-hidden">
+          <div class="security-card-icon teal"><svg class="ico lg" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg></div>
+          <h5>Secure Storage</h5>
+          <p>Automated backups and strict access controls</p>
+          <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px"><div class="security-badge" style="margin:0">HIPAA Compliant</div><a href="#" class="learn-more" style="margin:0">Learn More <svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
+        </div>
+        <div class="security-card gs-hidden">
+          <div class="security-card-icon purple"><svg class="ico lg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h5>ISO 27001</h5>
+          <p>International information security management</p>
+          <div class="security-badge">Certified</div>
+          <a href="#" class="learn-more">Learn More <svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="security-card gs-hidden">
+          <div class="security-card-icon green"><svg class="ico lg" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <h5>DDoS Protection</h5>
+          <p>Advanced threat detection and mitigation</p>
+          <div class="security-badge">Active 24/7</div>
+          <a href="#" class="learn-more">Learn More <svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="security-card gs-hidden">
+          <div class="security-card-icon gold"><svg class="ico lg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg></div>
+          <h5>Multi-Factor Auth</h5>
+          <p>TFA, biometric, and SSO support</p>
+          <div class="security-badge">Enabled</div>
+          <a href="#" class="learn-more">Learn More <svg class="ico sm" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+      <button class="security-carousel-btn right" onclick="document.getElementById('secGrid').scrollBy({left:240,behavior:'smooth'})"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+      <div class="security-certs gs-hidden">
+        <div class="security-cert-badge">SOC 2</div>
+        <div class="security-cert-badge">ISO 27001</div>
+        <div class="security-cert-badge">GDPR</div>
+        <div class="security-cert-badge">HIPAA</div>
+        <div class="security-cert-badge">PCI DSS</div>
+        <div class="security-cert-badge">AWS Partner</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content gs-hidden">
+        <h2>Move sourcing from quarterly to <span class="gold">continuous.</span></h2>
+        <p>Start a free 30-day trial, or talk to a procurement specialist about your category mix and rollout plan.</p>
+        <div class="cta-buttons">
+          <a href="zauctoContact.html" class="btn btn-primary magnetic-btn">Start Free Trial <span class="arrow"><svg class="ico sm white" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></a>
+          <a href="zauctoContact.html" class="btn btn-secondary">Talk to Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo" style="margin-bottom:8px">
+            <div class="logo-icon"><img loading="lazy" src="assets/logo.png" alt="Zaucto Logo" /></div>
+          </div>
+          <p>Unlock True Value with Zaucto</p>
+          <div class="footer-socials">
+            <div class="footer-social-icon"><svg class="ico sm" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+            <div class="footer-social-icon"><svg class="ico sm" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+            <div class="footer-social-icon"><svg class="ico sm" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+            <div class="footer-social-icon"><svg class="ico sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+            <div class="footer-social-icon"><svg class="ico sm" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h6>Services</h6>
+          <ul>
+            <li><a href="#">Auctions</a></li>
+            <li><a href="#">Request for Quotations</a></li>
+            <li><a href="zauctoMarketplace.html">Marketplace</a></li>
+            <li><a href="https://www.youtube.com/@ZauctoAI" target="_blank" rel="noopener">How It Works</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h6>Company</h6>
+          <ul>
+            <li><a href="zauctoabout.html">About Us</a></li>
+            <li><a href="zauctoPricing.html">Pricing</a></li>
+            <li><a href="zauctoContact.html">Contact Us</a></li>
+            <li><a href="zauctoCareers.html">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h6>Resources</h6>
+          <ul>
+            <li><a href="zauctoFAQ.html">Help Center / FAQs</a></li>
+            <li><a href="#">Case Studies</a></li>
+            <li><a href="zauctoBlog.html">Blog</a></li>
+            <li><a href="#">API Docs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h6>Legal</h6>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+            <li><a href="#">Security</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Zaucto. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Security</a>
+          <a href="#">Compliance</a>
+        </div>
+        <div class="footer-country">
+          <svg class="ico sm" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> India
+          <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCROLL TO TOP -->
+  <button class="scroll-top" id="scrollTopBtn" title="Scroll to top" aria-label="Scroll to top">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <script>
+    // ====== DATA ======
+    const rfxData = [
+      {type:'rfp',title:'IT Infrastructure Upgrade',desc:'Enterprise network & server overhaul for HQ',responses:28,status:'OPEN',statusClass:'open'},
+      {type:'rfq',title:'Industrial Bearings (500 units)',desc:'Precision bearings for manufacturing line',responses:42,status:'OPEN',statusClass:'open'},
+      {type:'rfi',title:'AI Chatbot Platform',desc:'Exploring conversational AI solutions',responses:15,status:'BID',statusClass:'bid'},
+      {type:'rfp',title:'Cloud Migration Services',desc:'AWS/Azure migration for legacy systems',responses:31,status:'OPEN',statusClass:'open'},
+      {type:'rfq',title:'LED Panel Lights',desc:'200x 60x60 LED panels for new office',responses:37,status:'OPEN',statusClass:'open'},
+      {type:'rfp',title:'Office Furniture Procurement',desc:'500 workstations + ergonomic chairs',responses:19,status:'OPEN',statusClass:'open'},
+      {type:'rfq',title:'Copper Cable 2.5mm',desc:'10,000 meters insulated wiring',responses:45,status:'OPEN',statusClass:'open'},
+      {type:'rfi',title:'ERP System Implementation',desc:'SAP/Oracle evaluation for manufacturing',responses:8,status:'BID',statusClass:'bid'},
+      {type:'rfp',title:'Warehouse Automation',desc:'Conveyor + robotic picking systems',responses:22,status:'OPEN',statusClass:'open'},
+      {type:'rfq',title:'Safety Helmets (1000 pcs)',desc:'ISI certified industrial safety helmets',responses:33,status:'OPEN',statusClass:'open'},
+      {type:'rfi',title:'Solar Panel Installation',desc:'500kW rooftop solar for factory campus',responses:12,status:'BID',statusClass:'bid'},
+      {type:'rfp',title:'Cold Storage Units',desc:'4 industrial cold rooms -20°C capacity',responses:16,status:'OPEN',statusClass:'open'},
+      {type:'rfq',title:'Hydraulic Press Machine',desc:'200-ton hydraulic press with controls',responses:9,status:'CLOSED',statusClass:'closed'},
+      {type:'rfp',title:'Fleet Management Software',desc:'GPS tracking + fuel monitoring for 200 vehicles',responses:27,status:'OPEN',statusClass:'open'},
+      {type:'rfq',title:'Fire Extinguishers (500)',desc:'ABC dry powder + CO2 types',responses:38,status:'OPEN',statusClass:'open'},
+      {type:'rfi',title:'5G Network Setup',desc:'Private 5G for smart factory IoT',responses:6,status:'BID',statusClass:'bid'},
+    ];
+
+    const marketplaceData = [
+      {cat:'raw',name:'Copper Wire',desc:'99.9% Pure Copper',price:'₹155',unit:'/ kg',moq:'MOQ 500 KG',img:'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=400&h=300&fit=crop',verified:true,location:'Mumbai',delivery:'4-6 days',match:96,trend:'stable',trendText:'→ 0.1%'},
+      {cat:'raw',name:'Steel Coils',desc:'Cold Rolled, 2mm',price:'₹52,000',unit:'/ MT',moq:'MOQ 1 MT',img:'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&h=300&fit=crop',verified:true,location:'Delhi',delivery:'3-5 days',match:89,trend:'down',trendText:'↓ 1.8%'},
+      {cat:'raw',name:'Stainless Steel Pipes',desc:'304 Grade, Seamless',price:'₹185',unit:'/ meter',moq:'MOQ 50 meter',img:'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=300&fit=crop',verified:true,location:'Pune',delivery:'5-7 days',match:91,trend:'up',trendText:'↑ 2.3%'},
+      {cat:'raw',name:'Aluminum Sheets',desc:'6061 T6 Alloy',price:'₹320',unit:'/ kg',moq:'MOQ 50 KG',img:'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400&h=300&fit=crop',verified:true,location:'Bangalore',delivery:'4-6 days',match:82,trend:'stable',trendText:'→ 0.3%'},
+      {cat:'raw',name:'Silicon Rubber',desc:'High Temperature, 200°C',price:'₹450',unit:'/ kg',moq:'MOQ 20 KG',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',verified:true,location:'Hyderabad',delivery:'6-8 days',match:88,trend:'down',trendText:'↓ 1.2%'},
+      {cat:'raw',name:'Zinc Oxide',desc:'99.7% Purity, Industrial',price:'₹78.50',unit:'/ kg',moq:'MOQ 25 KG',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',verified:true,location:'Ahmedabad',delivery:'3-5 days',match:78,trend:'up',trendText:'↑ 1.5%'},
+      {cat:'elec',name:'Copper Cable',desc:'2.5mm Insulated',price:'₹155',unit:'/ meter',moq:'MOQ 100 meter',img:'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop',verified:true,location:'Pune',delivery:'3-5 days',match:93,trend:'stable',trendText:'→ 0.2%'},
+      {cat:'elec',name:'LED Panel Lights',desc:'Slim 600x600 40W',price:'₹1,450',unit:'/ piece',moq:'MOQ 50 PCS',img:'https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&h=300&fit=crop',verified:true,location:'Bangalore',delivery:'1-3 days',match:87,trend:'down',trendText:'↓ 0.8%'},
+      {cat:'elec',name:'Hydraulic Hoses',desc:'High-pressure R2AT',price:'₹320',unit:'/ meter',moq:'MOQ 30 meter',img:'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&h=300&fit=crop',verified:true,location:'Chennai',delivery:'2-4 days',match:89,trend:'up',trendText:'↑ 1.1%'},
+      {cat:'safety',name:'Safety Gloves',desc:'Cut-resistant A4',price:'₹125',unit:'/ pair',moq:'MOQ 200 PAIRS',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',verified:true,location:'Delhi',delivery:'1-2 days',match:96,trend:'stable',trendText:'→ 0.0%'},
+    ];
+
+    const recData = [
+      {cat:'raw',name:'Industrial Bearings',desc:'Precision 6205-2RS',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',match:98,supplier:'BearingWorld India',price:'₹185',unit:'/ piece',delivery:'2-3 days Mumbai'},
+      {cat:'safety',name:'Safety Gloves',desc:'Cut-resistant A4',img:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=400&h=300&fit=crop',match:96,supplier:'SafeHands Corp',price:'₹125',unit:'/ pair',delivery:'1-2 days Delhi'},
+      {cat:'elec',name:'Copper Cable',desc:'2.5mm insulated',img:'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop',match:93,supplier:'CopperTech Ltd',price:'₹155',unit:'/ meter',delivery:'3-5 days Pune'},
+      {cat:'raw',name:'Steel Pipes',desc:'304 Seamless 2inch',img:'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&h=300&fit=crop',match:91,supplier:'SteelPro India',price:'₹185',unit:'/ meter',delivery:'4-6 days Gujarat'},
+      {cat:'elec',name:'Hydraulic Hoses',desc:'High-pressure R2AT',img:'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&h=300&fit=crop',match:89,supplier:'FlowTech Systems',price:'₹320',unit:'/ meter',delivery:'2-4 days Chennai'},
+      {cat:'elec',name:'LED Panel Lights',desc:'Slim 600x600 40W',img:'https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&h=300&fit=crop',match:87,supplier:'BrightPath LEDs',price:'₹1,450',unit:'/ piece',delivery:'1-3 days Bangalore'},
+      {cat:'raw',name:'Aluminium Sheets',desc:'6061-T6 2mm thick',img:'https://images.unsplash.com/photo-1534620808146-d33bb3fee4a3?w=400&h=300&fit=crop',match:85,supplier:'MetalWorks India',price:'₹420',unit:'/ sqft',delivery:'3-5 days Hyderabad'},
+      {cat:'raw',name:'PVC Pipes',desc:'Schedule 40 4inch',img:'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=400&h=300&fit=crop',match:82,supplier:'PipeLine Corp',price:'₹95',unit:'/ piece',delivery:'2-3 days Jaipur'},
+      {cat:'raw',name:'CNC Tools Set',desc:'Carbide 10-piece',img:'https://images.unsplash.com/photo-1567361808960-dec9cb578182?w=400&h=300&fit=crop',match:80,supplier:'ToolMaster Pro',price:'₹4,200',unit:'/ set',delivery:'5-7 days Pune'},
+      {cat:'raw',name:'Transformer Oil',desc:'Mineral 25L drum',img:'https://images.unsplash.com/photo-1581093458791-9d42e3c7e117?w=400&h=300&fit=crop',match:78,supplier:'OilChem Industries',price:'₹2,800',unit:'/ drum',delivery:'3-4 days Mumbai'},
+    ];
+
+    // ====== RFX ======
+    function renderRFX(filter) {
+      const list = document.getElementById('rfxList');
+      const items = filter === 'all' ? rfxData : rfxData.filter(i => i.type === filter);
+      list.innerHTML = items.map(item => `
+        <div class="rfx-item">
+          <div class="rfx-item-left">
+            <div class="rfx-item-icon ${item.type}">
+              <svg class="ico" style="${item.type==='rfp'?'stroke:var(--blue)':item.type==='rfq'?'stroke:var(--success)':'stroke:var(--gold)'}" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            </div>
+            <div>
+              <div class="rfx-item-title">${item.title}</div>
+              <div class="rfx-item-desc">${item.desc}</div>
+            </div>
+          </div>
+          <div class="rfx-item-right">
+            <span class="rfx-responses">${item.responses} Responses</span>
+            <span class="rfx-status ${item.statusClass}">${item.status}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+    function filterRFX(el, type) {
+      el.closest('.rfx-filters').querySelectorAll('.rfx-filter').forEach(f => f.classList.remove('active'));
+      el.classList.add('active');
+      renderRFX(type);
+    }
+
+    // ====== AI RECOMMENDED (Compact List) ======
+    function renderRecommended() {
+      const grid = document.getElementById('recGrid');
+      if (!grid) return;
+      grid.innerHTML = recData.map(item => `
+        <div class="rfx-rec-item">
+          <img loading="lazy" src="${item.img}" alt="${item.name}" onerror="this.style.background='#E2E8F0'" />
+          <div class="rfx-rec-item-info">
+            <div class="rfx-rec-item-name">${item.name}</div>
+            <div class="rfx-rec-item-meta">${item.supplier}</div>
+          </div>
+          <span class="rfx-rec-item-match">AI ${item.match}%</span>
+        </div>
+      `).join('');
+    }
+
+    // ====== MARKETPLACE ======
+    function renderMarketplace() {
+      const grid = document.getElementById('mpGrid');
+      grid.innerHTML = marketplaceData.map(item => `
+        <div class="mp-card" data-cat="${item.cat || 'raw'}">
+          <div class="mp-img-wrap">
+            <img loading="lazy" src="${item.img}" alt="${item.name}" class="mp-card-img" onerror="this.style.background='#E2E8F0'" />
+            <span class="mp-ai-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg> AI ${item.match}%</span>
+          </div>
+          <div class="mp-card-body">
+            <div class="mp-card-name">${item.name}</div>
+            <div class="mp-card-desc">${item.desc}</div>
+            <div class="mp-price-row">
+              <div class="mp-card-price">${item.price} <span class="unit">${item.unit}</span></div>
+              <span class="mp-trend ${item.trend}">${item.trendText}</span>
+            </div>
+            <div class="mp-card-moq">${item.moq}</div>
+            <div class="mp-card-meta">
+              <span style="display:flex;align-items:center;gap:3px"><svg class="ico sm" style="stroke:var(--text-muted);flex-shrink:0" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ${item.location}</span>
+              <span style="display:flex;align-items:center;gap:3px"><svg class="ico sm" style="stroke:var(--text-muted);flex-shrink:0" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> ${item.delivery}</span>
+            </div>
+            ${item.verified ? `<div class="mp-card-verified"><svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Verified Supplier</div>` : ''}
+            <button class="mp-card-btn">Request Quote</button>
+          </div>
+        </div>
+      `).join('');
+    }
+    function filterMP(el) {
+      el.closest('.mp-tabs').querySelectorAll('.mp-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      var cat = el.getAttribute('data-cat');
+      var map = { 'raw-materials': 'raw', 'electrical': 'elec', 'safety': 'safety' };
+      var want = map[cat] || cat;
+      document.querySelectorAll('#mpGrid .mp-card').forEach(function (c) {
+        var show = !want || want === 'all' || c.getAttribute('data-cat') === want;
+        c.style.display = show ? '' : 'none';
+      });
+    }
+
+    // ====== AUCTIONS ======
+    const auctionData = [
+      // Live
+      {name:'Server Hardware Lot #1',cat:'IT Equipment',bid:'₹15,041',bids:24,timer:'02:14:32',status:'live',hot:false,graph:[40,55,45,65,50,70,60,80,75,85],color:'var(--blue)'},
+      {name:'Forklift Fleet #7',cat:'Material Handling',bid:'₹22,350',bids:19,timer:'01:45:07',status:'live',hot:false,graph:[30,45,40,60,55,70,65,75,80,70],color:'var(--blue)'},
+      {name:'Office Chairs #11',cat:'Furniture',bid:'₹6,891',bids:32,timer:'00:52:11',status:'live',hot:true,graph:[20,35,50,45,65,55,80,70,90,85],color:'var(--gold)'},
+      // Ended
+      {name:'IT Laptops #9',cat:'IT Equipment',bid:'₹55,090',bids:27,timer:'00:00:00',status:'ended',hot:false,graph:[50,60,55,70,65,80,75,85,90,80],color:'var(--blue)'},
+      {name:'Printer Fleet #4',cat:'Office Equipment',bid:'₹8,200',bids:14,timer:'00:00:00',status:'ended',hot:false,graph:[20,30,45,40,55,50,60,65,70,75],color:'var(--blue)'},
+      {name:'Network Switches #6',cat:'Networking',bid:'₹32,750',bids:18,timer:'00:00:00',status:'ended',hot:false,graph:[30,40,55,50,65,60,80,75,85,90],color:'var(--blue)'},
+      // Upcoming
+      {name:'Warehouse Shelving #3',cat:'Storage',bid:'₹12,346',bids:0,timer:'04:00:00',status:'upcoming',hot:false,graph:[10,10,10,10,10,10,10,10,10,10],color:'var(--blue)'},
+      {name:'Industrial Valves #11',cat:'Piping',bid:'₹41,450',bids:0,timer:'06:30:00',status:'upcoming',hot:false,graph:[5,5,5,5,5,5,5,5,5,5],color:'var(--blue)'},
+      {name:'Conference Tables #2',cat:'Furniture',bid:'₹18,900',bids:0,timer:'12:00:00',status:'upcoming',hot:false,graph:[8,8,8,8,8,8,8,8,8,8],color:'var(--blue)'},
+    ];
+    let auctionCurrentTab = 'all';
+    let auctionShowAll = false;
+    const AUCTION_SHOW = 6;
+
+    function renderAuctions(tab) {
+      if (tab) { auctionCurrentTab = tab; auctionShowAll = false; }
+      const grid = document.getElementById('auctionGrid');
+      const filtered = auctionCurrentTab === 'all' ? auctionData : auctionData.filter(a => a.status === auctionCurrentTab);
+      const visible = auctionShowAll ? filtered : filtered.slice(0, AUCTION_SHOW);
+      grid.innerHTML = visible.map((item, i) => {
+        const badge = item.status === 'live' ? '<span class="auction-live-badge"><span class="dot"></span> LIVE</span>'
+          : item.status === 'ended' ? '<span class="auction-live-badge" style="background:rgba(255,77,79,.08);color:var(--danger)"><span class="dot" style="background:var(--danger)"></span> ENDED</span>'
+          : '<span class="auction-live-badge" style="background:rgba(18,33,54,.08);color:var(--blue)"> UPCOMING</span>';
+        return `
+        <div class="auction-card ${item.hot ? 'hot' : ''} gs-hidden" style="animation-delay:${i * .05}s">
+          <div class="auction-card-header">${badge}</div>
+          <div class="auction-card-title">${item.name}</div>
+          <div class="auction-card-cat">${item.cat}</div>
+          <div class="auction-card-bid">${item.bid}</div>
+          <div class="auction-card-bids">${item.bids} Bids</div>
+          <div class="auction-card-timer" data-seconds="${timerToSeconds(item.timer)}"><svg class="ico sm" style="stroke:${item.status==='ended'?'var(--danger)':item.status==='live'?'var(--blue)':'var(--blue)'};flex-shrink:0" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> <span class="timer-display">${item.timer}</span></div>
+          <div class="auction-mini-graph">
+            ${item.graph.map(h => `<div class="bar" style="height:${h}%;background:${item.color};opacity:${0.3 + (h/100)*0.7}"></div>`).join('')}
+          </div>
+        </div>
+      `;}).join('');
+      // Load More button
+      if (!auctionShowAll && filtered.length > AUCTION_SHOW) {
+        grid.innerHTML += `
+          <div style="grid-column:1/-1;text-align:center;padding:16px 0">
+            <button class="btn btn-secondary btn-sm" onclick="loadMoreAuctions()">Load More <svg class="ico sm" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+          </div>`;
+      }
+      // Re-init GSAP for new cards
+      grid.querySelectorAll('.gs-hidden').forEach(el => {
+        gsap.to(el, { opacity:1, y:0, duration:.5, ease:'power3.out' });
+      });
+    }
+    function loadMoreAuctions() {
+      auctionShowAll = true;
+      renderAuctions();
+    }
+    function filterAuctionTab(el) {
+      el.closest('.auction-tabs').querySelectorAll('.auction-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      const tab = el.dataset.tab;
+      renderAuctions(tab);
+    }
+
+    // ====== COUNTDOWN TIMERS ======
+    function timerToSeconds(str) {
+      const [h, m, s] = str.split(':').map(Number);
+      return h * 3600 + m * 60 + s;
+    }
+    function secondsToTimer(total) {
+      if (total <= 0) return '00:00:00';
+      const h = Math.floor(total / 3600);
+      const m = Math.floor((total % 3600) / 60);
+      const s = total % 60;
+      return String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+    }
+    function tickAuctionTimers() {
+      document.querySelectorAll('.auction-card-timer[data-seconds]').forEach(el => {
+        let secs = parseInt(el.dataset.seconds, 10);
+        if (secs <= 0) return;
+        secs -= 1;
+        el.dataset.seconds = secs;
+        const display = el.querySelector('.timer-display');
+        if (display) display.textContent = secondsToTimer(secs);
+        // Urgency styling when under 10 minutes
+        if (secs <= 600 && secs > 0) {
+          el.style.color = 'var(--danger)';
+          el.style.fontWeight = '700';
+        }
+      });
+    }
+    // Start the countdown interval once
+    setInterval(tickAuctionTimers, 1000);
+
+    // ====== SAVINGS CALCULATOR ======
+    function updateCalc() {
+      const val = parseInt(document.getElementById('calcRange').value);
+      const spendEl = document.getElementById('calcSpend');
+      const savingsEl = document.getElementById('calcSavings');
+      if (val >= 10000000) {
+        spendEl.textContent = '₹' + (val / 10000000).toFixed(1) + ' Crore';
+      } else {
+        spendEl.textContent = '₹' + (val / 100000).toFixed(0) + ',00,000';
+      }
+      const savings = val * 0.145;
+      if (savings >= 10000000) {
+        savingsEl.textContent = '₹' + (savings / 10000000).toFixed(1) + ' Crores';
+      } else {
+        savingsEl.textContent = '₹' + (savings / 100000).toFixed(1) + ' Lakhs';
+      }
+    }
+
+    // ====== IMPACT BAR CHART ======
+    const impactBars = [
+      {label:'Jan',value:8.2,height:35},
+      {label:'Feb',value:10.5,height:42},
+      {label:'Mar',value:12.1,height:48},
+      {label:'Apr',value:14.3,height:55},
+      {label:'May',value:13.8,height:53},
+      {label:'Jun',value:16.7,height:62},
+      {label:'Jul',value:15.2,height:58},
+      {label:'Aug',value:18.9,height:70},
+      {label:'Sep',value:17.4,height:65},
+      {label:'Oct',value:20.1,height:78},
+      {label:'Nov',value:22.6,height:85},
+      {label:'Dec',value:24.8,height:95},
+    ];
+    function renderImpactChart() {
+      const container = document.getElementById('impactChart');
+      if (!container) return;
+      container.innerHTML = '<div class="impact-total-label">₹24.8Cr</div><div class="impact-total-sub">This Quarter</div>' +
+        impactBars.map((b, i) => {
+          const isLast = i === impactBars.length - 1;
+          const opacity = 0.35 + (b.height / 100) * 0.65;
+          const bg = isLast
+            ? `linear-gradient(180deg,rgba(255,159,32,${Math.min(opacity + 0.1, 1)}),rgba(255,159,32,${opacity * 0.45}))`
+            : `linear-gradient(180deg,rgba(18,33,54,${opacity}),rgba(18,33,54,${opacity * 0.4}))`;
+          return `<div class="impact-bar${isLast ? ' impact-bar-gold' : ''}" style="height:0%;background:${bg};opacity:0" data-height="${b.height}">
+            <span class="bar-value">₹${b.value}Cr</span>
+            <span class="bar-label">${b.label}</span>
+          </div>`;
+        }).join('');
+      // Animate bars on scroll
+      ScrollTrigger.create({
+        trigger: container, start: 'top 85%',
+        onEnter: () => {
+          container.querySelectorAll('.impact-bar').forEach((bar, i) => {
+            setTimeout(() => {
+              bar.style.height = bar.dataset.height + '%';
+              bar.style.opacity = '1';
+            }, i * 60);
+          });
+        }, once: true
+      });
+    }
+    renderImpactChart();
+
+
+    // ====== INIT ======
+    document.addEventListener('DOMContentLoaded', () => {
+      renderRFX('all');
+      renderRecommended();
+      renderMarketplace();
+      renderAuctions();
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Scroll reveal
+      document.querySelectorAll('.gs-hidden').forEach(el => {
+        gsap.to(el, { scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' }, opacity: 1, y: 0, duration: .6, ease: 'power3.out' });
+      });
+
+      // Stagger for grids
+      ['.recommended-grid .gs-hidden', '.mp-grid .gs-hidden', '.auction-grid .gs-hidden', '.security-grid .gs-hidden'].forEach(sel => {
+        const els = document.querySelectorAll(sel);
+        if (els.length) {
+          gsap.to(els, { scrollTrigger: { trigger: els[0].parentElement, start: 'top 85%', toggleActions: 'play none none none' }, opacity: 1, y: 0, duration: .5, stagger: .08, ease: 'power3.out' });
+        }
+      });
+
+      // Counter animations
+      document.querySelectorAll('.metric-number[data-count]').forEach(el => {
+        const target = parseFloat(el.dataset.count);
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        const decimal = parseInt(el.dataset.decimal) || 0;
+        ScrollTrigger.create({
+          trigger: el, start: 'top 90%',
+          onEnter: () => {
+            const obj = { val: 0 };
+            gsap.to(obj, { val: target, duration: 1.8, ease: 'power2.out', onUpdate: () => {
+              el.textContent = prefix + (decimal ? obj.val.toFixed(decimal) : Math.floor(obj.val).toLocaleString('en-IN')) + suffix;
+            }});
+          }, once: true
+        });
+      });
+
+      // Sticky header
+      ScrollTrigger.create({
+        trigger: '.hero', start: '10% top', end: '30% top',
+        onEnter: () => document.getElementById('mainHeader').classList.add('scrolled'),
+        onLeaveBack: () => document.getElementById('mainHeader').classList.remove('scrolled'),
+      });
+
+      // Scroll to top
+      const scrollBtn = document.getElementById('scrollTopBtn');
+      window.addEventListener('scroll', () => {
+        scrollBtn.classList.toggle('visible', window.scrollY > 400);
+      });
+      scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+      // Hero cursor spotlight + 3D tilt
+      const heroEl = document.querySelector('.hero');
+      const heroContainer = heroEl.querySelector('.container');
+      // Add spotlight div
+      const spotlight = document.createElement('div');
+      spotlight.className = 'hero-spotlight';
+      heroEl.appendChild(spotlight);
+      let heroRafId = null;
+      heroEl.addEventListener('mousemove', (e) => {
+        if (heroRafId) cancelAnimationFrame(heroRafId);
+        heroRafId = requestAnimationFrame(() => {
+          const rect = heroEl.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          heroEl.style.setProperty('--mx', x + 'px');
+          heroEl.style.setProperty('--my', y + 'px');
+          spotlight.style.opacity = '1';
+          // 3D tilt based on cursor position
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateY = ((x - centerX) / centerX) * 2;
+          const rotateX = -((y - centerY) / centerY) * 2;
+          heroContainer.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(5px)`;
+          heroRafId = null;
+        });
+      });
+      heroEl.addEventListener('mouseleave', () => {
+        spotlight.style.opacity = '0';
+        heroContainer.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+      });
+    });
+  </script>
+
+  <!-- GRID DOTS ANIMATION -->
+  <script>
+  (function(){
+    var cvs = document.getElementById('gridDotsCanvas');
+    if(!cvs) return;
+    var ctx = cvs.getContext('2d');
+    var hero = cvs.parentElement;
+    var W = 0, H = 0, GRID = 60;
+    var dots = [];
+    var COLORS = ['#3B6B9F','#4A7AB5','#FFB86C'];
+    var TRAIL_PX = 180;
+    var MAX_DOTS = 8;
+    var lastSpawn = 0;
+
+    function resize() {
+      var r = hero.getBoundingClientRect();
+      W = cvs.width = r.width;
+      H = cvs.height = r.height;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function isLineBusy(horiz, lineIdx) {
+      for(var i=0; i<dots.length; i++) {
+        if(dots[i].horiz === horiz && dots[i].lineIdx === lineIdx) return true;
+      }
+      return false;
+    }
+    function spawnDot() {
+      var horiz = Math.random() < 0.5;
+      var color = COLORS[Math.floor(Math.random()*COLORS.length)];
+      var speed = 1.2 + Math.random() * 1.5;
+      var lineIdx, total, dir;
+      var maxTries = 30;
+      do {
+        if(horiz) {
+          lineIdx = Math.round(Math.random() * (H / GRID));
+          total = W;
+        } else {
+          lineIdx = Math.round(Math.random() * (W / GRID));
+          total = H;
+        }
+        maxTries--;
+        if(maxTries <= 0) return;
+      } while(isLineBusy(horiz, lineIdx));
+      dir = Math.random() < 0.5 ? 1 : -1;
+      var pos = dir === 1 ? -20 : total + 20;
+      var trail = [];
+      dots.push({horiz:horiz, lineIdx:lineIdx, pos:pos, dir:dir, speed:speed, color:color, trail:trail});
+    }
+
+    function step() {
+      var now = performance.now();
+      if(now - lastSpawn > 800 && dots.length < MAX_DOTS) {
+        spawnDot();
+        lastSpawn = now;
+      }
+      for(var i=dots.length-1; i>=0; i--) {
+        var d = dots[i];
+        var total = d.horiz ? W : H;
+        d.pos += d.dir * d.speed;
+        var px = d.horiz ? d.pos : d.lineIdx * GRID;
+        var py = d.horiz ? d.lineIdx * GRID : d.pos;
+        d.trail.push({x:px, y:py, t:now});
+        while(d.trail.length > 0 && now - d.trail[0].t > 900) d.trail.shift();
+        if(d.pos < -40 || d.pos > total + 40) {
+          dots.splice(i, 1);
+        }
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      var now = performance.now();
+      for(var i=0; i<dots.length; i++) {
+        var d = dots[i];
+        if(d.trail.length < 2) continue;
+        var len = d.trail.length;
+        ctx.beginPath();
+        ctx.moveTo(d.trail[0].x, d.trail[0].y);
+        for(var j=1; j<len; j++) {
+          ctx.lineTo(d.trail[j].x, d.trail[j].y);
+        }
+        var grad;
+        if(d.horiz) {
+          grad = ctx.createLinearGradient(d.trail[0].x, 0, d.trail[len-1].x, 0);
+        } else {
+          grad = ctx.createLinearGradient(0, d.trail[0].y, 0, d.trail[len-1].y);
+        }
+        grad.addColorStop(0, d.color + '00');
+        grad.addColorStop(0.5, d.color + '88');
+        grad.addColorStop(1, d.color + 'FF');
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 2.5;
+        ctx.lineCap = 'round';
+        ctx.stroke();
+        var head = d.trail[len-1];
+        ctx.beginPath();
+        ctx.arc(head.x, head.y, 4, 0, Math.PI*2);
+        ctx.fillStyle = d.color;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(head.x, head.y, 10, 0, Math.PI*2);
+        ctx.fillStyle = d.color + '30';
+        ctx.fill();
+      }
+    }
+
+    function loop() {
+      step();
+      draw();
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  })();
+  </script>
+
+  <!-- INSIGHT CHART ANIMATION -->
+  <script>
+  (function(){
+    var fills = document.querySelectorAll('.insight-bar-fill');
+    if(!fills.length) return;
+    fills.forEach(function(f){ if(!f.style.getPropertyValue('--w')) f.style.setProperty('--w', '80%'); });
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          fills.forEach(function(f,i){ setTimeout(function(){ f.classList.add('animated'); }, i*120); });
+          obs.disconnect();
+        }
+      });
+    },{threshold:0.3});
+    var chart = document.querySelector('.insight-chart');
+    if(chart) obs.observe(chart);
+  })();
+  </script>
+
+  <!-- SECURITY SECTION JS -->
+  <script>
+  (function(){
+    // 3D tilt now handled globally by advanced-animations.js (data-tilt)
+
+    // Counter animation
+    var statsSection = document.querySelector('.security-stats');
+    var counters = document.querySelectorAll('.security-stat .num span[data-count]');
+    var counted = false;
+    function animateCounters() {
+      if(counted) return;
+      var rect = statsSection.getBoundingClientRect();
+      if(rect.top < window.innerHeight * 0.8) {
+        counted = true;
+        counters.forEach(function(el) {
+          var target = parseFloat(el.getAttribute('data-count'));
+          var decimal = parseInt(el.getAttribute('data-decimal')) || 0;
+          var duration = 1500;
+          var start = performance.now();
+          function tick(now) {
+            var progress = Math.min((now - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            var current = eased * target;
+            el.textContent = decimal > 0 ? current.toFixed(decimal) : Math.round(current);
+            if(progress < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        });
+      }
+    }
+    window.addEventListener('scroll', animateCounters, {passive:true});
+    animateCounters();
+
+    // Floating lock icons
+    var floatContainer = document.getElementById('secFloats');
+    if(floatContainer) {
+      var lockSVGs = [
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>'
+      ];
+      for(var i=0; i<8; i++) {
+        var el = document.createElement('div');
+        el.className = 'security-float-icon';
+        el.innerHTML = lockSVGs[i % lockSVGs.length];
+        el.style.cssText = 'left:' + (Math.random()*90+5) + '%;top:' + (Math.random()*80+10) + '%;width:' + (20+Math.random()*20) + 'px;height:' + (20+Math.random()*20) + 'px;animation-delay:' + (Math.random()*8) + 's;animation-duration:' + (10+Math.random()*8) + 's;';
+        floatContainer.appendChild(el);
+      }
+    }
+  })();
+  </script>
+  <script src="advanced-animations.js"></script>
+  <script src="mobile-menu.js"></script>
+
+  <!-- PREMIUM PROCESS TIMELINE ENGINE -->
+  <script>
+  (function(){
+    'use strict';
+    var container = document.getElementById('pvContainer');
+    var fill = document.getElementById('pvFill');
+    var spark = document.getElementById('pvSpark');
+    var items = container ? Array.prototype.slice.call(container.querySelectorAll('.pv-item')) : [];
+    if (!container || !items.length) return;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var ticking = false;
+
+    function update() {
+      ticking = false;
+      var line = container.querySelector('.pv-line');
+      var lr = line.getBoundingClientRect();
+      var vh = window.innerHeight;
+      // progress: line top enters 85% of viewport -> line bottom leaves 45%
+      var total = lr.height;
+      var passed = Math.min(Math.max(vh * 0.85 - lr.top, 0), total);
+      var progress = total > 0 ? passed / total : 0;
+      fill.style.height = (progress * 100) + '%';
+
+      // spark rides at the fill tip while line is mid-viewport
+      var tipY = lr.top + passed;
+      var inView = lr.top < vh * 0.9 && lr.bottom > vh * 0.15 && progress > 0.02 && progress < 0.999;
+      if (inView && !reduced) {
+        spark.style.top = tipY + 'px';
+        spark.classList.add('on');
+      } else {
+        spark.classList.remove('on');
+      }
+
+      // activate nodes whose center is above the tip
+      var activateAll = reduced;
+      items.forEach(function (item, i) {
+        var node = item.querySelector('.pv-node');
+        var nr = node.getBoundingClientRect();
+        var nodeMid = nr.top + nr.height / 2;
+        var on = activateAll || nodeMid <= tipY + 4;
+        item.classList.toggle('active', on);
+      });
+    }
+
+    function onScroll() {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
+  </script>
+</body>
+</html>
